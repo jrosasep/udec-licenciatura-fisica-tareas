@@ -1,0 +1,1200 @@
+\documentclass{article}
+\usepackage{csquotes}
+
+% Paquetes matemáticos y tipográficos
+\usepackage{cancel}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+\usepackage{graphicx}
+\usepackage{enumitem}
+
+% Permite referencias personalizadas
+\usepackage{nameref}
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Hipervinculos
+\usepackage[colorlinks=true,
+            linkcolor=black,
+            urlcolor=black,
+            citecolor=black,
+            filecolor=black,
+            pdfborder={0 0 0}]{hyperref}
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=20mm, bottom=20mm]{geometry}
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{CERTAMEN 2}
+\fancyhead[R]{510359-1 MECANICA CLASICA I }
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Certamen 2} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Mecánica Clásica} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Junio 2025 \par}
+    \vfill
+\end{titlepage}
+
+% Índice
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 1}
+
+Un hilo que soporta la masa de un péndulo pasa a través de un pequeño orificio en un tablero $B$, como muestra la figura~\ref{fig:pendulo}. El tablero se hace oscilar verticalmente según el eje $y$, de tal manera que su posición está dada por $s = A \sin(\omega t)$. Encuentre el \textbf{Lagrangiano}, las \textbf{ecuaciones de Lagrange} y el \textbf{Hamiltoniano}.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.3\textwidth]{pendulo_orificio.png}
+    \caption{Péndulo oscilando verticalmente a través de un orificio.}
+    \label{fig:pendulo}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Configuración del sistema y coordenadas generalizadas}
+
+\textbf{Descripción física:} El sistema consta de:
+\begin{enumerate}
+    \item Una masa $m$ unida a un hilo \textbf{inextensible de longitud total fija $L_0$}.
+    \item Un tablero móvil $B$ con movimiento vertical prescrito: $s(t) = A \sin(\omega t)$.
+    \item Un orificio en $B$ que permite el deslizamiento sin fricción del hilo.
+\end{enumerate}
+
+\textbf{Longitud variable:} 
+\begin{itemize}
+    \item Dado que la longitud total del hilo es constante e igual a $L_0$, cualquier desplazamiento vertical del tablero modifica directamente la distancia entre el orificio y la masa. Por ende, la longitud efectiva, $r(t)$, del péndulo en cada instante es
+    \begin{equation}\label{1.1_r(t)}
+        r(t) = L_0 - s(t)\,.
+    \end{equation}
+
+    \item Derivada temporal de $r(t)$: 
+        \begin{equation} \label{1.1_d/dt[r(t)]}
+            \dot{r}(t) = -\dot{s}(t) = -A \omega \cos(\omega t)\,.
+        \end{equation}
+    
+\end{itemize}
+
+\textbf{Coordenada generalizada:} 
+Elegimos $\theta$ como coordenada generalizada porque describe naturalmente la posición angular del péndulo respecto a la vertical, aprovechando la simetría radial del sistema y simplificando el análisis dinámico. 
+
+Además, esta elección permite resolver de forma directa el vínculo holonómico impuesto por la geometría del hilo:
+\[
+x(t)^2 + \left[y(t) - s(t)\right]^2 = r(t)^2\,.
+\]
+
+\textbf{Posición cartesiana de $m$:} Adoptamos un sistema de coordenadas cartesianas bidimensional cuyo origen coincide con la posición de equilibrio del tablero $B$. El eje $y$ apunta verticalmente hacia arriba, y el eje $x$ hacia la derecha. La posición de la masa $m$ en función del tiempo queda entonces dada por $\vec{x}(t)=(x(t),\,y(t))$, donde $x(t)$ e $y(t)$ describen las componentes horizontal y vertical, respectivamente:
+\begin{align}\label{1.1_x(t)}
+    x(t) &= r(t) \sin\theta(t)\,, \\[4pt]
+    y(t) &= s(t) - r(t) \cos\theta(t)\,.  \label{1.1_y(t)}
+\end{align}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Velocidades generalizadas de la masa}
+
+La velocidad instantánea $\vec{v}(t)$ de la masa $m$ se obtiene como la derivada temporal de su posición $\vec{x}(t)$:
+\begin{equation*}
+    \vec{v}(t) = (\dot{x}(t),\,\dot{y}(t))\,.
+\end{equation*}
+
+Derivando con respecto al tiempo $t$ las expresiones \eqref{1.1_x(t)} y \eqref{1.1_y(t)}, obtenemos:
+\begin{itemize}
+    \item Para $x(t)$:
+\begin{align*}
+    \dot{x} &= \dv{}{t} \left( r(t) \sin\theta \right) \\
+            &= \dot{r}(t) \sin\theta + r(t) \dot{\theta} \cos\theta
+\end{align*}
+\item Para $y(t)$:
+\begin{align*}
+    \dot{y} &= \dv{}{t} \left( s(t) - r(t) \cos\theta \right) \\
+            &= \dot{s}(t) - \dot{r}(t) \cos\theta + r(t) \dot{\theta} \sin\theta
+\end{align*}
+\end{itemize}
+
+En ambos casos, la función $r(t)$ está dada por \eqref{1.1_r(t)}. Por otra parte, la relación $\dot{r}(t) = -\dot{s}(t)$, dada en \eqref{1.1_d/dt[r(t)]}, refleja que un movimiento ascendente del tablero reduce directamente la longitud efectiva del péndulo. Esta relación expresa una conexión cinemática esencial: el ritmo al que cambia la longitud del péndulo es igual pero opuesto a la velocidad del tablero, lo que resulta de la constancia de la longitud total del hilo.
+
+Este vínculo dinámico entre $r(t)$ y $s(t)$ introduce un acoplamiento directo entre el movimiento forzado del tablero y el movimiento angular de la masa:
+\begin{align}
+    \dot{x} &= -\dot{s}(t) \sin\theta + r(t) \dot{\theta} \cos\theta\,, \label{1.2_d/dt[x(t)]}\\[4pt]
+    \dot{y} &= \dot{s}(t) (1 + \cos\theta) + r(t) \dot{\theta} \sin\theta\,.  \label{1.2_d/dt[y(t)]}
+\end{align}
+Estas expresiones para $\dot{x}(t)$ y $\dot{y}(t)$ permitirán calcular la energía cinética de la masa en la siguiente sección.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Construcción del Lagrangiano}
+
+Sabemos que el Lagrangiano $L$ está dado por:
+\begin{equation}\label{1.3_L}
+    L = T - U \,,
+\end{equation}
+donde $T$ es la energía cinética del sistema y $U$ la energía potencial gravitatoria. Estas se definen por las ecuaciones:
+\begin{align}
+    T &= \frac{1}{2} m \left( \dot{x}^2 + \dot{y}^2 \right)\,, \label{1.3_T} \\
+    U &= m g\, y(t)\,. \label{1.3_U}
+\end{align}
+
+\textbf{Energía cinética:} Para determinar la energía cinética del sistema, se sustituyen las expresiones \eqref{1.2_d/dt[x(t)]} y \eqref{1.2_d/dt[y(t)]} en \eqref{1.3_T}, y se desarrolla:
+\begin{align*}
+T &= \frac{1}{2} m \left[ \left(-\dot{s}(t) \sin\theta + r(t) \dot{\theta} \cos\theta\right)^2 
++ \left(\dot{s}(t)(1 + \cos\theta) + r(t) \dot{\theta} \sin\theta \right)^2 \right] \\
+&= \frac{1}{2} m \bigg[ 
+\underbrace{ \dot{s}(t)^2 \sin^2\theta - 2 \dot{s}(t) r(t) \dot{\theta} \sin\theta \cos\theta + r(t)^2 \dot{\theta}^2 \cos^2\theta }_{\dot{x}^2} \\
+&\quad + \underbrace{ \dot{s}(t)^2 (1 + \cos\theta)^2 + 2 \dot{s}(t) r(t) \dot{\theta} \sin\theta (1 + \cos\theta) + r(t)^2 \dot{\theta}^2 \sin^2\theta }_{\dot{y}^2} \bigg] \\
+&= \frac{1}{2} m \bigg[
+\dot{s}(t)^2 \left( \sin^2\theta + (1 + \cos\theta)^2 \right)
++ r(t)^2 \dot{\theta}^2 \underbrace{ \left( \sin^2\theta + \cos^2\theta \right)}_{=1} \\
+&\quad + 2 \dot{s}(t) r(t) \dot{\theta} \sin\theta \left( (1 + \cos\theta) - \cos\theta \right)
+\bigg] \\
+&= \frac{1}{2} m \left[
+\dot{s}(t)^2 \left( \sin^2\theta + 1 + 2\cos\theta + \cos^2\theta \right)
++ r(t)^2 \dot{\theta}^2
++ 2 \dot{s}(t) r(t) \dot{\theta} \sin\theta
+\right] \\
+&= \frac{1}{2} m \left[
+\dot{s}(t)^2 \left( 1 + 2\cos\theta + \underbrace{ \sin^2\theta + \cos^2\theta }_{=1} \right)
++ r(t)^2 \dot{\theta}^2
++ 2 \dot{s}(t) r(t) \dot{\theta} \sin\theta
+\right] \\
+&= \frac{1}{2} m \left[
+2 \dot{s}(t)^2 (1 + \cos\theta)
++ r(t)^2 \dot{\theta}^2
++ 2 \dot{s}(t) r(t) \dot{\theta} \sin\theta
+\right]\,.
+\end{align*}
+
+Por lo tanto, la energía cinética del sistema está dada por:
+\begin{equation}\label{1.3_T-evaluado}
+    T = \frac{1}{2} m \left[
+2 \dot{s}(t)^2 (1 + \cos\theta)
++ r(t)^2 \dot{\theta}^2
++ 2 \dot{s}(t) r(t) \dot{\theta} \sin\theta
+\right]\,.
+\end{equation}
+
+\textbf{Energía potencial gravitatoria:} Para determinar la energía potencial gravitatoria del sistema, se sustituye la ecuación \eqref{1.1_y(t)} en \eqref{1.3_U}, y se obtiene:
+\begin{align*}
+    U &= m g\, y(t) \\
+    &= m g \left[ s(t) - r(t) \cos\theta \right]\,.
+\end{align*}
+
+Por lo tanto,
+\begin{equation}\label{1.3_U-evaluado}
+    U = m g \left[ s(t) - r(t) \cos\theta \right]\,.
+\end{equation}
+
+\textbf{Lagrangiano:} Sustituyendo \eqref{1.3_T-evaluado} y \eqref{1.3_U-evaluado} en \eqref{1.3_L}, se tiene:
+\begin{equation}\label{1.3_L-evaluado}
+    L = \frac{1}{2}m r(t)^2 \dot{\theta}^2 + m \dot{s}(t)^2 (1 + \cos\theta) + m \dot{s}(t)\, r(t) \dot{\theta} \sin\theta + m g\, r(t) \cos\theta - m g\, s(t)\,.
+\end{equation}
+
+El término cruzado $m \dot{s}(t) r(t) \dot{\theta} \sin\theta$ actúa como un acoplamiento dinámico que media el intercambio de energía entre el movimiento vertical del soporte y la rotación del péndulo.
+
+\subsection{Ecuaciones de Lagrange}
+
+Recordemos que la ecuación de Lagrange para la coordenada generalizada $\theta$ está dada por:
+\begin{equation}\label{1.4_lagrange}
+    \dv{t} \left( \pdv{L}{\dot{\theta}} \right) - \pdv{L}{\theta} = 0 \,.
+\end{equation}
+
+A partir del Lagrangiano obtenido en \eqref{1.3_L-evaluado}, se calcula:
+
+\begin{itemize}
+    \item \textbf{Derivada parcial del Lagrangiano respecto de $\dot{\theta}$:}
+        \begin{equation}\label{1.4_theta_punto}
+            \pdv{L}{\dot{\theta}} = m r(t)^2 \dot{\theta} + m \dot{s}(t) r(t) \sin\theta\,.
+        \end{equation}
+    \item \textbf{Derivada parcial del Lagrangiano respecto de $\theta$:}
+        \begin{equation}\label{1.4_theta}
+            \pdv{L}{\theta} = -m \dot{s}(t)^2 \sin\theta + m \dot{s}(t) r(t) \dot{\theta} \cos\theta - m g\, r(t) \sin\theta \,.
+        \end{equation}
+\end{itemize}
+
+Calculamos ahora la derivada temporal de \eqref{1.4_theta_punto}:
+
+\begin{align*}
+\dv{t} \left( \pdv{L}{\dot{\theta}} \right) 
+&= \dv{t} \left[ m r(t)^2 \dot{\theta} + m \dot{s}(t) r(t) \sin\theta \right] \\
+&= m\dv{t} \left[  r(t)^2 \dot{\theta}\right] + m\dv{t} \left[\dot{s}(t) r(t) \sin\theta \right] \\
+&= m \left[ 2 r(t) \dot{r}(t) \dot{\theta} + r(t)^2 \ddot{\theta} \right] \\
+&\quad + m \left[ \ddot{s}(t) r(t) \sin\theta + \dot{s}(t) \dot{r}(t) \sin\theta + \dot{s}(t) r(t) \dot{\theta} \cos\theta \right] \\
+&= m \left[ r(t)^2 \ddot{\theta} + 2 \dot{r}(t) r(t) \dot{\theta} + \ddot{s}(t) r(t) \sin\theta + \dot{s}(t) \dot{r}(t) \sin\theta + \dot{s}(t) r(t) \dot{\theta} \cos\theta \right]\,.
+\end{align*}
+
+Por lo tanto:
+\begin{equation}\label{1.4_tiempo}
+    \dv{t} \left( \pdv{L}{\dot{\theta}} \right)
+    = m \left[ r(t)^2 \ddot{\theta} + 2 \dot{r}(t) r(t) \dot{\theta} + \ddot{s}(t) r(t) \sin\theta + \dot{s}(t) \dot{r}(t) \sin\theta + \dot{s}(t) r(t) \dot{\theta} \cos\theta \right]\,.
+\end{equation}
+
+Sustituyendo \eqref{1.4_theta_punto}, \eqref{1.4_theta} y \eqref{1.4_tiempo} en la ecuación de Lagrange \eqref{1.4_lagrange}, se tiene:
+
+\begin{align*}
+\dv{t} \left( \pdv{L}{\dot{\theta}} \right) - \pdv{L}{\theta} 
+&= m \big[ 
+r(t)^2 \ddot{\theta} 
++ 2 \dot{r}(t) r(t) \dot{\theta} 
++ \ddot{s}(t) r(t) \sin\theta 
++ \dot{s}(t) \dot{r}(t) \sin\theta 
++ \dot{s}(t) r(t) \dot{\theta} \cos\theta \\
+&\quad + \dot{s}(t)^2 \sin\theta 
+- \dot{s}(t) r(t) \dot{\theta} \cos\theta 
++ g r(t) \sin\theta \big]
+\end{align*}
+
+Observamos que los términos $\pm \dot{s}(t) r(t) \dot{\theta} \cos\theta$ se cancelan. Entonces:
+
+\begin{align*}
+\dv{t} \left( \pdv{L}{\dot{\theta}} \right) - \pdv{L}{\theta} 
+&= m \left[
+r(t)^2 \ddot{\theta}
++ 2 \dot{r}(t) r(t) \dot{\theta}
++ \left( \ddot{s}(t) r(t) + \dot{s}(t) \dot{r}(t) + \dot{s}(t)^2 + g r(t) \right) \sin\theta
+\right]
+\end{align*}
+
+Utilizando $\dot{r}(t) = -\dot{s}(t)$, se obtiene:
+\begin{align*}
+2 \dot{r}(t) r(t) \dot{\theta} &= -2 \dot{s}(t) r(t) \dot{\theta} \,, \\
+\dot{s}(t) \dot{r}(t) &= -\dot{s}(t)^2\,.
+\end{align*}
+
+Por lo tanto:
+\begin{align*}
+\dv{t} \left( \pdv{L}{\dot{\theta}} \right) - \pdv{L}{\theta} 
+&= m \left[ 
+r(t)^2 \ddot{\theta}
+- 2 \dot{s}(t) r(t) \dot{\theta}
++ \left( \ddot{s}(t) r(t) + g r(t) \right) \sin\theta
+\right]
+\end{align*}
+
+Finalmente, factorizando $r(t)$:
+\begin{equation*}
+\dv{t} \left( \pdv{L}{\dot{\theta}} \right) - \pdv{L}{\theta}
+= m r(t) \left[ r(t) \ddot{\theta} - 2 \dot{s}(t) \dot{\theta} + \left( g + \ddot{s}(t) \right) \sin\theta \right]
+\end{equation*}
+
+Como $m > 0$ y $r(t) > 0$, la ecuación de movimiento resultante es:
+\begin{equation*}
+\boxed{r(t) \ddot{\theta} - 2 \dot{s}(t) \dot{\theta} + \left( g + \ddot{s}(t) \right) \sin\theta = 0}
+\end{equation*}
+
+\textbf{Interpretación física:}
+\begin{itemize}
+    \item El término $-2 \dot{s}(t) \dot{\theta}$ actúa como una fuerza tipo \textbf{Coriolis efectiva}, consecuencia del acoplamiento cinemático entre la longitud variable del péndulo y su movimiento angular. Representa conservación del momento angular frente a la variación de $r(t)$.
+    
+    \item El término $\left(g + \ddot{s}(t)\right) \sin\theta$ puede interpretarse como un campo gravitacional efectivo. La aceleración inercial $\ddot{s}(t) = -A \omega^2 \sin(\omega t)$ modifica la magnitud del peso aparente que siente la masa.
+\end{itemize}
+
+\subsection{Hamiltoniano}
+
+Partimos del momento conjugado asociado a la coordenada $\theta$:
+\begin{equation*}
+    p_\theta = \pdv{L}{\dot{\theta}} = m r(t)^2 \dot{\theta} + m \dot{s}(t)\, r(t) \sin\theta\,.
+\end{equation*}
+
+Despejamos $\dot{\theta}$ en función de $p_\theta$:
+\begin{equation*}
+    \dot{\theta} = \frac{p_\theta - m \dot{s}(t)\, r(t) \sin\theta}{m r(t)^2}\,.
+\end{equation*}
+
+La función Hamiltoniana se obtiene mediante la transformación de Legendre estándar:
+\begin{equation*}
+    \mathcal{H} = p_\theta \dot{\theta} - L\,.
+\end{equation*}
+
+Evaluamos el término $p_\theta \dot{\theta}$:
+\begin{align*}
+    p_\theta \dot{\theta} &= p_\theta \left( \frac{p_\theta - m \dot{s}(t)\, r(t) \sin\theta}{m r(t)^2} \right) \\
+    &= \frac{p_\theta^2}{m r(t)^2} - \frac{p_\theta\, \dot{s}(t) \sin\theta}{r(t)}\,.
+\end{align*}
+
+Ahora escribimos el Lagrangiano en términos de $r(t)$, $s(t)$ y $\dot{\theta}$:
+\begin{equation*}
+    L = \frac{1}{2} m r(t)^2 \dot{\theta}^2 + m \dot{s}(t)^2 (1 + \cos\theta) + m \dot{s}(t)\, r(t) \dot{\theta} \sin\theta + mg\, r(t) \cos\theta - mg\, s(t)\,.
+\end{equation*}
+
+Sustituimos $\dot{\theta}$ en los términos cuadráticos y lineales:
+\begin{align*}
+    \dot{\theta}^2 &= \left( \frac{p_\theta - m \dot{s}(t)\, r(t) \sin\theta}{m r(t)^2} \right)^2
+    = \frac{(p_\theta - m \dot{s}(t)\, r(t) \sin\theta)^2}{m^2 r(t)^4} \\
+    %
+    m \dot{s}(t)\, r(t) \dot{\theta} \sin\theta
+    &= m \dot{s}(t)\, r(t) \sin\theta \cdot \frac{p_\theta - m \dot{s}(t)\, r(t) \sin\theta}{m r(t)^2} \\
+    &= \frac{\dot{s}(t) \sin\theta}{r(t)} \left( p_\theta - m \dot{s}(t)\, r(t) \sin\theta \right)
+\end{align*}
+
+El Hamiltoniano completo queda entonces:
+\begin{align*}
+    \mathcal{H} &= \frac{p_\theta^2}{m r(t)^2} - \frac{p_\theta\, \dot{s}(t) \sin\theta}{r(t)} \\
+    &\quad - \left[ \frac{1}{2m r(t)^2} (p_\theta - m \dot{s}(t)\, r(t) \sin\theta)^2 
+    + m \dot{s}(t)^2 (1 + \cos\theta) \right. \\
+    &\qquad \left. + \frac{\dot{s}(t) \sin\theta}{r(t)} (p_\theta - m \dot{s}(t)\, r(t) \sin\theta)
+    + mg\, r(t) \cos\theta - mg\, s(t) \right]
+\end{align*}
+
+Desarrollamos el cuadrado:
+\begin{align*}
+    (p_\theta - m \dot{s}(t)\, r(t) \sin\theta)^2 = p_\theta^2 - 2 m \dot{s}(t)\, r(t) p_\theta \sin\theta + m^2 \dot{s}(t)^2 r(t)^2 \sin^2\theta
+\end{align*}
+
+Ahora expandimos y agrupamos términos semejantes, teniendo especial cuidado con los coeficientes:
+\begin{align*}
+    \mathcal{H} =\ &
+    \left[ \frac{p_\theta^2}{m r^2} - \frac{1}{2 m r^2} p_\theta^2 \right]
+    + \left[ -\frac{p_\theta \dot{s} \sin\theta}{r} + \frac{1}{m r^2} m \dot{s} r p_\theta \sin\theta - \frac{\dot{s} \sin\theta}{r} p_\theta \right] \\
+    & + \left[ - \frac{1}{2} m \dot{s}^2 \sin^2\theta + m \dot{s}^2 \sin^2\theta \right]
+    - m \dot{s}^2 (1 + \cos\theta)
+    - m g r \cos\theta + m g s \\
+    =\ & \frac{1}{2 m r^2} p_\theta^2
+    - \frac{p_\theta \dot{s} \sin\theta}{r}
+    + \frac{1}{2} m \dot{s}^2 \sin^2\theta
+    - m \dot{s}^2 (1 + \cos\theta)
+    - m g r \cos\theta + m g s
+\end{align*}
+
+Por lo tanto, la forma simplificada y correcta del Hamiltoniano es:
+\begin{equation*}
+    \boxed{
+        \mathcal{H} =
+        \frac{p_\theta^2}{2m r(t)^2}
+        - \frac{p_\theta \dot{s}(t) \sin\theta}{r(t)}
+        + \frac{1}{2} m \dot{s}(t)^2 \sin^2\theta
+        - m \dot{s}(t)^2 (1+\cos\theta)
+        - mg\, r(t) \cos\theta + mg\, s(t)
+    }
+\end{equation*}
+
+donde $r(t) = L_0 - s(t)$, $\dot{s}(t) = A\omega \cos(\omega t)$ y $s(t) = A\sin(\omega t)$.
+
+Esta expresión incluye todos los términos relevantes del sistema, tanto cinéticos como potenciales, junto con las contribuciones inducidas por el movimiento vertical forzado del tablero.
+
+
+
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 2}
+
+Demuestre que si el Hamiltoniano de un sistema físico puede expresarse como
+\[
+H(q_i, p_i) = H\left(f(q_1, p_1), q_2, \dots, q_f, p_2, \dots, p_f\right),
+\]
+entonces la función $f(q_1, p_1)$ es una constante del movimiento.
+
+Utilice el resultado anterior para encontrar una constante del movimiento para una partícula en dos dimensiones bajo el potencial
+\[
+V(\vec{r}) = \frac{\vec{a} \cdot \vec{r}}{r^3},
+\]
+siendo $\vec{a}$ un vector constante dado.
+
+
+
+\subsection{Deducción general de una constante del movimiento}
+
+\textbf{Enunciado:} Sea un sistema físico descrito por un Hamiltoniano de la forma:
+\[
+H(q_i, p_i) = H\left(f(q_1, p_1), q_2, \dots, q_f, p_2, \dots, p_f\right),
+\]
+donde $f(q_1, p_1)$ es una función que depende únicamente de $q_1$ y $p_1$, y el resto de las variables aparecen explícitamente en $H$. Demuéstrese que la función $f(q_1, p_1)$ es una constante del movimiento.
+
+\subsubsection*{Planteamiento teórico}
+
+\textbf{Definición:} Una función $g(q_i, p_i, t)$ es una \textit{constante del movimiento} si su derivada total respecto del tiempo se anula a lo largo de la evolución del sistema:
+\[
+\frac{d g}{d t} = 0.
+\]
+
+\textbf{Corchete de Poisson:} Para funciones suaves $u(q_i, p_i)$ y $v(q_i, p_i)$ en el espacio de fases, se define:
+\[
+\{u, v\} = \sum_{k=1}^{f} \left( \frac{\partial u}{\partial q_k} \frac{\partial v}{\partial p_k} - \frac{\partial u}{\partial p_k} \frac{\partial v}{\partial q_k} \right)\,.
+\]
+
+\textbf{Teorema fundamental:} En sistemas autónomos ($\partial H / \partial t = 0$), se cumple:
+\[
+\frac{d f}{d t} = \{f, H\}+\frac{\partial f}{\partial t}\,.
+\]
+
+\subsubsection*{Demostración}
+
+Como $f = f(q_1, p_1)$ no depende explícitamente del tiempo ($\partial f / \partial t = 0$)y el Hamiltoniano tiene la forma $H = H(f, q_2, \dots, q_f, p_2, \dots, p_f)$, evaluamos su corchete con $H$:
+
+\begin{align*}
+\{f, H\} &= \sum_{k=1}^{f} \left( \frac{\partial f}{\partial q_k} \frac{\partial H}{\partial p_k} - \frac{\partial f}{\partial p_k} \frac{\partial H}{\partial q_k} \right)\,.
+\end{align*}
+
+Pero $f$ depende exclusivamente de $q_1$ y $p_1$, por lo tanto:
+\[
+\frac{\partial f}{\partial q_k} = 0, \quad \frac{\partial f}{\partial p_k} = 0 \quad \forall\, k \neq 1.
+\]
+Así, la suma se reduce al término $k=1$:
+\[
+\{f, H\} = \frac{\partial f}{\partial q_1} \frac{\partial H}{\partial p_1} - \frac{\partial f}{\partial p_1} \frac{\partial H}{\partial q_1}.
+\]
+
+Aplicamos ahora la regla de la cadena a las derivadas de $H$:
+\[
+\frac{\partial H}{\partial q_1} = \frac{\partial H}{\partial f} \cdot \frac{\partial f}{\partial q_1}, \quad 
+\frac{\partial H}{\partial p_1} = \frac{\partial H}{\partial f} \cdot \frac{\partial f}{\partial p_1}.
+\]
+
+Entonces:
+\begin{align*}
+\{f, H\} &= \frac{\partial f}{\partial q_1} \cdot \frac{\partial H}{\partial f} \cdot \frac{\partial f}{\partial p_1}
+- \frac{\partial f}{\partial p_1} \cdot \frac{\partial H}{\partial f} \cdot \frac{\partial f}{\partial q_1} \\
+&= \frac{\partial H}{\partial f} \left( \frac{\partial f}{\partial q_1} \frac{\partial f}{\partial p_1}
+- \frac{\partial f}{\partial p_1} \frac{\partial f}{\partial q_1} \right) \\
+&= \frac{\partial H}{\partial f} \cdot 0 = 0.
+\end{align*}
+
+\subsubsection*{Conclusión}
+
+\[
+\boxed{\{f(q_1, p_1), H\} = 0 \quad \Rightarrow \quad \frac{\partial f}{\partial t} = 0}
+\]
+
+Por tanto, $f(q_1, p_1)$ es una constante del movimiento a lo largo de la evolución hamiltoniana del sistema. \hfill $\square$
+
+\subsection{Aplicación — Constante del movimiento en un potencial anisotrópico}
+
+\textbf{Enunciado:} Considere una partícula de masa $m$ en el plano, sometida al potencial:
+\[
+V(\vec{r}) = \frac{\vec{a} \cdot \vec{r}}{r^3}, \qquad \vec{r} = (x, y), \quad \vec{a} = (a_x, a_y) \in \mathbb{R}^2.
+\]
+
+Encuéntrese una constante del movimiento para este sistema.
+
+\subsubsection{Forma del Hamiltoniano}
+
+El sistema está descrito por el Hamiltoniano:
+
+\[
+H = \frac{p_x^2 + p_y^2}{2m} + \frac{\vec{a} \cdot \vec{r}}{r^3}, \quad \text{con } r = \sqrt{x^2 + y^2}.
+\]
+
+Se trata de un sistema central no isotrópico: el campo $\nabla V$ no es radial, ya que depende de la orientación de $\vec{a}$ respecto de $\vec{r}$. En particular, no se conserva el momento angular ordinario $L_z = x p_y - y p_x$.
+
+\subsubsection{Paso a coordenadas polares}
+
+Introducimos coordenadas polares:
+
+\[
+x = r \cos\phi, \quad y = r \sin\phi.
+\]
+
+Los momentos generalizados asociados son:
+
+\[
+p_r = m \dot{r}, \qquad p_\phi = m r^2 \dot{\phi} = L_z.
+\]
+
+El Hamiltoniano se expresa en estas coordenadas como:
+
+\[
+H = \frac{p_r^2}{2m} + \frac{p_\phi^2}{2m r^2} + \frac{\vec{a} \cdot \vec{r}}{r^3}.
+\]
+
+Para obtener la expresión explícita del potencial, proyectamos $\vec{a}$ sobre $\vec{r}$:
+
+\begin{align*}
+\vec{a} \cdot \vec{r} &= a_x r \cos\phi + a_y r \sin\phi = r(a_x \cos\phi + a_y \sin\phi), \\
+\Rightarrow \quad V(r, \phi) &= \frac{\vec{a} \cdot \vec{r}}{r^3} = \frac{a_x \cos\phi + a_y \sin\phi}{r^2}.
+\end{align*}
+
+\subsubsection{Rotación del sistema de coordenadas}
+
+Dado que $\vec{a}$ es un vector constante, y sólo importa su dirección relativa respecto de $\vec{r}$, podemos elegir sin pérdida de generalidad un sistema de coordenadas rotado donde:
+
+\[
+\vec{a} = (a, 0), \quad \text{con } a = \|\vec{a}\|.
+\]
+
+Esta rotación pasiva simplifica el potencial sin afectar las leyes de conservación. En este nuevo sistema:
+
+\[
+V(r, \phi) = \frac{a \cos\phi}{r^2},
+\]
+
+y el Hamiltoniano toma la forma:
+
+\begin{equation}
+\boxed{
+H = \frac{p_r^2}{2m} + \frac{1}{r^2} \left( \frac{p_\phi^2}{2m} + a \cos\phi \right).
+}
+\end{equation}
+
+\subsubsection{Identificación de una constante del movimiento}
+
+Definimos la función:
+
+\[
+f(\phi, p_\phi) = \frac{p_\phi^2}{2m} + a \cos\phi.
+\]
+
+Así, el Hamiltoniano queda escrito como:
+
+\[
+H(r, p_r, \phi, p_\phi) = \frac{p_r^2}{2m} + \frac{f(\phi, p_\phi)}{r^2}.
+\]
+
+Observamos que $H$ depende de $\phi$ y $p_\phi$ únicamente a través de $f$. Como el resto de variables ($r$, $p_r$) no intervienen en $f$, podemos aplicar directamente el resultado general demostrado en la Parte 1:
+
+\[
+\boxed{\{f(\phi, p_\phi), H\} = 0 \quad \Rightarrow \quad f \text{ es constante del movimiento.}}
+\]
+
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 3}
+
+(Goldstein, 3ra ed., problema 9-25) El Hamiltoniano de un sistema tiene la forma:
+\begin{equation}\label{3.a._hamiltoniano}
+    H(q, p) = \frac{1}{2} \left(p^2 q^4 + \frac{1}{q^2}\right)\,.
+\end{equation}
+
+\subsection{Hallar la ecuación de movimiento para $q$.}
+
+\subsubsection*{Ecuaciones de Hamilton}
+
+Consideremos las ecuaciones canónicas de Hamilton:
+\begin{align}
+    \dot{q}&=\frac{\partial H}{\partial p} \,, \label{3.a.E_C_H_dot{q}}\\ 
+    \dot{p}&=-\frac{\partial H}{\partial q}\,.  \label{3.a.E_C_H_dot{p}}
+\end{align}
+
+Evaluando el Hamiltoniano del sistema \eqref{3.a._hamiltoniano} en \eqref{3.a.E_C_H_dot{q}}:
+\begin{align*}
+    \dot{q}&=\frac{\partial H}{\partial p} \\
+    &=\frac{\partial}{\partial p}\left[ \frac{1}{2} \left(p^2 q^4 + \frac{1}{q^2}\right) \right] \\
+    &=\frac{1}{2}\frac{\partial}{\partial p} \left(p^2 q^4 + \frac{1}{q^2}\right) \\
+    &=\frac{1}{2}\left(2pq^4\right) \\
+    &=pq^4 \,.
+\end{align*}
+\begin{equation}\label{3.a.Hamiltoniano_en_q_derivado}
+    \therefore \quad \dot{q}=pq^4 \,.
+\end{equation}
+
+Al despejar $p$ en \eqref{3.a.Hamiltoniano_en_q_derivado}, se obtiene:
+\begin{equation}\label{3.a.p}
+    p=\frac{\dot{q}}{q^4} \,.
+\end{equation}
+
+Se deriva respecto al tiempo la ecuación obtenida en \eqref{3.a.p}:
+\begin{align*}
+    \dot{p}&=\dv{p}{t} \\
+    &=\dv{t}\left(\frac{\dot{q}}{q^4}\right) \\
+    &=\frac{\ddot{q}q^4-4\dot{q}^2q^3}{q^8} \\
+    &=\ddot{q}q^{-4}-4\dot{q}^2q^{-5} \,.
+\end{align*}
+\begin{equation}\label{3.a.dot{p}}
+    \therefore \quad \dot{p}=\ddot{q}q^{-4}-4\dot{q}^2q^{-5} \,.
+\end{equation}
+
+Por otra parte, evaluando el Hamiltoniano del sistema \eqref{3.a._hamiltoniano} en \eqref{3.a.E_C_H_dot{p}}:
+\begin{align*}
+    \dot{p}&=-\frac{\partial H}{\partial q} \\
+    &=-\frac{\partial}{\partial q}\left[ \frac{1}{2} \left(p^2 q^4 + \frac{1}{q^2}\right) \right] \\
+    &=-\frac{1}{2}\frac{\partial}{\partial q} \left(p^2 q^4 + \frac{1}{q^2}\right) \\
+    &=-\frac{1}{2}\left(4p^2q^3-\frac{2}{q^3}\right) \\
+    &=-2p^2q^3+\frac{1}{q^3} \,.
+\end{align*}
+\begin{equation}\label{3.a.Hamiltoniano_en_p_derivado}
+    \therefore \quad \dot{p}=-2p^2q^3+q^{-3} \,.
+\end{equation}
+
+Igualando \eqref{3.a.dot{p}} con \eqref{3.a.Hamiltoniano_en_p_derivado}:
+
+\begin{equation}\label{3.a.igualacion}
+    \ddot{q}q^{-4}-4\dot{q}^2q^{-5} =-2p^2q^3+q^{-3} \,.
+\end{equation}
+
+Sustituyendo \eqref{3.a.p} en el miembro derecho de la ecuación \eqref{3.a.igualacion} y desarrollando:
+\begin{align*}
+    -2p^2q^3+q^{-3} &=-2\left( \frac{\dot{q}}{q^4}\right)^2q^3+q^{-3} \\
+    &=-2\frac{\dot{q}^2}{q^8}q^3+q^{-3} \\
+    &=-2\dot{q}^2q^{-5}+q^{-3}\,.
+\end{align*}
+
+Entonces, podemos expresar la ecuación \eqref{3.a.igualacion} de forma:
+
+\begin{equation*}
+    \ddot{q}q^{-4}-4\dot{q}^2q^{-5} =-2\dot{q}^2q^{-5}+q^{-3} \,.
+\end{equation*}
+
+Multiplicando por $q^4$ e igualando a $0$ la anterior ecuacion, se obtiene:
+
+\begin{equation*}
+\boxed{
+\ddot{q} - 2 \dot{q}^2q^{-1} -q= 0\,.}
+\end{equation*}
+
+Esta es la ecuación de movimiento del sistema en forma autónoma de segundo orden. El término no lineal en $-2 \dot{q}^2q^{-1}$ revela una estructura cinemáticamente deformada respecto a la dinámica de un oscilador armónico.
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Hallar una transformación canónica que reduzca $H$ a la forma de un oscilador armónico. Demostrar que, para las variables transformadas, la solución es tal que se cumple la ecuación de movimiento hallada en la sección anterior}
+
+\subsubsection*{Objetivo}
+
+Se desea encontrar una transformación canónica \((q, p) \mapsto (Q, P)\) que reduzca el Hamiltoniano original:
+\[
+H(q, p) = \frac{1}{2} \left( p^2 q^4 + \frac{1}{q^2}\right)
+\]
+a la forma estándar del oscilador armónico:
+\[
+K(Q, P) = \frac{1}{2}\left(P^2 + Q^2\right).
+\]
+
+Esta transformación debe preservar la estructura canónica (i.e., los corchetes de Poisson fundamentales), y permitir verificar que la dinámica inducida por $K$ en las variables transformadas reproduce la ecuación de movimiento obtenida previamente.
+
+Se espera que:
+\begin{align*}
+    H(q,p)=K(Q, P) \quad &\Rightarrow \quad \frac{1}{2} \left( p^2 q^4 + \frac{1}{q^2}\right)= \frac{1}{2}\left(P^2 + Q^2\right)\\[4pt]
+    &\Rightarrow \quad p^2 q^4 + \frac{1}{q^2}= \left(P^2 + Q^2\right)\,.
+\end{align*}
+
+De lo anterior, consideramos las siguientes igualdades:
+\begin{align*}
+    P^2&=p^2 q^4\,, \\
+    Q^2&=\frac{1}{q^2}\,.
+\end{align*}
+Al tomar la raíz cuadrada de las igualdades anteriores, se obtiene:
+\begin{align*}
+    P&=\pm p q^2\,, \\
+    Q&=\pm \frac{1}{q}\,.
+\end{align*}
+
+Proponemos el siguiente cambio de variables:
+\begin{align}
+    P&=-p q^2\,, \label{3.b_P}  \\
+    Q&=q^{-1}\,. \label{3.b_Q} 
+\end{align}
+
+\subsubsection*{Construcción de la función generatriz}
+
+Para que la transformación sea canónica, buscamos una función generatriz de tipo $F_2(q, P)$, independiente del tiempo, que satisfaga:
+\begin{align}
+    p &= \frac{\partial F_2}{\partial q}, \label{3.b_F_2-q} \\
+    Q &= \frac{\partial F_2}{\partial P}. \label{3.b_F_2-p}
+\end{align}
+
+Sustituyendo \eqref{3.b_Q} en \eqref{3.b_F_2-p}, se obtiene:
+\begin{equation*}
+    \frac{\partial F_2}{\partial P} = q^{-1}\,.
+\end{equation*}
+Integrando respecto a $P$:
+\begin{equation*}
+    F_2 = P q^{-1} + g(q)\,,
+\end{equation*}
+
+donde $g(q)$ es una función a determinar que aparece luego de integrar como constante de integración. Ahora, reemplazando esta expresión para $F_2$ en \eqref{3.b_F_2-q}:
+\begin{align*}
+    p &=\frac{\partial F_2}{\partial q} \\
+    &= \frac{\partial}{\partial q}\left( P q^{-1}+ g(q) \right) \\
+    &= - Pq^{-2} + g'(q)\,.
+\end{align*}
+\begin{equation}\label{3.b_igualdad_p}
+    \therefore \quad p=- Pq^{-2} + g'(q)\,.
+\end{equation}
+Sustituyendo \eqref{3.b_P} en \eqref{3.b_igualdad_p}:
+
+\begin{align*}
+    p&=-(-pq^2)\cdot q^{-2}+ g'(q)\\
+    &=pq^{0}+g'(q)\\
+    &=p+g'(q)\,.
+\end{align*}
+Lo cual implica que:
+\[
+g'(q) = 0 \quad \Rightarrow \quad g(q) = C.
+\]
+Eligiendo $C=0$, la función generatriz es:
+\begin{equation}
+F_2(q, P) = Pq^{-1}\,. \label{3.b_generatriz}
+\end{equation}
+
+Se verifica el resultado obtenido calculando las derivadas parciales de \eqref{3.b_generatriz} respecto $q$ y $P$:
+
+\begin{itemize}
+    \item \textbf{Derivada parcial de $F_2$ respecto $P$:}
+        \begin{align*}
+            \frac{\partial F_2}{\partial P} &=\frac{\partial}{\partial P}\left(Pq^{-1}\right) \\
+            &=q^{-1}\cdot\frac{\partial P}{\partial P}\\
+            &=q^{-1}\cdot1 \\
+            &=q^{-1} \,.
+        \end{align*}
+        \begin{equation*}
+            \therefore\quad \frac{\partial F_2}{\partial P}=q^{-1}
+        \end{equation*}
+        Sustituyendo \eqref{3.b_Q} en la ecuación anterior:
+        \begin{equation*}
+            \frac{\partial F_2}{\partial P}=Q \,.
+        \end{equation*}
+        Se verifica la ecuación \eqref{3.b_F_2-p}.
+    \item \textbf{Derivada parcial de $F_2$ respecto $q$:}
+        \begin{align*}
+            \frac{\partial F_2}{\partial q} &=\frac{\partial}{\partial q}\left(Pq^{-1}\right) \\
+            &=P\cdot\frac{\partial }{\partial q} (q^{-1})\\
+            &=P\cdot(-q^{-2}) \\
+            &=-Pq^{-2} \,.
+        \end{align*}
+        \begin{equation*}
+            \therefore\quad \frac{\partial F_2}{\partial q}=-Pq^{-2}
+        \end{equation*}
+        Sustituyendo \eqref{3.b_P} en la ecuación anterior:
+        \begin{align*}
+            \frac{\partial F_2}{\partial q}&=-(-pq^2)\cdot q^{-2} \\
+            &= pq^0\\
+            &=p\,.
+        \end{align*}
+        \begin{equation*}
+            \therefore \quad \frac{\partial F_2}{\partial q}=p
+        \end{equation*}
+        Se verifica la ecuación \eqref{3.b_F_2-q}.
+\end{itemize}
+
+\subsubsection*{Verificación de la ecuación general para transformaciones canónicas}
+Es espera que tras el cambio de coordenadas efectuado se satisfaga la ecuación general para transformaciones canónicas, la cual esta dada por:
+\begin{equation*}
+    \sum_{i=1}^f\dot{q}^iP_i-H=\sum_{i=1}^f\dot{Q}^iP_i-K+\dv{F}{t} \,.
+\end{equation*}
+
+Asumiendo que el sistema tiene un grado de libertad $f=1$ y que $F=F_2$ con independencia del tiempo, entonces la ecuación a satisfacer por el sistema es:
+\begin{equation*}
+    \dot{q}P-H=\dot{Q}P-K
+\end{equation*}
+Utilizando la ecuación del Hamiltoniano del sistema y el cambio de coordenadas dado por \eqref{3.b_P} y \eqref{3.b_Q}, observemos:
+\begin{align*}
+    \dot{q}P-H&=\dv{t}(q)P-\left[\frac{1}{2}\left( p^2 q^4 + \frac{1}{q^2}\right)\right]\\
+    &=\dv{t}(Q^{-1})P-\frac{1}{2}\left[ (-p q^2)^2 + (q^{-1})^2\right]\\
+    &=-Q^{-2}\dot{Q}P-\frac{1}{2}\left( P^2 + Q^2\right)\\
+    &=\dot{Q}(-PQ^{-2})-K\\
+    &=\dot{Q}\left[-P(q^{-1})^{-2}\right]-K\\
+    &=\dot{Q}\left[-Pq^2\right]-K\\
+    &=\dot{Q}p-K\,.
+\end{align*}
+\begin{equation*}
+    \therefore \quad \dot{q}P-H=\dot{Q}P-K
+\end{equation*}
+
+Así queda verificada la ecuación general para transformaciones canónicas demostrando a su vez el nuevo Hamiltoniano:
+\begin{equation*}
+    K(Q,P)=\frac{1}{2}\left( P^2+Q^2\right)\,.
+\end{equation*}
+que corresponde a un oscilador armónico con $\omega = 1$.
+
+\subsubsection*{Demostración de cumplimiento de la ecuación de movimiento}
+
+Consideremos las ecuaciones canónicas de Hamilton para el nuevo Hamiltoniano $K(Q, P)$ definido en variables transformadas:
+\begin{align}
+    \dot{Q} &= \pdv{K}{P} = P \,, \label{3.b.dotQ} \\
+    \dot{P} &= -\pdv{K}{Q} = -Q \,. \label{3.b.dotP}
+\end{align}
+
+Por otra parte, recordemos que la transformación propuesta fue:
+\begin{align}
+    Q &= q^{-1} \,, \label{3.b.dem.Q}\\
+    P &= -p q^2 \,. \label{3.b.dem.P}
+\end{align}
+
+Derivando \eqref{3.b.dem.Q} respecto al tiempo, se obtiene:
+\begin{align}
+    \dot{Q} &= \dv{}{t} \left( q^{-1} \right) = -\dot{q} q^{-2} \,.
+    \label{3.b.dem.dotQ}
+\end{align}
+
+Comparando con la ecuación de Hamilton \eqref{3.b.dotQ}, se tiene:
+\[
+\dot{Q} = P \quad \text{y} \quad \dot{Q} = -\dot{q} q^{-2} \quad \Rightarrow \quad P = -\dot{q} q^{-2} \,.
+\]
+
+Entonces, despejamos $\dot{q}$ en términos de $P$:
+\begin{equation}\label{3.b.dem.dotq}
+    \dot{q} = -P q^{2} \,.
+\end{equation}
+
+Ahora derivamos \eqref{3.b.dem.P} respecto al tiempo:
+\begin{align}
+    \dot{P} &= \dv{}{t} \left( -p q^2 \right) 
+    = -\dot{p} q^2 - 2p \dot{q} q \,.
+    \label{3.b.dem.dotP}
+\end{align}
+
+Según la ecuación de Hamilton \eqref{3.b.dotP}, se tiene $\dot{P} = -Q$. Entonces, sustituimos en \eqref{3.b.dem.dotP}:
+\[
+-\dot{p} q^2 - 2p \dot{q} q = -q^{-1} \,.
+\]
+
+Multiplicando ambos lados por $-1$ y reordenando:
+\[
+\dot{p} q^2 + 2p \dot{q} q = q^{-1} \,.
+\]
+
+Dividimos ambos lados por $q^2$:
+\begin{equation}\label{3.b.dem.dotp}
+    \dot{p} + 2p \dot{q} q^{-1} = q^{-3} \,.
+\end{equation}
+
+Sustituimos la expresión de $p$ en términos de $\dot{q}$ usando la ecuación hallada en la parte (a), ecuación \eqref{3.a.p}:
+\[
+p = \dot{q}q^{-4} \,.
+\]
+
+Derivando respecto al tiempo esta expresión obtenemos:
+\begin{align*}
+\dot{p} &= \dv{t} \left( \frac{\dot{q}}{q^4} \right) \\
+&= \frac{\ddot{q} q^4 - 4 \dot{q}^2 q^3}{q^8} \\
+&= \ddot{q} q^{-4} - 4 \dot{q}^2 q^{-5} \,.
+\end{align*}
+
+También,
+\[
+2p \dot{q} q^{-1} = 2 \cdot \frac{\dot{q}}{q^4} \cdot \dot{q} \cdot q^{-1} = 2 \dot{q}^2 q^{-5} \,.
+\]
+
+Entonces, sustituyendo en el lado izquierdo de \eqref{3.b.dem.dotp}:
+\[
+\dot{p} + 2p \dot{q} q^{-1} = \left( \ddot{q} q^{-4} - 4 \dot{q}^2 q^{-5} \right) + 2 \dot{q}^2 q^{-5}
+= \ddot{q} q^{-4} - 2 \dot{q}^2 q^{-5} \,.
+\]
+
+El miembro derecho de \eqref{3.b.dem.dotp} es $q^{-3}$, por lo tanto:
+\[
+\ddot{q} q^{-4} - 2 \dot{q}^2 q^{-5} = q^{-3} \,.
+\]
+
+Multiplicamos toda la ecuación por $q^4$:
+\begin{equation*}
+    \ddot{q} - 2 \dot{q}^2 q^{-1} = q \quad \Rightarrow \quad
+    \ddot{q} - 2 \dot{q}^2 q^{-1} - q = 0 \,.
+\end{equation*}
+
+\begin{equation*}
+\boxed{
+\ddot{q} - 2 \dot{q}^2 q^{-1} - q = 0
+}
+\end{equation*}
+
+Esta es precisamente la ecuación de movimiento hallada en la sección anterior, por lo tanto se ha demostrado que la dinámica generada por el nuevo Hamiltoniano $K(Q, P)$ reproduce exactamente la misma ecuación de segundo orden para $q(t)$.
+
+\subsubsection*{Verificación directa de la solución de $q(t)$ a partir de $Q(t)$}
+
+Derivando \eqref{3.b.dotQ} respecto al tiempo, se tiene:
+\begin{equation*}
+    \ddot{Q} = \dot{P}\,.
+\end{equation*}
+
+Sustituyendo \eqref{3.b.dotP} en la ecuación anterior:
+\begin{equation*}
+    \ddot{Q} = -Q\,.
+\end{equation*}
+
+Igualando esta ecuación a cero, se obtiene:
+\begin{equation*}
+    \boxed{\ddot{Q} + Q = 0}
+\end{equation*}
+
+Esta ecuación corresponde a la de un \textbf{oscilador armónico} de frecuencia angular unitaria. La cual tiene como solución:
+\begin{equation*}
+    Q(t) = A \sin(t)\,,
+\end{equation*}
+
+donde $A$ es una constante real arbitraria. Considerando ahora el cambio de coordenadas \eqref{3.b.dem.Q}, se tiene:
+\begin{equation*}
+    q^{-1}(t) = A \sin(t) \quad \Rightarrow \quad q(t) = \left( A \sin(t) \right)^{-1}\,.
+\end{equation*}
+
+Definiendo una constante real arbitraria $B = A^{-1}$, se escribe la solución de $q$ de forma:
+\begin{equation}\label{3.b_q_solucion}
+    q(t) = B \csc(t)\,.
+\end{equation}
+
+Calculamos la primera y segunda derivada temporal de \eqref{3.b_q_solucion}:
+
+\begin{itemize}
+    \item \textbf{Primera derivada temporal de $q(t)$:}
+    \begin{align*}
+        \dot{q}(t) &= \dv{}{t} \left( B \csc(t) \right) \\
+        &= -B \csc(t) \cot(t)\,.
+    \end{align*}
+    \begin{equation}\label{3.b._dotq}
+        \therefore \quad  \dot{q}(t)= -B \csc(t) \cot(t)\,.
+    \end{equation}
+    \item \textbf{Segunda derivada temporal de $q(t)$:}
+    \begin{align*}
+        \ddot{q}(t) &= \dv{\dot{q}}{t}\\
+        &= \dv{}{t} \left( -B \csc(t) \cot(t) \right) \\
+        &= -B \left[ \dv{}{t} ( \csc(t)) \cot(t) +\csc(t)  \dv{}{t}(\cot(t))\right] \\
+        &= -B \left[ -\csc(t)\cot^2(t) + \csc(t)(-\csc^2(t)) \right] \\
+        &= B\csc(t)\cot^2(t) +B\csc^3(t)\,.
+    \end{align*}
+    \begin{equation}\label{3.b._ddotq}
+        \therefore \quad  \ddot{q}(t)=  B\csc(t)\cot^2(t) +B\csc^3(t)\,.
+    \end{equation}
+\end{itemize}
+
+La ecuación de movimiento hallada en la sección (a) es:
+\begin{equation}\label{3.b.movimiento_q}
+    \ddot{q} - 2 \dot{q}^2 q^{-1} - q = 0\,.
+\end{equation}
+
+Sustituyendo \eqref{3.b_q_solucion}, \eqref{3.b._dotq} y \eqref{3.b._ddotq} en \eqref{3.b.movimiento_q}:
+\begin{align*}
+    \left[B\csc(t)\cot^2(t) +B\csc^3(t)\right]-2\left[-B \csc(t) \cot(t)\right]^2 \left[ B \csc(t) \right] ^{-1}-\left[ B \csc(t) \right]&=0 \\
+    B\csc(t)\cot^2(t) +B\csc^3(t)-2B \csc(t) \cot^2(t)- B \csc(t) &= \\
+    B\csc^3(t)-B \csc(t) \cot^2(t)- B \csc(t) &= \\
+    B\csc^3(t)-B \csc(t) [\csc^2(t)-1]- B \csc(t) &= \\
+    B\csc^3(t)-B \csc^3(t) +B\csc(t)- B \csc(t) &= \\
+    0&=\,.
+\end{align*}
+
+Verificamos que esta solución satisface la ecuación de movimiento de la coordenada $q$.
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 4}
+
+\textbf{Transformación a un sistema de referencia móvil: función generatriz y Hamiltoniano transformado}
+
+Considérese una transformación entre un sistema de referencia fijo \( (q_i, p_i) \) y un sistema móvil cuya posición relativa respecto al primero está dada por un vector función del tiempo \( d_i(t) \). La relación entre las coordenadas generalizadas en ambos sistemas es:
+
+\begin{equation}
+\boxed{Q_i = q_i - d_i(t)},
+\end{equation}
+
+donde \( Q_i \) denota las coordenadas del sistema móvil, y \( d_i(t) \) es una función vectorial de tiempo arbitraria.
+
+Se pide:
+
+\begin{enumerate}[label=\textbf{(\alph*)}]
+    \item Determinar una función generatriz \( F_2(q_i, P_i, t) \) que genere canónicamente esta transformación, y obtener las relaciones entre los momentos \( p_i \) y \( P_i \).
+
+    \item Hallar la forma del nuevo Hamiltoniano \( K(Q_i, P_i, t) \), suponiendo que el Hamiltoniano original es:
+    \[
+    H(q_i, p_i) = \frac{p_i p_i}{2m} + V(q_i).
+    \]
+\end{enumerate}
+
+\subsection*{(a) Función generatriz y transformación de momentos}
+
+\subsubsection*{Marco teórico}
+
+Una transformación canónica generada por una función \( F_2(q_i, P_i, t) \) está definida por las relaciones:
+
+\begin{equation}
+\boxed{
+\begin{aligned}
+p_i &= \pdv{F_2}{q_i}, \\
+Q_i &= \pdv{F_2}{P_i}.
+\end{aligned}
+}
+\end{equation}
+
+La dependencia temporal de la transformación se refleja en un término adicional en el nuevo Hamiltoniano, como se detallará en la parte (b).
+
+\subsubsection*{Construcción de la función generatriz}
+
+Dado que:
+
+\[
+Q_i = q_i - d_i(t),
+\]
+
+buscamos una función generatriz \( F_2(q_i, P_i, t) \) tal que:
+
+\[
+\pdv{F_2}{P_i} = Q_i = q_i - d_i(t).
+\]
+
+La solución natural es:
+
+\begin{equation}
+\boxed{
+F_2(q_i, P_i, t) = P_i (q_i - d_i(t)),
+}
+\end{equation}
+
+ya que:
+
+\[
+\pdv{F_2}{P_i} = q_i - d_i(t), \quad \pdv{F_2}{q_i} = P_i.
+\]
+
+\subsubsection*{Relación entre momentos generalizados}
+
+A partir de la definición:
+
+\[
+p_i = \pdv{F_2}{q_i} = P_i,
+\]
+
+con lo cual los momentos son invariantes bajo esta transformación:
+
+\begin{equation}
+\boxed{P_i = p_i.}
+\end{equation}
+
+\subsection*{(b) Hamiltoniano transformado en el sistema móvil}
+
+\subsubsection*{Transformación del Hamiltoniano}
+
+Cuando la transformación depende explícitamente del tiempo, el nuevo Hamiltoniano se obtiene mediante:
+
+\begin{equation}
+\boxed{
+K(Q_i, P_i, t) = H(q_i, p_i) + \pdv{F_2}{t}.
+}
+\end{equation}
+
+Primero evaluamos el término adicional:
+
+\[
+\pdv{F_2}{t} = -P_i \dot{d}_i(t),
+\]
+
+dado que \( q_i \) y \( P_i \) son independientes de \( t \), y sólo \( d_i(t) \) varía temporalmente.
+
+\subsubsection*{Expresión del Hamiltoniano en las nuevas variables}
+
+Dado que \( q_i = Q_i + d_i(t) \) y \( p_i = P_i \), se tiene:
+
+\begin{align*}
+H(q_i, p_i) &= \frac{p_i p_i}{2m} + V(q_i) = \frac{P_i P_i}{2m} + V(Q_i + d_i(t)), \\
+\pdv{F_2}{t} &= -P_i \dot{d}_i(t).
+\end{align*}
+
+Entonces:
+
+\begin{equation}
+\boxed{
+K(Q_i, P_i, t) = \frac{P_i P_i}{2m} + V(Q_i + d_i(t)) - P_i \dot{d}_i(t).
+}
+\end{equation}
+
+En notación vectorial, donde \( \vec{P} = (P_1, \dots, P_f) \), \( \vec{d}(t) = (d_1(t), \dots, d_f(t)) \), y \( \vec{v}_d(t) = \dot{\vec{d}}(t) \), esto se expresa como:
+
+\begin{equation}
+\boxed{
+K(\vec{Q}, \vec{P}, t) = \frac{\|\vec{P}\|^2}{2m} + V(\vec{Q} + \vec{d}(t)) - \vec{P} \cdot \dot{\vec{d}}(t).
+}
+\end{equation}
+
+\subsection*{Verificación de las ecuaciones de Hamilton}
+
+Demostramos que \( (\vec{Q}, \vec{P}) \) satisfacen las ecuaciones de Hamilton con respecto al nuevo Hamiltoniano \(K\).
+
+\paragraph{Evolución de \( Q_i \):}
+
+\begin{align*}
+\dot{Q}_i &= \pdv{K}{P_i} = \frac{P_i}{m} - \dot{d}_i(t), \\
+\text{pero también:} \quad \dot{Q}_i &= \dot{q}_i - \dot{d}_i(t) = \frac{p_i}{m} - \dot{d}_i(t) = \frac{P_i}{m} - \dot{d}_i(t).
+\end{align*}
+
+\paragraph{Evolución de \( P_i \):}
+
+\[
+\dot{P}_i = -\pdv{K}{Q_i} = -\pdv{V}{Q_i} = -\pdv{V}{q_i} = \dot{p}_i.
+\]
+
+Por tanto, el sistema preserva su estructura hamiltoniana bajo la transformación.
+
+\subsection*{Interpretación física}
+
+La transformación corresponde a un cambio a un sistema de referencia cuyo origen se traslada con velocidad arbitraria \( \vec{v}_d(t) = \dot{\vec{d}}(t) \).
+
+El término adicional en el Hamiltoniano:
+
+\[
+- \vec{P} \cdot \dot{\vec{d}}(t)
+\]
+
+representa el acoplamiento inercial entre el momento lineal de la partícula y la velocidad del sistema de referencia. Este tipo de términos surge naturalmente en sistemas no inerciales y está relacionado con las fuerzas ficticias que aparecen en la formulación lagrangiana (como en el principio de D'Alembert para marcos acelerados).
+
+\subsection*{Conclusión}
+
+\begin{itemize}
+    \item La transformación canónica generada por:
+    \[
+    \boxed{F_2(q_i, P_i, t) = P_i (q_i - d_i(t))}
+    \]
+    describe un cambio de sistema de referencia con traslación arbitraria en el tiempo.
+
+    \item El Hamiltoniano en el sistema móvil es:
+    \[
+    \boxed{
+    K(Q_i, P_i, t) = \frac{P_i^2}{2m} + V(Q_i + d_i(t)) - P_i \dot{d}_i(t),
+    }
+    \]
+    e incluye explícitamente el efecto inercial asociado al movimiento del origen.
+
+    \item Las ecuaciones de Hamilton se preservan bajo esta transformación, garantizando la validez del formalismo hamiltoniano en marcos móviles.
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,1026 @@
+\documentclass{article}
+\setlength{\headheight}{13.07204pt} % Adjust headheight as suggested
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+
+% Paquetes matemáticos y tipográficos
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Paquetes necesarios
+\usepackage{minted}
+\usepackage{xcolor}
+
+% Configura minted
+\definecolor{codebg}{rgb}{0.1, 0.1, 0.1}
+\setminted{
+    style=monokai,
+    bgcolor=codebg,
+    linenos,
+    breaklines,
+    fontsize=\small
+}
+
+% Para la terminal
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\usepackage{listings}
+\usepackage{bera} % Fuente monoespaciada bonita (opcional)
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{Encargo 1 }
+\fancyhead[L]{Teoría de Circuitos - 510361}
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Encargo 01} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Teoría de Circuitos - 510361} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Junio 2025 \par}
+    \vfill
+\end{titlepage}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Parte 1 - Circuito RLC}
+
+\section{Ejercicio 1 }
+
+Para el siguiente circuito RLC, la tensión de entrada tiene una amplitud de 50 Volts a una frecuencia de $100\, \text{Hz}$. El desfase en la fuente es nulo. Determine:
+\begin{itemize}
+    \item La expresión para la corriente $i$.
+    \item El valor efectivo de la tensión de entrada y la corriente $i$.
+    \item El desfase de la corriente sobre la carga RLC.
+    \item Indique la frecuencia de resonancia y comente acerca de la eficiencia del circuito.
+\end{itemize}
+
+Todas las resistencias tienen un valor de $500 \,\Omega$, las capacitancias un valor de $10 \,\mu\text{F}$ y las bobinas un valor de $100 \,\text{mH}$. 
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/fig1.png}
+    \caption{Circuito a analizar.}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Cálculo de la resistencia equivalente total:}
+
+Considerando que todas las resistencias tienen el mismo valor $R_i = 500\ \Omega$, procedemos a calcular la resistencia total del circuito paso a paso, identificando cada resistencia equivalente con subíndices numerados.
+
+\begin{itemize}
+    \item En primer lugar, calculamos la resistencia equivalente de $R_5$ y $R_6$ en serie:
+    \begin{equation*}
+        \begin{aligned}
+                    R_{\text{eq }1} &= R_5 + R_6 \\
+                    &= 500\ \Omega + 500\ \Omega  \\
+                    &= 1000\ \Omega\, .
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto, la primera resistencia equivalente es:
+    \begin{equation}\label{1.1_r_eq_1}
+         R_{\text{eq }1}=1000\ \Omega\, .
+    \end{equation}
+    
+    \item Esta resistencia equivalente \eqref{1.1_r_eq_1} está en paralelo con $R_7$, por tanto:
+    \begin{equation*}
+    \begin{aligned}
+        R_{\text{eq }2} 
+        &= \left( \frac{1}{R_{\text{eq }1}} + \frac{1}{R_7} \right)^{-1} \\
+        &= \left( \frac{1}{1000\ \Omega} + \frac{1}{500\ \Omega} \right)^{-1} \\
+        &= \left( \frac{3}{1000} \right)^{-1} \\
+        &= 333.\overline{3}\ \Omega \, . \\
+    \end{aligned}
+    \end{equation*}
+    Por lo tanto, esta segunda resistencia equivalente es:
+    \begin{equation*}
+         R_{\text{eq }2}=333.\overline{3}\ \Omega\, .
+    \end{equation*}
+    Dado que el nodo donde confluyen $R_5 + R_6$ y $R_7$ está conectado directamente al nodo final mediante un conductor ideal, se produce un \textbf{cortocircuito} en paralelo con $R_8$ , por lo que esta última puede descartarse del análisis.
+    
+    \item Luego, $R_{\text{eq }2}$ está en paralelo con $R_4$, por lo que:
+    \begin{equation*}
+    \begin{aligned}
+        R_{\text{eq }3} 
+        &= \left( \frac{1}{R_4} + \frac{1}{R_{\text{eq }2}} \right)^{-1} \\
+        &= \left( \frac{1}{500\ \Omega} + \frac{1}{333.\overline{3}\ \Omega}\right)^{-1} \\
+        &\approx 200\ \Omega \, .
+    \end{aligned}
+    \end{equation*}
+    Por lo tanto, esta tercera resistencia equivalente es:
+    \begin{equation}\label{1.1_r_eq_3}
+         R_{\text{eq }3}=200\ \Omega\, .
+    \end{equation}
+    
+    \item A continuación, sumamos esta resistencia \eqref{1.1_r_eq_3} con $R_3$, ya que están en serie:
+    \begin{equation*}
+    \begin{aligned}
+        R_{\text{eq }4} 
+        &= R_3 + R_{\text{eq }3} \\
+        &= 500\ \Omega + 200\ \Omega \\
+        &= 700\ \Omega \, .
+    \end{aligned}
+    \end{equation*}
+    Por lo tanto, la cuarta resistencia equivalente es:
+    \begin{equation}\label{1.1_r_eq_4}
+         R_{\text{eq }4}=700\ \Omega\, .
+    \end{equation}
+    
+    \item Esta resistencia \eqref{1.1_r_eq_4} está en paralelo con $R_2$, por lo que:
+    \begin{equation*}
+    \begin{aligned}
+        R_{\text{eq }5} &= \left( \frac{1}{R_2} + \frac{1}{R_{\text{eq }4}} \right)^{-1} \\
+        &= \left( \frac{1}{500\ \Omega} + \frac{1}{700\ \Omega} \right)^{-1} \\
+        &\approx 292\ \Omega  \,.
+    \end{aligned}
+    \end{equation*}
+    Por lo tanto, la cuarta resistencia equivalente es:
+    \begin{equation*}
+         R_{\text{eq }5}\approx292\ \Omega\, .
+    \end{equation*}
+    
+    \item Finalmente, sumamos esta última resistencia $R_{\text{eq }5}$ con $R_1$, para obtener la resistencia total del circuito:
+    \begin{equation*}
+    \begin{aligned}
+        R_{\text{total}} &= R_1 + R_{\text{eq }5} \\
+        &= 500\ \Omega + 292\ \Omega \\
+        &= 792\ \Omega \,.
+    \end{aligned}
+    \end{equation*}
+    Así, la \textbf{resistencia total} del circuito es:
+    \begin{equation*}
+        R_{\text{total}}= 792\ \Omega \,.
+    \end{equation*}
+\end{itemize}
+
+\subsection{Cálculo de la capacitancia equivalente total:}
+
+Considerando que todos los capacitores tienen el mismo valor $C_i = 10\ \mu\text{F}$, procedemos a calcular la capacitancia total del circuito paso a paso, identificando cada capacitancia equivalente con subíndices numerados.
+
+\begin{itemize}
+    \item En primer lugar, los capacitores $C_6$ y $C_7$ están conectados en paralelo, por lo que su capacitancia equivalente es:
+    \begin{equation*}
+        \begin{aligned}
+            C_{\text{eq }1} &= C_6 + C_7 \\
+                            &= 10\ \mu\text{F} + 10\ \mu\text{F} \\
+                            &= 20\ \mu\text{F} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto, la primera capacitancia equivalente es:
+    \begin{equation}\label{1.2_c_eq_1}
+        C_{\text{eq }1} = 20\ \mu\text{F} \,.
+    \end{equation}
+
+    \item Esta capacitancia equivalente \eqref{1.2_c_eq_1} está en paralelo con $C_5$, por lo que:
+    \begin{equation*}
+        \begin{aligned}
+            C_{\text{eq }2} &= C_{\text{eq }1} + C_5 \\
+                            &= 20\ \mu\text{F} + 10\ \mu\text{F} \\
+                            &= 30\ \mu\text{F} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto, la segunda capacitancia equivalente es:
+    \begin{equation}\label{1.2_c_eq_2}
+        C_{\text{eq }2} = 30\ \mu\text{F} \,.
+    \end{equation}
+
+    \item Esta capacitancia \eqref{1.2_c_eq_2} está en serie con los capacitores $C_3$ y $C_4$, por lo que su combinación se evalúa mediante:
+    \begin{equation*}
+        \begin{aligned}
+            C_{\text{eq }3}&= \left( \frac{1}{C_{\text{eq }2}} + \frac{1}{C_3} + \frac{1}{C_4} \right)^{-1} \\
+            &=  \left( \frac{1}{30\ \mu\text{F}} + \frac{1}{10\ \mu\text{F}} + \frac{1}{10\ \mu\text{F}}  \right)^{-1}\\
+            &\approx 4.3\ \mu\text{F} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto, esta tercera capacitancia equivalente es:
+    \begin{equation}\label{1.2_c_eq_3}
+        C_{\text{eq }3} \approx 4.3\ \mu\text{F} \,.
+    \end{equation}
+
+    \item Esta capacitancia \eqref{1.2_c_eq_3} está en paralelo con $C_2$, por lo que:
+    \begin{equation*}
+        \begin{aligned}
+            C_{\text{eq }4} &= C_{\text{eq }3} + C_2 \\
+                            &= 4.3\ \mu\text{F} + 10\ \mu\text{F} \\
+                            &= 14.3\ \mu\text{F} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto, la cuarta capacitancia equivalente es:
+    \begin{equation}\label{1.2_c_eq_4}
+        C_{\text{eq }4} \approx 14.3\ \mu\text{F} \,.
+    \end{equation}
+
+    \item Finalmente, esta capacitancia $C_{\text{eq }4}$ está en serie con $C_1$, por lo que la capacitancia total del circuito es:
+    \begin{equation*}
+        \begin{aligned}
+            C_{\text{total}} 
+            &= \left( \frac{1}{C_1} + \frac{1}{C_{\text{eq }4}} \right)^{-1} \\
+            &= \left( \frac{1}{10\ \mu\text{F}} + \frac{1}{14.3\ \mu\text{F}} \right)^{-1} \\
+            &\approx 5.9\ \mu\text{F} \,.
+        \end{aligned}
+    \end{equation*}
+    Así, la \textbf{capacitancia total} del circuito es:
+    \begin{equation*}
+        C_{\text{total}} = 5.9\times10^{-6}\ \text{F} \,.
+    \end{equation*}
+\end{itemize}
+
+\subsection{Cálculo de la inductancia equivalente total:}
+
+Considerando que todas las bobinas tienen el mismo valor $L_i = 100\ \text{mH}$, procedemos a calcular la inductancia total del circuito paso a paso, identificando cada inductancia equivalente con subíndices numerados.
+
+\begin{itemize}
+    \item En primer lugar, las bobinas $L_9$ y $L_{10}$ están conectadas en serie, por lo que su inductancia equivalente es:
+    \begin{equation*}
+        \begin{aligned}
+            L_{\text{eq }1} &= L_9 + L_{10} \\
+                            &= 100\ \text{mH} + 100\ \text{mH} \\
+                            &= 200\ \text{mH} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto, la primera inductancia equivalente es:
+    \begin{equation}\label{1.3_L_eq_1}
+        L_{\text{eq }1} = 200\ \text{mH} \,.
+    \end{equation}
+
+    \item Esta inductancia \eqref{1.3_L_eq_1} está en paralelo con $L_8$, por lo que:
+    \begin{equation*}
+        \begin{aligned}
+            L_{\text{eq }2} &= \left( \frac{1}{L_{\text{eq }1}} + \frac{1}{L_8} \right)^{-1} \\
+                            &= \left( \frac{1}{200\ \text{mH}} + \frac{1}{100\ \text{mH}} \right)^{-1} \\
+                            &= \left( \frac{3}{200} \right)^{-1} \\
+                            &\approx 66.7\ \text{mH} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto, la segunda inductancia equivalente es:
+    \begin{equation}\label{1.3_L_eq_2}
+        L_{\text{eq }2} \approx 66.7\ \text{mH} \,.
+    \end{equation}
+
+    \item Por otra parte, las bobinas $L_4$ y $L_5$ están en serie, por lo que:
+    \begin{equation*}
+        \begin{aligned}
+            L_{\text{eq }3} &= L_4 + L_5 \\
+            &= 100\ \text{mH} + 100\ \text{mH} \\ 
+            &= 200\ \text{mH} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto:
+    \begin{equation}\label{1.3_L_eq_3}
+        L_{\text{eq }3} = 200\ \text{mH} \,.
+    \end{equation}
+
+    \item Esta inductancia \eqref{1.3_L_eq_3} está en paralelo con \( L_6 \), por lo que:
+    \begin{equation*}
+        \begin{aligned}
+            L_{\text{eq }4} &= \left( \frac{1}{L_{\text{eq }3}} + \frac{1}{L_6} \right)^{-1} \\
+                            &= \left( \frac{1}{200} + \frac{1}{100} \right)^{-1} \\
+                            &= \left( \frac{3}{200} \right)^{-1} \\
+                            &\approx 66.7\ \text{mH} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto:
+    \begin{equation}\label{1.3_L_eq_4}
+        L_{\text{eq }4} \approx 66.7\ \text{mH} \,.
+    \end{equation}
+
+    \item Las dos inductancias equivalentes anteriores, $L_{\text{eq }2}$ y $L_{\text{eq }4}$, están en serie, por lo que:
+    \begin{equation*}
+        \begin{aligned}
+            L_{\text{eq }5} &= L_{\text{eq }2} + L_{\text{eq }4} \\
+                            &\approx 66.7\ \text{mH} + 66.7\ \text{mH} \\
+                            &= 133.4\ \text{mH} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto:
+    \begin{equation}\label{1.3_L_eq_5}
+        L_{\text{eq }5} \approx 133.4\ \text{mH} \,.
+    \end{equation}
+
+    \item Esta inductancia está en paralelo con $L_7$, por lo que:
+    \begin{equation*}
+        \begin{aligned}
+            L_{\text{eq }6} &= \left( \frac{1}{L_{\text{eq }5}} + \frac{1}{L_7} \right)^{-1} \\
+                            &= \left( \frac{1}{133.4\ \text{mH}} + \frac{1}{100\ \text{mH}} \right)^{-1} \\
+                            &\approx 57.2\ \text{mH} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto:
+    \begin{equation}\label{1.3_L_eq_6}
+        L_{\text{eq }6} \approx 57.2\ \text{mH} \,.
+    \end{equation}
+
+    \item Esta inductancia está en serie con $L_2$, por lo que:
+    \begin{equation*}
+        \begin{aligned}
+            L_{\text{eq }7} &= L_{\text{eq }6} + L_2 \\
+            &= 57.2\ \text{mH} + 100\ \text{mH} \\
+            &= 157.2\ \text{mH} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto:
+    \begin{equation}\label{1.3_L_eq_7}
+        L_{\text{eq }7} = 157.2\ \text{mH} \,.
+    \end{equation}
+
+    \item Esta inductancia está en paralelo con $L_3$, por lo que:
+    \begin{equation*}
+        \begin{aligned}
+            L_{\text{eq }8} &= \left( \frac{1}{L_{\text{eq }7}} + \frac{1}{L_3} \right)^{-1} \\
+                            &= \left( \frac{1}{157.2\ \text{mH} } + \frac{1}{100\ \text{mH} } \right)^{-1} \\
+                            &\approx 61.13\ \text{mH} \,.
+        \end{aligned}
+    \end{equation*}
+    Por lo tanto:
+    \begin{equation}\label{1.3_L_eq_8}
+        L_{\text{eq }8} \approx 61.1\ \text{mH} \,.
+    \end{equation}
+
+    \item Finalmente, esta inductancia equivalente está en serie con $L_1$, por lo que la inductancia total del circuito es:
+    \begin{equation*}
+        \begin{aligned}
+            L_{\text{total}} &= L_1 + L_{\text{eq }8} \\
+            &= 100\ \text{mH} + 61.1\ \text{mH} \\
+            &= 161.1\ \text{mH} \,.
+        \end{aligned}
+    \end{equation*}
+    Así, la \textbf{inductancia total} del circuito es:
+    \begin{equation*}
+        L_{\text{total}} = 161.1\times10^{-3}\ \text{H} \,.
+    \end{equation*}
+\end{itemize}
+
+\subsection{Circuito RLC equivalente}
+
+Considerando los valores previamente determinados para la resistencia total, la capacitancia total y la inductancia total, podemos representar el sistema mediante un circuito RLC equivalente, mostrado en la Figura~\ref{fig:RLC_equivalente}:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.3\linewidth]{img/fig3.png}
+    \caption{Circuito RLC equivalente.}
+    \label{fig:RLC_equivalente}
+\end{figure}
+
+Los parámetros del circuito son los siguientes:
+
+\begin{itemize}
+    \item \textbf{Resistencia total:}
+        \begin{equation}\label{1.1_resistencia_total}
+            R_{\text{total}} = 792\ \Omega \,.
+        \end{equation}
+    \item \textbf{Capacitancia total:}
+        \begin{equation}\label{1.1_capacitancia_total}
+            C_{\text{total}} = 5.9 \times 10^{-6}\ \text{F} \,.
+        \end{equation}
+    \item \textbf{Inductancia total:}
+        \begin{equation}\label{1.1_inductancia_total}
+            L_{\text{total}} = 161.1 \times 10^{-3}\ \text{H} \,.
+        \end{equation}    
+\end{itemize}
+
+La fuente de tensión es alterna, con una frecuencia de $f = 100\ \text{Hz}$ y una amplitud de $V_i = 50\ \text{V}$. A partir de la frecuencia, se calcula la frecuencia angular asociada:
+
+\begin{equation*}
+    \begin{aligned}
+        \omega &= 2\pi f \\
+               &= 2\pi \cdot 100 \\
+               &= 200\pi\ \frac{\text{rad}}{\text{seg}} \,.
+    \end{aligned}
+\end{equation*}
+
+Por lo tanto, la frecuencia angular está dada por:
+\begin{equation}\label{1.1_frec_angular}
+    \omega = 200\pi\ \frac{\text{rad}}{\text{seg}} \,.
+\end{equation}
+
+\subsection{Cálculo de la intensidad de corriente}
+
+Para determinar la intensidad de corriente que circula por el circuito RLC equivalente, comenzamos calculando su impedancia total compleja. En un circuito RLC en serie, la impedancia está dada por la expresión:
+
+\begin{equation}\label{1.2_impedancia}
+    Z = R_{\text{total}} + i\left( \omega L_{\text{total}} - \frac{1}{\omega C_{\text{total}}} \right) \,.
+\end{equation}
+
+Sustituyendo en \eqref{1.2_impedancia} los valores obtenidos previamente para $R_{\text{total}}$, $L_{\text{total}}$, $C_{\text{total}}$ y la frecuencia angular $\omega$, correspondientes a las ecuaciones \eqref{1.1_resistencia_total}, \eqref{1.1_capacitancia_total}, \eqref{1.1_inductancia_total} y \eqref{1.1_frec_angular}, se tiene:
+
+\begin{equation*}
+\begin{aligned}
+    Z &= 792 + i\left( 200\pi \cdot 161.1 \times 10^{-3} - \frac{1}{200\pi \cdot 5.9 \times 10^{-6}} \right)\ \Omega \\
+      &= 792 - i168.5\ \Omega \,.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, la impedancia total del circuito resulta ser:
+
+\begin{equation}\label{1.2_impedancia_valor}
+    Z = 792 - i168.5\ \Omega \,.
+\end{equation}
+
+A continuación, calculamos el módulo de la impedancia, necesario para determinar la amplitud de la corriente alterna:
+
+\begin{equation}\label{1.2_modulo_impedancia}
+    \|Z\| = \sqrt{\operatorname{Re}(Z)^2 + \operatorname{Im}(Z)^2} \,.
+\end{equation}
+
+Sustituyendo los valores numéricos en \eqref{1.2_modulo_impedancia}:
+
+\begin{equation*}
+\begin{aligned}
+    \|Z\| &= \sqrt{792^2 + (-168.5)^2} \\
+          &= \sqrt{655656.25} \\
+          &\approx 809.7\ \Omega \,.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, el módulo de la impedancia es:
+
+\begin{equation}\label{1.2_modulo_impedancia_valor}
+    \|Z\| = 809.7\ \Omega \,.
+\end{equation}
+
+La magnitud de la corriente alterna está dada por:
+
+\begin{equation}\label{1.2_corriente_forma}
+    i = \frac{V_i}{\|Z\|} \,,
+\end{equation}
+
+Sustituyendo $V_i=50\ \text{V}$ y \eqref{1.2_modulo_impedancia_valor} en \eqref{1.2_corriente_forma}, obtenemos:
+
+\begin{equation}\label{1.2_corriente_final}
+    i = 61.8 \times 10^{-3}\  \text{A} \,.
+\end{equation}
+
+\clearpage
+
+\subsection{Valor efectivo de la tensión de entrada y la corriente}
+
+El \textbf{valor efectivo de la tensión} se define como:
+
+\begin{equation}\label{1.3_v_ef}
+    V_{\text{ef}} = \frac{V_i}{\sqrt{2}} \,,
+\end{equation}
+
+donde $V_i = 50\ \text{V}$ es la amplitud de la fuente alterna. Sustituyendo:
+
+\begin{equation*}
+\begin{aligned}
+    V_{\text{ef}} &= \frac{50}{\sqrt{2}} \\
+                  &=25\sqrt{5}\\[2pt]
+                  &\approx 35.36\ \text{V} \,.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, el valor eficaz de la tensión de entrada es:
+
+\begin{equation}\label{1.3_v_ef_valor}
+    V_{\text{ef}} \approx 35.36\ \text{V} \,.
+\end{equation}
+
+De manera análoga, el valor \textbf{efectivo de la corriente} se calcula como:
+
+\begin{equation}\label{1.3_i_ef}
+    I_{\text{ef}} = \frac{V_{\text{ef}}}{\|Z\|} \,,
+\end{equation}
+
+donde $\|Z\| = 809.7\ \Omega$ es el módulo de la impedancia total. Sustituyendo \eqref{1.3_v_ef_valor} en \eqref{1.3_i_ef}, se tiene:
+
+\begin{equation*}
+\begin{aligned}
+    I_{\text{ef}} &= \frac{35.36 }{809.7 }\frac{\text{V}}{\Omega} \\
+                  &\approx 43.7\times10^{-3}\ \text{A} \,.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, el valor eficaz de la corriente es:
+
+\begin{equation}\label{1.3_i_ef_valor}
+    I_{\text{ef}} \approx 43.7\ \text{mA} \,.
+\end{equation}
+
+\subsection{Ángulo de desfase}
+
+El ángulo de desfase entre la tensión y la corriente esta definido por:
+
+\begin{equation}\label{1.2_angulo_defase}
+    \phi = \arctan\left( \frac{\operatorname{Im}(Z)}{\operatorname{Re}(Z)} \right) \,.
+\end{equation}
+
+Sustituyendo:
+
+\begin{equation*}
+\begin{aligned}
+    \phi &= \arctan\left( \frac{-168.5}{792} \right) \\
+         &\approx -0.2\ \text{rad} \,.
+\end{aligned}
+\end{equation*}
+Por lo tanto, el angulo de desfase queda determinado por:
+\begin{equation}
+    \phi=-0.2\ \text{rad} \,.
+\end{equation}
+
+El signo negativo indica que la corriente se adelanta respecto de la tensión, lo cual es característico de un circuito en el que la reactancia capacitiva $X_C$ domina sobre la inductiva $X_L$. Es decir, el circuito presenta un comportamiento \textbf{predominantemente capacitivo}.
+
+\subsection{Frecuencia de resonancia y eficiencia del circuito}
+
+En un circuito RLC en serie, la \textbf{frecuencia angular de resonancia} $\omega_0$ se define como la frecuencia a la cual las reactancias inductiva y capacitiva se cancelan mutuamente, resultando en una impedancia puramente resistiva. Es decir, cuando la parte imaginaria de la impedancia \eqref{1.2_impedancia} es nula:
+
+\begin{equation*}
+    \begin{aligned}
+        \operatorname{Im}(Z)=0 \quad \Rightarrow &\quad \omega_0 L_{\text{total}} - \frac{1}{\omega_0 C_{\text{total}}}= 0 \\   
+    \end{aligned}
+\end{equation*}
+
+Al despejar $\omega_0$ se obtiene la expresión para la frecuencia angular de resonancia:
+
+\begin{equation}\label{1.3_frecuencia_resonancia}
+    \omega_0 = \frac{1}{\sqrt{L_{\text{total}} C_{\text{total}}}} \,.
+\end{equation}
+
+Sustituyendo los valores previamente determinados para $L_{\text{total}}$ y $C_{\text{total}}$:
+
+\begin{equation*}
+\begin{aligned}
+    \omega_0 &= \frac{1}{\sqrt{161.1 \times 10^{-3}\ \text{H} \cdot 5.9 \times 10^{-6}\ \text{F}}} \\
+             &\approx 1025.7\ \text{rad/s} \,.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, la frecuencia angular de resonancia del circuito es:
+
+\begin{equation}\label{1.3_frecuencia_resonancia_valor}
+    \omega_0 =  1025.7\ \text{rad/s} \,.
+\end{equation}
+
+La \textbf{frecuencia de resonancia} $f_0$ en hertzios se obtiene dividiendo $\omega_0$ por $2\pi$:
+
+\begin{equation*}\label{1.3_frecuencia_resonancia_hz}
+    \begin{aligned}
+        f_0 &= \frac{\omega_0}{2\pi} \\
+        &=\frac{ 1025.7}{2\pi} \\
+        &\approx 163.2\ \text{Hz} \,.
+    \end{aligned}
+\end{equation*}
+
+Por lo tanto, la frecuencia de resonancia del cirucito es:
+\begin{equation}
+    f_0=163.2\ \text{Hz}
+\end{equation}
+
+El \textbf{factor de calidad} $Q$ se define como:
+
+\begin{equation}\label{1.2_factor_de_calidad}
+    Q = \frac{\omega_0 L_{\text{total}}}{R_{\text{total}}}
+\end{equation}
+
+Sustituyendo los valores de $\omega_0$, $L_{\text{total}}$ y $R_{\text{total}}$ en \eqref{1.2_factor_de_calidad}:
+
+\begin{equation*}
+    Q = \frac{1025.7\ \text{rad/s} \cdot 161.1 \times 10^{-3}\ \text{H} }{792\ \Omega } \approx 0.2\,.
+\end{equation*}
+
+El valor obtenido para el factor de calidad, $Q \approx 0.21$, indica que el circuito presenta una respuesta ampliamente amortiguada, con fuerte disipación resistiva. En consecuencia, la eficiencia del sistema para almacenar energía en torno a la frecuencia de resonancia es baja, y el circuito no presenta un comportamiento selectivo ni resonante significativo.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Ejercicio 2}
+
+Dado el siguiente circuito, que se encuentra encendido por mucho tiempo, calcule la potencia disipada por el circuito completo.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\linewidth]{img/fig2.png}
+    \caption{Circuito a analizar.}
+\end{figure}
+
+\subsection*{Datos del problema}
+
+\begin{itemize}
+    \item Tensión de la fuente: $V_{\text{cc}} = 40\ \text{V}$
+    \item Resistencias: $R_1 = R_2 = R_3 = R_4 = R_5 = R_6 = R_7 = R_8 = R_9 = 300\ \Omega$
+    \item Inductancias: $L_1 = L_2 = 150\ \text{mH}$
+    \item Capacitancia: $C_1 = 100\ \text{nF}$
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Análisis cualitativo del circuito}
+
+Se observa que el circuito posee una fuente de tensión en corriente continua. Dado que ha permanecido encendido durante un \textbf{tiempo prolongado}, se asume que se encuentra en \textbf{régimen estacionario en corriente continua}. En este régimen, las bobinas $L_1$ y $L_2$ se comportan como \textbf{cortocircuitos}, mientras que el capacitor $C_1$ actúa como un \textbf{circuito abierto}.
+
+Como consecuencia, la rama que contiene al capacitor $C_1$ no permite el paso de corriente, lo que implica que los elementos $R_7$, $R_8$, $L_2$ y $R_9$ no participan en el flujo de corriente ni contribuyen a la disipación de potencia. Por tanto, los únicos elementos activos del circuito son las resistencias $R_1$, $R_2$, $R_3$, $R_4$, $R_5$ y $R_6$.
+
+\subsection{Análisis de la resistencia equivalente}
+
+Se observa que las resistencias $R_3$, $R_4$, $R_5$ y $R_6$ se encuentran conectadas en serie, por lo que pueden agruparse en una sola resistencia equivalente:
+
+\begin{equation*}
+\begin{aligned}
+    R_{\text{eq }1} &= R_3 + R_4 + R_5 + R_6 \\
+                    &= 4 \cdot 300\ \Omega \\
+                    &= 1200\ \Omega \,.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, la primera resistencia equivalente es:
+
+\begin{equation}\label{R_eq_1}
+    R_{\text{eq }1} = 1200\ \Omega \,.
+\end{equation}
+\clearpage
+Dicha resistencia equivalente \eqref{R_eq_1} se encuentra en paralelo con la resistencia $R_2$, por lo que se obtiene una nueva resistencia equivalente:
+
+\begin{equation*}
+\begin{aligned}
+    R_{\text{eq }2} &= \left( \frac{1}{R_2} + \frac{1}{R_{\text{eq }1}} \right)^{-1} \\
+                    &= \left( \frac{1}{300\ \Omega} + \frac{1}{1200\ \Omega} \right)^{-1} \\
+                    &= \left( \frac{5}{1200} \right)^{-1} \\
+                    &= 240\ \Omega \,.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, esta segunda resistencia equivalente es:
+
+\begin{equation}\label{R_eq_2}
+    R_{\text{eq }2} = 240\ \Omega \,.
+\end{equation}
+
+Finalmente, la resistencia equivalente \eqref{R_eq_2} se encuentra en serie con la resistencia $R_1$, por lo que la resistencia total del circuito es:
+
+\begin{equation*}
+\begin{aligned}
+    R_{\text{total}} &= R_1 + R_{\text{eq }2} \\
+                     &= 300\ \Omega + 240\ \Omega \\
+                     &= 540\ \Omega \,.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, la resistencia total del circuito es:
+
+\begin{equation}\label{R_total}
+    R_{\text{total}} = 540\ \Omega \,.
+\end{equation}
+
+\subsection{Cálculo de la potencia disipada}
+
+Conocida la resistencia total del circuito \eqref{R_total} en régimen estacionario, y dado que la fuente de tensión entrega un voltaje constante de $V_{\text{cc}} = 40\ \text{V}$, la potencia disipada por el circuito completo se determina mediante la \textbf{ley de Joule}:
+
+\begin{equation}\label{2.3_ley_de_joule}
+    P = \frac{V_{\text{cc}}^2}{R_{\text{total}}} \,.
+\end{equation}
+
+Sustituyendo en \eqref{2.3_ley_de_joule}:
+
+\begin{equation*}
+\begin{aligned}
+    P &= \frac{(40\ \text{V})^2}{540\ \Omega} \\
+      &= \frac{1600\ \text{V}^2}{540\ \Omega} \\
+      &\approx 2.96\ \text{W} \,.
+\end{aligned}
+\end{equation*}
+
+Por lo tanto, la potencia total disipada por el circuito es:
+
+\begin{equation}\label{potencia_total}
+    P = 2.96\ \text{W} \,.
+\end{equation}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Parte 2 - Señales}
+
+Usando comandos de referencia de MATLAB indicados en ANEXOS, y de acuerdo con video de referencia, grafique las siguientes señales:
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{enumerate}
+    \item $y_1(t) = e^{-0.1t} \sin(2t)$
+    \begin{itemize}
+        \item El vector de tiempo debe generarse entre $0$ y $6\pi$.
+        \item Graficar luego la función exponencial.
+    \end{itemize}
+    \item $y_2(t) = \sin(\omega_1 t) \cdot \sin(\omega_2 t)$
+\end{enumerate}
+    \begin{itemize}
+        \item El vector de tiempo debe generarse entre $0$ y $6\pi$.
+        \item La frecuencia angular $\omega_1=1\frac{\text{rad}}{\text{seg}}$ y$\omega_2=100\frac{\text{rad}}{\text{seg}}$
+    \end{itemize}	
+
+A continuación, implementamos en \texttt{Python} las bibliotecas \texttt{numpy} y \texttt{matplotlib} para generar las señales solicitadas\footnote{Debido a problemas técnicos al intentar acceder a MATLAB, y con autorización del profesor de la asignatura, el desarrollo de esta sección fue realizado utilizando el lenguaje de programación \texttt{Python}.}:
+
+Importamos las librerías necesarias en nuestro script mediante el siguiente código:
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+import numpy as np
+import matplotlib.pyplot as plt
+\end{minted}
+
+Definimos una variable \texttt{t}, la cual representa el vector de tiempo. Utilizamos la función \texttt{linspace} para generar un arreglo de $1000$ valores igualmente espaciados entre $0$ y $6\pi$. Esta variable será empleada para graficar ambas señales junto con sus respectivas envolventes.
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+t = np.linspace(0, 6 * np.pi, 1000)
+\end{minted}
+
+\subsubsection*{1. Señal $y_1(t) = e^{-0.1t} \sin(2t)$}
+
+Definimos la señal $y_1(t)$ mediante la siguiente expresión en \texttt{Python}:
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+y1 = np.exp(-0.1 * t) * np.sin(2 * t)
+\end{minted}
+
+A continuación, generamos su representación gráfica utilizando \texttt{matplotlib}, incorporando etiquetas a los ejes, título, leyenda explicativa y cuadrícula de referencia:
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+plt.figure(figsize=(10, 4))
+plt.plot(t, y1, label=r'$y_1(t) = e^{-0.1t} \sin(2t)$', color='blue')
+plt.title(r'Señal $y_1(t)$')
+plt.xlabel(r'Tiempo $t$ [s]')
+plt.ylabel(r'Amplitud')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+\end{minted}
+
+Se obtuvo la siguiente figura:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/figy1.png}
+    \caption{Gráfico generado en \texttt{Python} de la señal $y_1(t) = e^{-0.1t} \sin(2t)$.}
+\end{figure}
+
+Definimos a continuación la función exponencial correspondiente a la envolvente de la señal:
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+exponencial = np.exp(-0.1 * t)
+\end{minted}
+
+Luego representamos gráficamente la envolvente superior e inferior mediante líneas discontinuas, manteniendo la coherencia visual con etiquetas, leyenda y grilla:
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+plt.figure(figsize=(10, 4))
+plt.plot(t, exponencial, 'r--', label=r'Envolvente superior $e^{-0.1t}$')
+plt.plot(t, -exponencial, 'r--', label=r'Envolvente inferior $-e^{-0.1t}$')
+plt.title(r'Envolvente de la señal $y_1(t)$')
+plt.xlabel(r'Tiempo $t$ [s]')
+plt.ylabel(r'Amplitud')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+\end{minted}
+
+Se obtuvo la figura:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/figexp.png}
+    \caption{Gráfico generado en \texttt{Python} de la envolvente de la señal $y_1(t) = e^{-0.1t} \sin(2t)$.}
+\end{figure}
+
+Finalmente, se grafican de forma conjunta la señal $y_1(t)$ y sus envolventes, generando una visualización completa de la modulación de amplitud por decaimiento exponencial:
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+plt.figure(figsize=(10, 4))
+plt.plot(t, y1, label=r'$y_1(t) = e^{-0.1t} \sin(2t)$', color='blue')
+plt.plot(t, exponencial, 'r--', label=r'Envolvente superior $e^{-0.1t}$')
+plt.plot(t, -exponencial, 'r--', label=r'Envolvente inferior $-e^{-0.1t}$')
+plt.title(r'Señal $y_1(t)$ y su envolvente')
+plt.xlabel(r'Tiempo $t$ [s]')
+plt.ylabel(r'Amplitud')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+\end{minted}
+
+Se obtiene la figura:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/figy1_env.png}
+    \caption{Gráfico generado en \texttt{Python} de la señal $y_1(t) = e^{-0.1t} \sin(2t)$ y su envolvente.}
+\end{figure}
+
+\clearpage
+
+\subsubsection*{2. Señal $y_2(t) = \sin(\omega_1 t)\sin(\omega_2 t)$}
+
+Definimos las frecuencias angulares y la señal $y_2(t)$ mediante:
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+omega1 = 1     
+omega2 = 100   
+y2 = np.sin(omega1 * t) * np.sin(omega2 * t)
+\end{minted}
+
+Construimos su gráfico utilizando \texttt{matplotlib}, incorporando etiquetas, leyenda y cuadrícula:
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+plt.figure(figsize=(25, 5))
+plt.plot(t, y2, color='purple', label=r'$y_2(t) = \sin(\omega_1t)\sin(\omega_2t)$')
+plt.title(r'Señal $y_2(t) = \sin(1t)\sin(100t)$')
+plt.xlabel(r'Tiempo $t$ [s]')
+plt.ylabel(r'Amplitud')
+plt.legend()
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+\end{minted}
+
+Se obtuvo la siguiente figura:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1.1\linewidth]{img/figy2.png}
+    \caption{Gráfico generado en \texttt{Python} de la señal $y_2(t) = \sin(1t)\sin(100t)$.}
+\end{figure}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Convolución de Señales}
+
+La convolución es una operación fundamental en el análisis de sistemas lineales e invariantes en el tiempo (LTI), que permite determinar la salida \( y[n] \) de un sistema ante una entrada \( x[n] \), conociendo su respuesta al impulso \( h[n] \):
+
+\begin{equation*}
+    y[n] = (x * h)[n] = \sum_{k=-\infty}^{\infty} x[k] \cdot h[n - k]
+\end{equation*}
+
+Un ejemplo físico representativo es el de una palmada en una habitación vacía. La palmada corresponde a la señal de entrada \( x[n] \); la respuesta natural del recinto, que incluye reflexiones y ecos, constituye la respuesta al impulso \( h[n] \); y el sonido reverberado que finalmente se percibe corresponde a la salida \( y[n] \), resultado de la convolución entre ambas señales.
+
+\subsubsection*{Ejemplo en Python:}
+
+A continuación, se muestra un ejemplo donde se convoluciona un impulso con una respuesta discreta que modela una reverberación atenuada:
+
+\begin{center}
+\begin{minted}{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.signal import convolve
+
+# Entrada: impulso en t = 5
+x = np.zeros(30)
+x[5] = 1
+
+# Respuesta al impulso: eco atenuado
+h = np.array([0.9, 0.6, 0.3, 0.1])
+
+# Convolución: salida del sistema
+y = convolve(x, h)
+
+# Gráficos
+plt.figure(figsize=(8, 6))
+
+# Entrada y respuesta
+plt.subplot(2, 1, 1)
+plt.stem(np.arange(len(x)), x, linefmt='b-', markerfmt='bo', basefmt=" ", label='x[n]')
+plt.stem(np.arange(len(h)), h, linefmt='r-', markerfmt='ro', basefmt=" ", label='h[n]')
+plt.title("Entrada y respuesta al impulso")
+plt.xlabel("n")
+plt.ylabel("Amplitud")
+plt.legend()
+plt.grid(True)
+
+# Salida
+plt.subplot(2, 1, 2)
+plt.stem(np.arange(len(y)), y, linefmt='g-', markerfmt='go', basefmt=" ")
+plt.title("Salida del sistema: y[n] = x[n] * h[n]")
+plt.xlabel("n")
+plt.ylabel("y[n]")
+plt.grid(True)
+
+plt.tight_layout()
+plt.show()
+\end{minted}
+\end{center}
+
+Este ejemplo ilustra cómo una señal discreta puede ser modificada por la dinámica de un sistema. La salida \( y[n] \) refleja cómo la respuesta al impulso \( h[n] \) afecta temporalmente al impulso \( x[n] \), generando una señal extendida y suavizada.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/Convolución.png}
+    \caption{Gráfico de la señal de entrada, respuesta al impulso y salida del sistema tras la convolución.}
+\end{figure}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Transformada Rápida de Fourier (FFT)}
+
+La Transformada Rápida de Fourier (FFT, por sus siglas en inglés) es un algoritmo eficiente para calcular la Transformada Discreta de Fourier (DFT), utilizada para analizar el contenido frecuencial de una señal discreta en el tiempo.
+
+La DFT de una señal \( x[n] \) está definida por la expresión:
+
+\begin{equation*}
+    X[k] = \sum_{n=0}^{N-1} x[n] \cdot e^{-j \frac{2\pi}{N} kn}, \quad k = 0, 1, \dots, N-1
+\end{equation*}
+
+La FFT reduce el costo computacional del cálculo de la DFT, y se utiliza comúnmente para identificar las frecuencias presentes en una señal, como en el análisis de vibraciones o señales acústicas.
+
+Un ejemplo físico clásico donde se aplica la FFT es en el análisis de una cuerda vibrante, como la de una guitarra. Cuando se pulsa la cuerda, esta vibra en una combinación de frecuencias (modo fundamental y armónicos). Al aplicar la FFT a una grabación de dicha vibración, se puede obtener el espectro que muestra las componentes sinusoidales presentes en la señal.
+
+\subsubsection*{Ejemplo en Python:}
+
+El siguiente script genera una señal compuesta por dos frecuencias puras (50 Hz y 120 Hz) y calcula su espectro usando la FFT:
+
+\begin{center}
+\begin{minted}{python}
+# Parámetros de muestreo
+fs = 1000  # Hz
+t = np.linspace(0, 1, fs, endpoint=False)
+
+# Señal compuesta por dos frecuencias
+signal = np.sin(2 * np.pi * 50 * t) + 0.5 * np.sin(2 * np.pi * 120 * t)
+
+# FFT
+fft_vals = np.fft.fft(signal)
+freqs = np.fft.fftfreq(len(signal), 1/fs)
+magnitude = np.abs(fft_vals)
+
+# Gráfico del espectro
+plt.figure(figsize=(8, 3))
+plt.plot(freqs[:fs//2], magnitude[:fs//2], color='purple')
+plt.title("FFT de señal compuesta (50 Hz y 120 Hz)")
+plt.xlabel("Frecuencia [Hz]")
+plt.ylabel("Magnitud")
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+\end{minted}
+\end{center}
+
+El resultado muestra dos picos bien definidos en las frecuencias de 50 Hz y 120 Hz, lo cual confirma que la señal original está compuesta por dichas componentes sinusoidales.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\linewidth]{img/FFT.png}
+    \caption{Espectro de magnitudes obtenido mediante la FFT de una señal compuesta.}
+\end{figure}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

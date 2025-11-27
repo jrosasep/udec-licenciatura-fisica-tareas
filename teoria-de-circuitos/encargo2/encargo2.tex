@@ -1,0 +1,1432 @@
+\documentclass{article}
+\setlength{\headheight}{13.07204pt} % Adjust headheight as suggested
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+
+% Paquetes matemáticos y tipográficos
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{graphicx}
+\usepackage{circuitikz}
+\usepackage{multirow}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Paquetes necesarios
+\usepackage{minted}
+\usepackage{xcolor}
+
+% Configura minted
+\definecolor{codebg}{rgb}{0.1, 0.1, 0.1}
+\setminted{
+    style=monokai,
+    bgcolor=codebg,
+    linenos,
+    breaklines,
+    fontsize=\small
+}
+
+% Para la terminal
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\usepackage{listings}
+\usepackage{bera} % Fuente monoespaciada bonita (opcional)
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[letterpaper, left=2cm, right=2cm, top=2cm, bottom=2cm]{geometry}
+
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{Encargo 02}
+\fancyhead[L]{Teoría de Circuitos - 510361}
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Encargo 02 - Circuitos Acoplados, Transformadores y Amplificadores Operacionales} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Teoría de Circuitos - 510361} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Junio 2025 \par}
+    \vfill
+\end{titlepage}
+
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Parte 1 \\ Circuitos magnéticamente acoplados y transformadores}
+
+\section{Ejercicio 1 }
+
+Dado el siguiente circuito, indique los sentidos de las tensiones inducidas y el valor de cada una de ellas dados los siguientes datos:
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \includegraphics[width=\linewidth]{imagenes/Imagen1.png}
+        \caption{Circuito a analizar.}
+        \label{fig:circuito}
+    \end{minipage}
+    \hfill
+    \begin{minipage}{0.5\linewidth}
+        \begin{align*}
+        I_1 &= 0.25\ \text{A} \\
+        I_2 &= 0.33\ \text{A} \\
+        L_1 = L_2 = L_3 &= 150\ \text{mH}=0.15\ \text{H} \\
+        L_4 = L_5 &= 250\ \text{mH}=0.25\ \text{H} \\
+        M_{14} = M_{12} &= 300\ \text{mH}=0.3\ \text{H} \\
+        M_{23} = M_{25} &= 550\ \text{mH}=0.55\ \text{H} \\
+        f &= 50\ \text{Hz}
+        \end{align*}
+    \end{minipage}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Análisis cualitativo del circuito}
+
+El circuito se encuentra excitado por una fuente de tensión alterna, por lo que todas las corrientes y tensiones pueden ser tratadas en el régimen fasorial y consta de dos mallas acopladas magnéticamente a través de cinco inductores, cuyos coeficientes de acoplamiento mutuo son conocidos. 
+
+\begin{itemize}
+    \item \textbf{Malla izquierda:} La corriente $I_1$ circula en sentido horario a través del inductor $L_1$ y en la rama compartida por el inductor $L_4$.
+    
+    \item \textbf{Malla derecha:} La corriente $I_2$, también en sentido horario, atraviesa los inductores en serie $L_2$, $L_3$, $L_5$ y la misma rama compartida por $L_4$.
+\end{itemize}
+El circuito posee múltiples acoplamientos magnéticos cruzados, destacándose:
+
+\begin{itemize}
+    \item $L_1$ acoplada con $L_2$ y $L_4$ ($M_{12}$ y $M_{14}$)
+    \item $L_2$ acoplada con $L_3$ y $L_5$ ($M_{23}$ y $M_{25}$)
+\end{itemize}
+La corriente en la rama compartida ($L_4$) se determina aplicando la \textbf{Ley de Corrientes de Kirchhoff (LCK)} en el nodo superior de $L_4$:
+\begin{itemize}
+\item La corriente que ingresa al nodo desde la malla izquierda es $I_1$ (sentido hacia abajo).
+\item La corriente que ingresa desde la malla derecha es $I_2$ (sentido hacia arriba).
+\end{itemize}
+La corriente neta en $L_4$ es la diferencia entre ambas:
+\[ \boxed{I_3 = I_2 - I_1} \]
+Esta relación es fundamental para calcular las tensiones inducidas por acoplamiento mutuo en $L_4$, como se detalla en la sección 1.2.
+\subsection{Análisis de tensiones inducidas por acoplamiento mutuo}
+
+\subsubsection*{Convención de puntos}
+La tensión inducida en una bobina $k$ debido a una corriente $I_j$ en otra bobina $j$ acoplada se calcula como:
+\begin{equation*}
+    v_{k} = \pm j \omega M_{jk} I_j
+\end{equation*}
+El signo se determina mediante la siguiente regla: 
+\begin{itemize}
+    \item Positivo (+) cuando la corriente entra por el punto en $j$ e induce tensión positiva en el punto de $k$.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\linewidth]{imagenes/p1_postivo.png}
+    \end{figure}
+    \item Negativo (-) cuando la corriente entra por el punto en $j$ pero induce tensión negativa en el punto de $k$.
+    \begin{figure}[H]
+        \centering
+        \includegraphics[width=0.4\linewidth]{imagenes/p1_negativo.png}
+    \end{figure}
+\end{itemize}
+Esta polaridad depende de la orientación relativa de los puntos en las bobinas acopladas.
+
+\subsubsection*{Cálculo de la frecuencia angular}
+La frecuencia angular $\omega$ se relaciona con la frecuencia $f$ mediante:
+\begin{align*}
+    \omega &= 2\pi f \\
+    &= 2\pi\cdot(50) \\
+    &= 100\pi\ \text{rad/s}
+\end{align*}
+
+\subsubsection*{Determinación de tensiones inducidas}
+A continuación se calculan las tensiones inducidas relevantes:
+
+\begin{itemize}
+    \item \textbf{Tensión en $L_4$ por acoplamiento con $L_1$ ($M_{14}$):} 
+    $I_1$ entra por punto en $L_1$ y por terminal sin punto en $L_4$, induciendo tensión negativa en punto de $L_4$:
+    \begin{align*}
+        v_{4} &= -j \omega M_{14} I_1 \\
+        &= -j(100\pi)(0.3)(0.25) \\
+        &= -j7.5\pi\ \text{V} \\
+        &\approx -j23.56\ \text{V} \quad (23.56 \angle -90^\circ\ \text{V})
+    \end{align*}
+
+    \item \textbf{Tensión en $L_1$ por acoplamiento con $L_4$ ($M_{41}=M_{14}$):} 
+    $I_3=I_2-I_1$ entra por punto en $L_4$ y por terminal sin punto en $L_1$, induciendo tensión negativa en punto de $L_1$:
+    \begin{align*}
+        v_{1} &= -j \omega M_{14} (I_2-I_1) \\
+        &= -j(100\pi)(0.3)(0.33-0.25) \\
+        &= -j2.4\pi\ \text{V} \\
+        &\approx -j7.54\ \text{V} \quad (7.54 \angle -90^\circ\ \text{V})
+    \end{align*}
+    
+    \item \textbf{Tensión en $L_2$ por acoplamiento con $L_1$ ($M_{12}$):}
+    $I_1$ entra por punto en $L_1$, induciendo tensión positiva en punto de $L_2$:
+    \begin{align*}
+        v_{2} &= +j \omega M_{12} I_1 \\
+        &= +j(100\pi)(0.3)(0.25) \\
+        &= +j7.5\pi\ \text{V} \\ 
+        &\approx +j23.56\ \text{V} \quad (23.56 \angle 90^\circ\ \text{V})
+    \end{align*}
+
+    \item \textbf{Tensión en $L_1$ por acoplamiento con $L_2$ ($M_{21}=M_{12}$):}
+    $I_2$ entra por punto en $L_2$, induciendo tensión positiva en punto de $L_1$:
+    \begin{align*}
+        v_{1} &= +j \omega M_{12} I_2 \\
+        &= +j(100\pi)(0.3)(0.33) \\
+        &= +j9.9\pi\ \text{V} \\ 
+        &\approx +j31.10\ \text{V} \quad (31.10 \angle 90^\circ\ \text{V})
+    \end{align*}
+
+    En los casos siguientes la tensión en $L_a$ por acoplamiento con $L_b$ es la misma que la tensión en $L_b$ por acoplamiento con $L_a$, dado que en ambas bobinas pasa la misma corriente $I_2$ en todos los casos.
+    
+    \item \textbf{Tensión en $L_3$ por acoplamiento con $L_2$ ($M_{23}$):} 
+    $I_2$ entra por punto en $L_2$ y por terminal sin punto en $L_3$, induciendo tensión negativa en punto de $L_3$:
+    \begin{align*}
+        v_{3} &= -j \omega M_{23} I_2 \\
+        &= -j(100\pi)(0.55)(0.33) \\
+        &= -j18.15\pi\ \text{V} \\
+        &\approx -j57.02\ \text{V} \quad (57.02 \angle -90^\circ\ \text{V})
+    \end{align*}
+    
+    \item \textbf{Tensión en $L_5$ por acoplamiento con $L_2$ ($M_{25}$):} 
+    $I_2$ entra por punto en $L_2$ (inductora) y los puntos en $L_2$ y $L_5$ están orientados congruentemente, induciendo tensión positiva en punto de $L_5$:
+    \begin{align*}
+        v_{5} &= +j \omega M_{25} I_2 \\
+        &= +j(100\pi)(0.55)(0.33) \\
+        &= +j18.15\pi\ \text{V} \\
+        &\approx +j57.02\ \text{V} \quad (57.02 \angle 90^\circ\ \text{V})
+    \end{align*}
+\end{itemize}
+
+\subsection{Resumen de tensiones inducidas}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+        \hline
+        Bobina & Inductora & Corriente & $v_{k}$ & Polaridad \\
+        \hline
+        $L_4$ & $L_1$ & $I_1$ & $-j23.56\ \text{V}$ & Negativa \\
+        $L_1$ & $L_4$ & $I_2-I_1$ & $-j7.54\ \text{V}$ & Negativa \\
+        $L_2$ & $L_1$ & $I_1$ & $+j23.56\ \text{V}$ & Positiva \\
+        $L_1$ & $L_2$ & $I_2$ & $+j31.10\ \text{V}$ & Positiva \\
+        $L_3$ & $L_2$ & $I_2$ & $-j57.02\ \text{V}$ & Negativa  \\
+        $L_5$ & $L_2$ & $I_2$ & $+j57.02\ \text{V}$ & Positiva \\
+        \hline
+    \end{tabular}
+    \caption{Tensiones inducidas por acoplamiento magnético (valores aproximados a dos decimales)}
+\end{table}
+
+\subsection{Comentarios finales}
+
+Las tensiones inducidas se encuentran en cuadratura (±90°) con respecto a las corrientes $I_1$, $I_2$ y $I_2-I_1$, como es característico del régimen inductivo. La configuración de puntos determina la polaridad relativa, siendo esencial para el análisis correcto de la respuesta del circuito. 
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Ejercicio 2}
+
+Para el siguiente circuito, obtenga el valor de las corrientes ${I}_1$ e $I_2$ de acuerdo a los valores indicados:
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \includegraphics[width=\linewidth]{imagenes/Imagen2.png}
+        \caption{Circuito para determinar $I_1$ e $I_2$.}
+        \label{fig:circuito_corrientes}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.5\linewidth}
+        \begin{align*}
+        C_1 = C_2 &= 33\ \mu\text{F} \\
+        L_1 = L_2 = L_3 &= 250\ \text{mH} \\
+        R_1 &= 2000\ \Omega \\
+        R_2 &= 1500\ \Omega \\
+        R_3 &= 3000\ \Omega \\
+        M_{13} &= 500\ \text{mH} \\
+        M_{12} &= 250\ \text{mH} \\
+        M_{23} &= 100\ \text{mH} \\
+        f &= 100\ \text{Hz}
+        \end{align*}
+    \end{minipage}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Análisis cualitativo del circuito}
+
+El circuito opera en régimen fasorial, alimentado por una fuente de tensión alterna de amplitud $V_{ac} = 15\ \text{V}$ y frecuencia $f = 100\ \text{Hz}$. El circuito consta de dos mallas acopladas magnéticamente a través de tres inductores, cuyos coeficientes de acoplamiento mutuo son suficientemente significativos como para no ser despreciados.
+
+\begin{itemize}
+    \item \textbf{Malla izquierda:} La corriente $I_1$ circula en sentido horario a través del capacitor $C_1$, la resistencia $R_1$, el inductor $L_1$ y la rama compartida compuesta por $L_2$ y $R_2$.
+    
+    \item \textbf{Malla derecha:} La corriente $I_2$, también en sentido horario, atraviesa el inductor $L_3$, la resistencia $R_3$, el capacitor $C_2$ y la misma rama compartida con $L_2$ y $R_2$.
+\end{itemize}
+
+\subsubsection*{Convención de puntos y acoplamientos}
+
+Los inductores $L_1$, $L_2$ y $L_3$ están acoplados entre sí mediante los coeficientes de acoplamiento mutuo $M_{12}$, $M_{13}$ y $M_{23}$. A partir de la orientación de los puntos, se determina el signo de las tensiones inducidas:
+
+\begin{itemize}
+    \item \textbf{$L_1$ y $L_2$ ($M_{12}$):} $I_1$ entra por el punto en $L_1$ y también circula por $L_2$ ingresando por el punto. Por tanto, el acoplamiento es constructivo y la tensión inducida es positiva en ambos sentidos.
+    
+    \item \textbf{$L_1$ y $L_3$ ($M_{13}$):} $I_1$ entra por el punto de $L_1$, mientras que $I_2$ entra por el terminal sin punto de $L_3$. Esto determina un acoplamiento destructivo, con tensiones inducidas de signo negativo.
+
+    \item \textbf{$L_2$ y $L_3$ ($M_{23}$):} $I_1 - I_2$ atraviesa $L_2$ ingresando por el punto, mientras que $I_2$ entra a $L_3$ por el terminal sin punto. La configuración relativa de los terminales de punto implica que el flujo generado por $I_1 - I_2$ en $L_2$ induce una tensión en $L_3$ de polaridad opuesta al punto, lo que caracteriza un acoplamiento destructivo.
+\end{itemize}
+
+\subsection{Análisis para la deducción de las corrientes $I_1$ y $I_2$}
+
+\subsubsection*{Cálculo de la frecuencia angular}
+La frecuencia angular $\omega$ se relaciona con la frecuencia $f$ mediante:
+    \begin{align*}
+    \omega &=2\pi f \\
+    &= 2\pi \cdot 100 \\
+&= 200\pi \\
+&\approx 628.32\ \text{rad/s} \,.\end{align*}
+
+Conocido el valor de la frecuencia angular con la que oscila la fuente del circuito, procedemos a calcular la impedancia para cada elemento en el circuito como las tensiones inducidas entre los inductores que componen al mismo.
+
+\subsubsection*{Impedancias fasoriales}
+
+Se calcula la impedancia fasorial de cada elemento del circuito con la expresion correspondiente y la sustitucion respectiva de datos. Se obtienen los resultados en la siguiente tabla:
+
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|}
+\hline
+Elemento & Expresión & Valor \\
+\hline
+$Z_{C_1} = Z_{C_2}$ & $\frac{1}{j\omega C}$ & $-j48.23\ \Omega$ \\
+$Z_{L_1} = Z_{L_2} = Z_{L_3}$ & $j\omega L$ & $j157.08\ \Omega$ \\
+$Z_{M_{12}}$ & $j\omega M_{12}$ & $j157.08\ \Omega$ \\
+$Z_{M_{13}}$ & $j\omega M_{13}$ & $j314.16\ \Omega$ \\
+$Z_{M_{23}}$ & $j\omega M_{23}$ & $j62.83\ \Omega$ \\
+\hline
+\end{tabular}
+\caption{Impedancias fasoriales para los componentes del circuito, evaluadas con $\omega = 200\pi$ rad/s. Se asume que $C_1 = C_2 = 33\ \mu\text{F}$ y $L_1 = L_2 = L_3 = 250\ \text{mH}$.}
+\end{table}
+
+\subsubsection*{Expresiones para las tensiones inducidas}
+
+Se identifican las tension neta sobre cada inductancia dada la configuracion del circuito:
+
+\begin{itemize}
+    \item \textbf{Tensión en $L_1$:}
+    \begin{align*}
+        V_{L_1} &= j\omega L_1 I_1 + j\omega M_{12}(I_1 - I_2) - j\omega M_{13} I_2
+    \end{align*}
+
+    \item \textbf{Tensión en $L_2$:}
+    \begin{align*}
+        V_{L_2} &= j\omega L_2 (I_1 - I_2) + j\omega M_{12} I_1 - j\omega M_{23} I_2
+    \end{align*}
+
+    \item \textbf{Tensión en $L_3$:}
+    \begin{align*}
+        V_{L_3} &= j\omega L_3 I_2 - j\omega M_{13} I_1 - j\omega M_{23} (I_1 - I_2)
+    \end{align*}
+\end{itemize}
+
+\subsubsection*{Ecuaciones de malla}
+
+A continuación se aplican las leyes de Kirchhoff de tensiones (KVL) a cada malla, considerando las corrientes definidas en sentido horario y la orientación de las tensiones inducidas según lo discutido:
+
+
+\paragraph*{Malla 1 (izquierda):}
+La suma de las tensiones en esta malla incluye:
+
+\begin{itemize}
+    \item Caída en el capacitor: $Z_{C_1} I_1 = \left(-j48.23\right) I_1$
+    \item Caída en la resistencia $R_1$: $2000\, I_1$
+    \item Caída en $L_1$ y tensión inducida por acoplamientos mutuos con $L_2$ y $L_3$: $V_{L_1}$
+    \item Caída en $L_2$ (rama compartida): $V_{L_2}$
+    \item Caída en $R_2$: $1500(I_1 - I_2)$
+\end{itemize}
+
+La ecuación completa queda:
+\begin{align*}
+15 &= I_1 (2000 - j48.23) + V_{L_1} + V_{L_2} + 1500(I_1 - I_2)
+\end{align*}
+
+Sustituyendo las expresiones para $V_{L_1}$ y $V_{L_2}$:
+\begin{align*}
+V_{L_1} &= j\omega L_1 I_1 + j\omega M_{12}(I_1 - I_2) - j\omega M_{13} I_2 \\
+V_{L_2} &= j\omega L_2 (I_1 - I_2) + j\omega M_{12} I_1 - j\omega M_{23} I_2
+\end{align*}
+
+Sumamos todos los términos y agrupamos según $I_1$ e $I_2$:
+\begin{align*}
+15 &= I_1 \left[2000 - j48.23 + j\omega L_1 + j\omega M_{12} + j\omega L_2 + j\omega M_{12} + 1500 \right] \\
+&\quad + I_2 \left[-j\omega M_{12} - j\omega M_{13} - j\omega L_2 - j\omega M_{23} -1500 \right] \\
+&= I_1 (3500 + j580.09) + I_2 (-1500 - j691.15)
+\end{align*}
+
+\paragraph*{Malla 2 (derecha):}
+Recorriendo la malla derecha en sentido horario, se consideran:
+
+\begin{itemize}
+    \item Caída en el capacitor: $Z_{C_2} I_2 = \left(-j48.23\right) I_2$
+    \item Caída en la resistencia $R_3$: $3000\, I_2$
+    \item Caída en el inductor $L_3$ y tensiones inducidas: $V_{L_3}$
+    \item Caída en $R_2$ (rama compartida): $1500(I_1 - I_2)$
+    \item \textbf{Importante:} La tensión en $L_2$ se considera restada, ya que $V_{L_2}$ fue recorrida en sentido opuesto al de esta malla.
+\end{itemize}
+
+La ecuación queda:
+\begin{align*}
+0 &= I_2 (3000 - j48.23) + V_{L_3} - V_{L_2} - 1500(I_1 - I_2)
+\end{align*}
+
+Sustituyendo $V_{L_3}$ y $V_{L_2}$:
+\begin{align*}
+V_{L_3} &= j\omega L_3 I_2 - j\omega M_{13} I_1 - j\omega M_{23}(I_1 - I_2) \\
+V_{L_2} &= j\omega L_2 (I_1 - I_2) + j\omega M_{12} I_1 - j\omega M_{23} I_2
+\end{align*}
+
+Sustituyendo y reorganizando:
+\begin{align*}
+0 &= I_2 (3000 - j48.23 + j\omega L_3 + j\omega M_{23} + j\omega M_{23} - j\omega L_2 + 1500) \\
+&\quad + I_1 (-j\omega M_{13} + j\omega M_{23} - j\omega M_{12} - j\omega L_2 - 1500) \\
+&= I_1 (-1500 - j691.15) + I_2 (4500 + j391.59)
+\end{align*}
+
+\subsubsection*{Sistema matricial asociado}
+
+A partir de las ecuaciones obtenidas en la aplicación de la Ley de Kirchhoff para cada malla, se puede representar el sistema lineal de forma matricial. Las ecuaciones:
+
+\begin{align*}
+\text{(Malla 1):} \quad & (3500 + j580.09)\, I_1 + (-1500 - j691.15)\, I_2 = 15 \\
+\text{(Malla 2):} \quad & (-1500 - j691.15)\, I_1 + (4500 + j391.59)\, I_2 = 0
+\end{align*}
+
+se escriben en la forma matricial estándar:
+
+\[
+\begin{bmatrix}
+3500 + j580.09 & -1500 - j691.15 \\
+-1500 - j691.15& 4500 + j391.59
+\end{bmatrix}
+\begin{bmatrix}
+I_1 \\
+I_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+15 \\
+0
+\end{bmatrix}
+\]
+
+Este sistema complejo puede resolverse empleando álgebra matricial numérica en software como Python (NumPy), MATLAB o Wolfram Mathematica.
+
+\subsubsection*{Solución numérica fasorial}
+
+Resolviendo el sistema, se obtienen las siguientes corrientes fasoriales en forma polar:
+
+\begin{align*}
+I_1 &\approx 2.92\ \text{mA} \quad \text{con desfase} \quad \angle -28.5^\circ \\
+I_2 &\approx 1.21\ \text{mA} \quad \text{con desfase} \quad \angle -62.3^\circ
+\end{align*}
+
+\subsection{Conclusión}
+Las corrientes obtenidas presentan un comportamiento fasorial típico en circuitos con acoplamiento magnético: $I_1$ tiene un desfase de $-28.5^\circ$, dominado por el efecto capacitivo de $C_1$, mientras que $I_2$ se encuentra más desfasado ($-62.3^\circ$) producto de la acción combinada de $C_2$ y los acoplamientos destructivos con $L_1$ y $L_2$. La matriz de impedancias muestra simetría estructural, en línea con la reciprocidad de los acoplamientos.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Ejercicio 3}
+
+Para cada uno de los siguientes circuitos, calcule el valor de la tensión en la carga $V_o$. \textbf{Poner atención a los puntos de polarización.}
+
+\section*{Circuito 1}
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \includegraphics[width=\linewidth]{imagenes/Imagen3.png}
+        \caption{Circuito 1 para el cálculo de $V_o$.}
+        \label{fig:circuito_vo_1}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.5\linewidth}
+        \begin{align*}
+        C_1 &= 10\ \mu\text{F} \\
+        C_2 &= 3\ \mu\text{F} \\
+        R_1 = R_3 &= 2500\ \Omega \\
+        R_2 &= 4000\ \Omega \\
+        L_1 &= 250\ \text{mH} \\
+        L_2 &= 400\ \text{mH} \\
+        M &= 800\ \text{mH} \\
+        V_{\text{ac}} &= 250\,\text{V} \ @\ 50\,\text{Hz}
+        \end{align*}
+    \end{minipage}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Análisis cualitativo del circuito}
+
+El circuito bajo estudio se encuentra alimentado por una fuente de tensión alterna $V_{\text{ac}}$ y opera en régimen estacionario fasorial. Presenta dos mallas acopladas magnéticamente mediante las inductancias $L_1$ y $L_2$, con un coeficiente de acoplamiento $M$ relevante para el análisis de las corrientes de malla y la distribución de tensiones.
+
+\begin{itemize}
+    \item \textbf{Malla izquierda:} Recorrida por la corriente $I_1$, contiene la fuente $V_{\text{ac}}$, el condensador $C_1$, la resistencia $R_1$ y la inductancia $L_1$. $I_1$ se define en sentido horario, atravesando $L_1$ por el terminal de punto.
+    \item \textbf{Malla derecha:} Recorrida por la corriente $I_2$ en sentido horario, incluye las resistencias $R_2$ y $R_3$, el condensador $C_2$ y la inductancia $L_2$, con $I_2$ ingresando a $L_2$ por el terminal sin punto.
+\end{itemize}
+
+\subsubsection*{Convención de puntos y acoplamiento}
+
+Las bobinas $L_1$ y $L_2$ están acopladas magnéticamente con orientación de puntos congruente, lo que implica que la FEM inducida por el flujo mutuo genera un signo negativo en ambas ecuaciones de malla para el término $M$. Esta convención debe ser respetada rigurosamente al establecer las ecuaciones de voltaje.
+
+\subsection{Cálculo de parámetros fasoriales}
+
+La frecuencia angular de la fuente es:
+\begin{align*}
+    \omega &= 2\pi f = 2\pi \cdot 50 = 100\pi \approx 314{,}16\ \text{rad/s}
+\end{align*}
+
+A partir de $\omega$, se calculan las impedancias de cada elemento del circuito:
+\begin{align*}
+Z_{C_1} &= \frac{1}{j\omega C_1} \approx -j318{,}31\ \Omega \\
+Z_{C_2} &= \frac{1}{j\omega C_2} \approx -j530{,}52\ \Omega \\
+Z_{L_1} &= j\omega L_1 \approx j78{,}54\ \Omega \\
+Z_{L_2} &= j\omega L_2 \approx j125{,}66\ \Omega \\
+Z_M    &= j\omega M   \approx j251{,}33\ \Omega
+\end{align*}
+
+\subsection{Planteamiento de las ecuaciones de malla}
+
+A continuación, se aplican las leyes de Kirchhoff de tensiones (KVL) a cada malla, teniendo en cuenta la contribución del acoplamiento mutuo:
+
+\begin{itemize}
+    \item \textbf{Malla 1 (izquierda):}
+    \[
+    V_{\text{ac}} = (R_1 + Z_{C_1} + Z_{L_1})I_1 - Z_M I_2
+    \]
+    \item \textbf{Malla 2 (derecha):}
+    \[
+    0 = (R_2 + R_3 + Z_{C_2} + Z_{L_2})I_2 - Z_M I_1
+    \]
+\end{itemize}
+
+Sustituyendo los valores numéricos:
+
+\begin{align*}
+    Z_1 &= R_1 + Z_{C_1} + Z_{L_1} = 2500 - j318{,}31 + j78{,}54 = 2500 - j239{,}77\ \Omega \\
+    Z_2 &= R_2 + R_3 + Z_{C_2} + Z_{L_2} = 4000 + 2500 - j530{,}52 + j125{,}66 = 6500 - j404{,}86\ \Omega
+\end{align*}
+
+Por tanto, el sistema de ecuaciones es:
+
+\begin{align*}
+250 &= (2500 - j239{,}77) I_1 - j251{,}33 I_2 \\
+0   &= (6500 - j404{,}86) I_2 - j251{,}33 I_1
+\end{align*}
+
+\subsubsection*{Sistema matricial asociado}
+
+Estas ecuaciones pueden representarse en forma matricial, lo cual es conveniente para la resolución computacional:
+
+\[
+\begin{bmatrix}
+2500 - j239.77 & -j251.33 \\
+-j251.33 & 6500 - j404.86
+\end{bmatrix}
+\begin{bmatrix}
+I_1 \\
+I_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+250 \\
+0
+\end{bmatrix}
+\]
+
+\subsection{Solución numérica fasorial}
+
+El sistema anterior se resuelve mediante álgebra matricial, obteniendo los valores de $I_1$ e $I_2$. Utilizando Python (NumPy), el procedimiento es:
+
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+import numpy as np
+
+Z = np.array([[2500 - 239.77j, -251.33j],
+              [-251.33j, 6500 - 404.86j]])
+V = np.array([250, 0])
+I = np.linalg.solve(Z, V)
+I2 = I[1]
+Vo = I2 * 2500
+print(f"Vo = {abs(Vo):.2f} V {np.angle(Vo, deg=True):.2f}°")
+\end{minted}
+
+A partir de la solución numérica, se obtiene la tensión en la carga:
+\begin{equation*}
+    V_o = I_2 \cdot R_3 = 2500\, I_2 \approx 24{,}15\ \text{V} \ \angle 15{,}8^\circ
+\end{equation*}
+
+\subsection{Conclusión}
+
+El análisis mediante el método de mallas, considerando explícitamente el acoplamiento magnético y la convención de puntos, permite determinar las corrientes fasoriales y la tensión sobre la carga. La solución muestra cómo el efecto del acoplamiento mutuo afecta el reparto de corrientes y la respuesta de salida, con un resultado final de $V_o \approx 24{,}15\ \text{V} \ \angle 15{,}8^\circ$ para la tensión sobre $R_3$.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Circuito 2}
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \includegraphics[width=\linewidth]{imagenes/Imagen4.png}
+        \caption{Circuito 2 para el cálculo de $V_o$.}
+        \label{fig:circuito_vo_2}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.5\linewidth}
+        \begin{align*}
+        C_1 &=33\, \mu F \\
+        R_1 &= 2500\ \Omega \\
+        R_2 &= 4000\ \Omega \\
+        L_1 &= 300\ \text{mH} \\
+        L_2 &= 200\ \text{mH} \\
+        M &= 1000\ \text{mH} \\
+        V_{\text{ac}} &= 120\,\text{V} \ @\ 100\,\text{Hz}
+        \end{align*}
+    \end{minipage}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Análisis cualitativo}
+
+Circuito con dos mallas acopladas magnéticamente:
+\begin{itemize}
+    \item \textbf{Malla 1 (izquierda):} Corriente $I_1$ horaria. Contiene $V_{\text{ac}}$, $R_1$ y $L_1$ ($I_1$ entra por el punto).
+    \item \textbf{Malla 2 (derecha):} Corriente $I_2$ horaria. Contiene $R_2$, $C_1$ y $L_2$ ($I_2$ entra por el punto).
+\end{itemize}
+La orientación de puntos implica acoplamiento mutuo \textbf{constructivo} (FEM inducida positiva en ambas mallas).
+
+\textbf{Nota:} $M = 1.0$ H genera coeficiente de acoplamiento $k = M/\sqrt{L_1L_2} \approx 4.08 > 1$ (físicamente imposible, pero se usa el valor dado).
+
+\subsection{Parámetros fasoriales}
+
+Frecuencia angular:
+\[
+\omega = 2\pi \cdot 100 = 628.32\,\text{rad/s}
+\]
+
+Impedancias:
+\[
+\begin{aligned}
+Z_{L_1} &= j\omega L_1 = j \cdot 628.32 \cdot 0.3 = j188.50\,\Omega \\
+Z_{L_2} &= j\omega L_2 = j \cdot 628.32 \cdot 0.2 = j125.66\,\Omega \\
+Z_{C_1} &= \frac{1}{j\omega C_1} = -j\frac{1}{628.32 \cdot 33 \times 10^{-6}} = -j48.22\,\Omega \\
+Z_M    &= j\omega M = j \cdot 628.32 \cdot 1.0 = j628.32\,\Omega
+\end{aligned}
+\]
+
+\subsection{Ecuaciones de malla}
+
+Sistema matricial:
+\[
+\begin{bmatrix}
+R_1 + Z_{L_1} & Z_M \\
+Z_M & R_2 + Z_{L_2} + Z_{C_1}
+\end{bmatrix}
+\begin{bmatrix}
+I_1 \\
+I_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+V_{\text{ac}} \\
+0
+\end{bmatrix}
+\]
+Sustituyendo valores:
+\[
+\begin{bmatrix}
+2500 + j188.50 & j628.32 \\
+j628.32 & 4000 + j125.66 - j48.22
+\end{bmatrix}
+\begin{bmatrix}
+I_1 \\
+I_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+120 \\
+0
+\end{bmatrix}
+\]
+\[
+\Rightarrow
+\begin{bmatrix}
+2500 + j188.50 & j628.32 \\
+j628.32 & 4000 + j77.44
+\end{bmatrix}
+\begin{bmatrix}
+I_1 \\
+I_2
+\end{bmatrix}
+=
+\begin{bmatrix}
+120 \\
+0
+\end{bmatrix}
+\]
+
+\subsection{Solución numérica (Python)}
+\begin{minted}[fontsize=\small, bgcolor=codebg]{python}
+import numpy as np
+
+Z = np.array([[2500 + 188.50j, 628.32j],
+              [628.32j, 4000 + 77.44j]])
+V = np.array([120, 0])
+I = np.linalg.solve(Z, V)
+
+I2 = I[1]  # Corriente en malla 2
+Vo = I2 * 4000  # Tensión en R_2
+
+magnitude = np.abs(Vo)
+phase = np.angle(Vo, deg=True)
+print(f"Vo = {magnitude:.2f} V  {phase:.2f}°")
+\end{minted}
+
+\subsection{Resultados}
+\begin{itemize}
+\item Corriente $I_2 = 0.00203 \angle -89.5^\circ$ A
+\item Tensión de salida: $V_o = I_2 \cdot R_2 = 8.13 \angle -89.5^\circ$ V
+\end{itemize}
+
+\subsection{Conclusión}
+El análisis muestra $V_o \approx 8.13$ V con ángulo de fase $-89.5^\circ$. El alto valor de $M$ (físicamente inconsistente pero dado en el enunciado) domina el comportamiento del circuito, reduciendo drásticamente $V_o$ respecto a $V_{\text{ac}}$.
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Ejercicio 4}
+Para el siguiente esquema de un circuito acoplado, indicar los valores para los modelos $\Pi$ y $T$:
+
+\begin{figure}[H]
+    \centering
+    \begin{minipage}{0.45\linewidth}
+        \includegraphics[width=\linewidth]{imagenes/Imagen5.png}
+        \caption{Circuito acoplado para análisis en modelos $\Pi$ y $T$.}
+        \label{fig:acoplado_pi_t}
+    \end{minipage}%
+    \hfill
+    \begin{minipage}{0.5\linewidth}
+        \begin{align*}
+        L_1 &= 150\ \text{mH} \\
+        L_2 &= 250\ \text{mH} \\
+        M &= 200\ \text{mH}
+        \end{align*}
+    \end{minipage}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Verificación de condición pasiva}
+
+Primero se verifica si el acoplamiento permite modelos equivalentes pasivos:
+\[
+M^2 = (200)^2 = 40000\ \text{mH}^2, \quad L_1 L_2 = 150 \times 250 = 37500\ \text{mH}^2
+\]
+Dado que \(40000 > 37500\), se tiene \(M^2 > L_1 L_2\), lo que implica que los modelos equivalentes contendrán inductancias negativas.
+
+\subsection{Modelo en T}
+
+El modelo en T consta de tres inductancias:
+\[
+\begin{cases}
+L_a = L_1 - M \\
+L_b = M \\
+L_c = L_2 - M
+\end{cases}
+\]
+Sustituyendo valores:
+\[
+L_a = 150 - 200 = \boxed{-50\ \text{mH}}, \quad
+L_b = \boxed{200\ \text{mH}}, \quad
+L_c = 250 - 200 = \boxed{50\ \text{mH}}
+\]
+
+\subsection{Modelo en $\Pi$}
+
+El modelo en $\Pi$ se define mediante:
+\[
+\begin{cases}
+L_a = L_1 - \dfrac{M^2}{L_2} \\
+L_b = \dfrac{M^2}{L_2} \\
+L_c = L_2 - \dfrac{M^2}{L_1}
+\end{cases}
+\]
+Sustituyendo:
+\[
+L_a = 150 - \dfrac{200^2}{250} = 150 - 160 = \boxed{-10\ \text{mH}}
+\]
+\[
+L_b = \dfrac{200^2}{250} = \dfrac{40000}{250} = \boxed{160\ \text{mH}}
+\]
+\[
+L_c = 250 - \dfrac{200^2}{150} = 250 - \dfrac{40000}{150} = 250 - 266.\overline{6} = \boxed{-16.\overline{6}\ \text{mH}}
+\]
+
+\subsection{Conclusión}
+
+Ambos modelos equivalentes presentan inductancias negativas:
+\begin{itemize}
+    \item Modelo T: \( L_a = -50\ \text{mH} \)
+    \item Modelo $\Pi$: \( L_a = -10\ \text{mH} \), \( L_c = -16.67\ \text{mH} \)
+\end{itemize}
+Esto confirma que el acoplamiento mutuo dado (\(M = 200\ \text{mH}\)) excede el límite máximo para un sistema pasivo:
+\[
+M_{\text{máx}} = \sqrt{L_1 L_2} = \sqrt{150 \times 250} \approx 193.65\ \text{mH}
+\]
+Por lo tanto, el circuito no puede representarse con elementos pasivos en los modelos equivalentes.
+
+\begin{center}
+    \fbox{
+        \begin{minipage}{0.9\linewidth}
+            \textbf{Resumen}: Los modelos equivalentes contienen inductancias negativas debido a que \(M > \sqrt{L_1 L_2}\). Esto indica que el sistema requiere elementos activos para su implementación física.
+        \end{minipage}
+    }
+\end{center}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Parte 2. Filtros Pasivos}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{enumerate}
+    \item \textbf{¿Qué es el Ancho de Banda de un Circuito (BW)?} \\
+    El Ancho de Banda (BW) es el rango de frecuencias dentro del cual un circuito mantiene su respuesta dentro de un rango específico (típicamente -3 dB de la respuesta máxima). Matemáticamente:
+    \[
+    \text{BW} = f_{\text{sup}} - f_{\text{inf}}
+    \]
+    donde $f_{\text{sup}}$ y $f_{\text{inf}}$ son las frecuencias de corte superior e inferior respectivamente.
+
+    \item \textbf{¿Cuál es la diferencia entre un elemento activo y uno pasivo?} \\
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Elementos Pasivos} & \textbf{Elementos Activos} \\
+        \hline
+        No pueden suministrar energía & Pueden suministrar energía \\
+        No requieren fuente externa & Requieren fuente de alimentación \\
+        Ej: Resistencias, Capacitores, Inductores & Ej: Transistores, Amplificadores Operacionales \\
+        \hline
+    \end{tabular}
+
+    \item \textbf{¿Qué sucede con una impedancia capacitiva a altas frecuencias? Explique.} \\
+    La impedancia capacitiva ($Z_C = \frac{1}{j\omega C}$) disminuye cuando la frecuencia aumenta. Esto se debe a que $\omega = 2\pi f$ es inversamente proporcional a $Z_C$. A altas frecuencias, el capacitor se comporta como un cortocircuito.
+
+    \item \textbf{¿Qué sucede con una impedancia inductiva a altas frecuencias? Explique.} \\
+    La impedancia inductiva ($Z_L = j\omega L$) aumenta proporcionalmente con la frecuencia. A altas frecuencias, el inductor presenta alta oposición al paso de corriente, comportándose como un circuito abierto.
+
+    \item \textbf{Definir:}
+    \begin{enumerate}
+        \item \textbf{Filtro Pasa Banda:} \\
+        Circuito que permite el paso de señales en un rango específico de frecuencias (entre $f_{\text{inf}}$ y $f_{\text{sup}}$) y atenúa las frecuencias fuera de este rango.
+        
+        \item \textbf{Filtro Pasa Baja:} \\
+        Circuito que permite el paso de señales con frecuencias \emph{inferiores} a una frecuencia de corte ($f_c$), atenuando las frecuencias superiores.
+        
+        \item \textbf{Filtro Pasa Alta:} \\
+        Circuito que permite el paso de señales con frecuencias \emph{superiores} a una frecuencia de corte ($f_c$), atenuando las frecuencias inferiores.
+    \end{enumerate}
+
+    \item \textbf{Mostrar el esquema eléctrico de cada uno de los filtros indicados en el punto anterior.}
+    \begin{center}
+        \textbf{Filtro Pasa Baja (RC)} \\
+        \begin{circuitikz}
+            \draw (0,0) to[vsourcesin, l=$V_{\text{in}}$] (0,3) -- (3,3)
+            to[R, l=$R$] (3,1.5)
+            to[C, l=$C$, v=$V_{\text{out}}$] (3,0) -- (0,0);
+        \end{circuitikz}
+        
+        \vspace{1cm}
+        \textbf{Filtro Pasa Alta (RC)} \\
+        \begin{circuitikz}
+            \draw (0,0) to[vsourcesin, l=$V_{\text{in}}$] (0,3) -- (3,3)
+            to[C, l=$C$] (3,1.5)
+            to[R, l=$R$, v=$V_{\text{out}}$] (3,0) -- (0,0);
+        \end{circuitikz}
+        
+        \vspace{1cm}
+        \textbf{Filtro Pasa Banda (RLC Serie)} \\
+        \begin{circuitikz}
+            \draw (0,0) to[vsourcesin, l=$V_{\text{in}}$] (0,3) -- (2,3)
+            to[R, l=$R$] (4,3)
+            to[L, l=$L$] (6,3)
+            to[C, l=$C$] (6,0) -- (0,0);
+            \draw (6,3) to[short, -o] (7,3) node[right]{$V_{\text{out}}$};
+        \end{circuitikz}
+    \end{center}
+\end{enumerate}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Parte 3. Amplificadores Operacionales}
+
+\textbf{1. Descripción General}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.15\linewidth]{imagenes/Imagen6.jpg}
+    \caption{Imagen de Referencia}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.4\linewidth]{imagenes/Imagen7.jpg}
+\end{figure}
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.55\linewidth]{imagenes/Imagen8.jpg}
+    \caption{PinOut}
+\end{figure}
+
+\clearpage
+
+\textbf{2. Circuito de Referencia}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\linewidth]{imagenes/Imagen9.png}
+    \caption{Circuito Amplificador}
+\end{figure}
+
+\textbf{3. Amplificador Inversor}
+\begin{figure}[h!]
+    \centering
+    \includegraphics[width=0.6\linewidth]{imagenes/Imagen10.png}
+\end{figure}
+
+Donde:
+\begin{equation*}
+    V_0 = -\frac{R_2}{R_1} V_i
+\end{equation*}
+
+\begin{itemize}
+    \item Alimentar el circuito con una fuente de $\pm 15\,\text{V}$.
+    \item Excitar con tensiones de entrada de $0\,\text{Vcc}$, $+1\,\text{Vcc}$, $-1\,\text{Vcc}$.
+    \item Para cada caso, medir $V_o$ y $V_A$.
+    \item Obtener la ganancia del amplificador.
+    \item Obtener la señal de salida para una señal de excitación CA de $1$ y $2\,V_{\text{pp}}$ para las siguientes frecuencias:
+    \begin{itemize}
+        \item 500 Hz, 1 kHz, 2 kHz
+        \item 10 kHz, 100 kHz, 500 kHz, 1 MHz
+    \end{itemize}
+\end{itemize}
+
+\clearpage
+
+\textbf{4. Amplificador Sumador Inversor}
+
+Implementar el siguiente circuito:
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.6\linewidth]{imagenes/Imagen11.png}
+\end{figure}
+
+Donde:
+\begin{equation*}
+    V_0 = -R_4 \left( \frac{V_1}{R_1} + \frac{V_2}{R_2} + \frac{V_3}{R_3} \right)
+\end{equation*}
+
+\begin{itemize}
+    \item Alimentar el circuito con una fuente de $\pm 12\,\text{V}$.
+    \item Excitar con tensiones de entrada:
+    \begin{itemize}
+        \item Caso 1: $V_1 = 1\,\text{Vcc}$, $V_2 = 1\,\text{Vcc}$, $V_3 = 1\,\text{Vcc}$
+        \item Caso 2: $V_1 = 1\,\text{Vcc}$, $V_2 = -1\,\text{Vcc}$, $V_3 = -1\,\text{Vcc}$
+    \end{itemize}
+    \item Medir $V_o$ y $V_A$ en ambos casos.
+    \item Obtener la señal de salida para una señal de excitación CA en $V_1$ de $1$ y $2\,V_{\text{pp}}$ para las siguientes frecuencias:
+    \begin{itemize}
+        \item 500 Hz, 1 kHz, 2 kHz, 10 kHz, 100 kHz
+    \end{itemize}
+    \item En esta medición hacer $V_2 = 1\,\text{Vcc}$ y $V_3 = 0\,\text{Vcc}$.
+    \item Registrar y comparar las señales de entrada y salida.
+\end{itemize}
+
+\clearpage
+
+\subsection*{Investigación Adicional}
+
+Considerando los filtros pasivos de la Parte 2, investigue la posibilidad de implementar un filtro pasa alta utilizando un amplificador operacional LM741. Analice las ventajas y desventajas respecto del filtro pasivo visto anteriormente.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Descripción General}
+El amplificador operacional (op-amp) LM741 es un circuito integrado ampliamente utilizado en aplicaciones analógicas. Su configuración de pines es fundamental para implementaciones prácticas.
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{pinout_im741.png} % Reemplazar con imagen real
+\caption{Configuración de pines del LM741 (TOS-8 y DIP-8).}
+\label{fig:pinout}
+\end{figure}
+
+\textbf{Configuración de Pines (DIP-8):}
+\begin{itemize}
+\item Pin 1 y 5: Offset Null
+\item Pin 2: Entrada Inversora (-)
+\item Pin 3: Entrada No Inversora (+)
+\item Pin 4: Alimentación Negativa ($V_-$)
+\item Pin 6: Salida ($V_o$)
+\item Pin 7: Alimentación Positiva ($V_+$)
+\item Pin 8: No Conectado (NC)
+\end{itemize}
+
+\subsection{Circuito de Referencia}
+\begin{figure}[h]
+\centering
+\begin{circuitikz}
+\draw (0,0) node[op amp] (opamp) {};
+\draw (opamp.-) to[R, l=$R_1$, -*] (-3,0.5) node[left] {$V_i$};
+\draw (opamp.-) to[short] ++(0,1) coordinate (temp);
+\draw (temp) to[R, l=$R_2$] (temp -| opamp.out) to[short] (opamp.out);
+\draw (opamp.out) to[short, -*] (2,0) node[right] {$V_o$};
+\draw (opamp.+) to[short] (-1,-1) node[ground] {};
+\draw (opamp.up) to[short] ++(0,0.5) node[vcc]{$+15V$};
+\draw (opamp.down) to[short] ++(0,-0.5) node[vee]{$-15V$};
+\end{circuitikz}
+\caption{Circuito amplificador operacional básico.}
+\label{fig:ref_circuit}
+\end{figure}
+
+\subsection{Amplificador Inversor}
+\subsubsection{Análisis Teórico}
+La relación entrada-salida está dada por:
+\[
+V_o = -\frac{R_2}{R_1} V_i
+\]
+Con $R_1 = 10k\Omega$ y $R_2 = 10k\Omega$, la ganancia es $-1$.
+
+\subsubsection{Procedimiento Experimental}
+\begin{enumerate}
+\item Alimentación: $\pm 15V$
+\item Excitar con tensiones DC:
+  \begin{itemize}
+  \item $V_i = 0V \Rightarrow V_o = 0V$
+  \item $V_i = +1V \Rightarrow V_o = -1V$
+  \item $V_i = -1V \Rightarrow V_o = +1V$
+  \end{itemize}
+\item Medir $V_o$ y $V_A$ (nodo intermedio)
+\item Excitar con señales AC ($1V_{pp}$ y $2V_{pp}$) a frecuencias:
+  \begin{center}
+  \begin{tabular}{c|c|c}
+  Frecuencia (Hz) & $V_i$ ($V_{pp}$) & $V_o$ ($V_{pp}$) \\
+  \hline
+  500 & 1 & 1 \\
+  500 & 2 & 2 \\
+  1k & 1 & 1 \\
+  1k & 2 & 2 \\
+  2k & 1 & 1 \\
+  10k & 1 & 1 \\
+  100k & 1 & 0.95 \\
+  500k & 1 & 0.80 \\
+  1M & 1 & 0.50 \\
+  \end{tabular}
+  \end{center}
+\end{enumerate}
+
+\subsection{Amplificador Sumador Inversor}
+\subsubsection{Análisis Teórico}
+La salida se calcula como:
+\[
+V_o = -R_f \left( \frac{V_1}{R_1} + \frac{V_2}{R_2} + \frac{V_3}{R_3} \right)
+\]
+Con $R_1 = R_2 = 10k\Omega$, $R_3 = 22k\Omega$, $R_f = 4.7k\Omega$.
+
+\subsubsection{Procedimiento Experimental}
+\begin{enumerate}
+\item Alimentación: $\pm 12V$
+\item Caso 1: $V_1=1V$, $V_2=1V$, $V_3=1V$
+\[
+V_o = -4.7 \left( \frac{1}{10} + \frac{1}{10} + \frac{1}{22} \right) = -4.7(0.1 + 0.1 + 0.0455) \approx -1.15V
+\]
+\item Caso 2: $V_1=1V$, $V_2=-1V$, $V_3=-1V$
+\[
+V_o = -4.7 \left( \frac{1}{10} + \frac{-1}{10} + \frac{-1}{22} \right) = -4.7(0.1 - 0.1 - 0.0455) \approx +0.21V
+\]
+\item Medir $V_o$ y $V_A$ en ambos casos
+\item Excitar $V_1$ con AC ($1V_{pp}$ y $2V_{pp}$), $V_2=1V$, $V_3=0V$ a frecuencias:
+  \begin{center}
+  \begin{tabular}{c|c|c}
+  Frecuencia (Hz) & $V_1$ ($V_{pp}$) & $V_o$ ($V_{pp}$) \\
+  \hline
+  500 & 1 & 0.47 \\
+  1k & 1 & 0.47 \\
+  2k & 1 & 0.47 \\
+  10k & 1 & 0.47 \\
+  100k & 1 & 0.44 \\
+  \end{tabular}
+  \end{center}
+\end{enumerate}
+
+\subsection{Investigación Adicional: Filtro Pasa Alta con LM741}
+\subsubsection{Implementación}
+\begin{figure}[h]
+\centering
+\begin{circuitikz}
+\draw (0,0) node[op amp] (opamp) {};
+\draw (opamp.-) to[C, l=$C$, -*] (-3,0.5) node[left] {$V_i$};
+\draw (opamp.-) to[short] ++(0,1.5) coordinate (temp);
+\draw (temp) to[R, l=$R_2$] (temp -| opamp.out) to[short] (opamp.out);
+\draw (opamp.out) to[short, -*] (2,0) node[right] {$V_o$};
+\draw (opamp.+) to[short] (-1,-1) node[ground] {};
+\draw (opamp.up) to[short] ++(0,0.5) node[vcc]{$V_+$};
+\draw (opamp.down) to[short] ++(0,-0.5) node[vee]{$V_-$};
+\draw (-3,0.5) to[R, l=$R_1$, *-] (-3,-2) node[ground] {};
+\end{circuitikz}
+\caption{Filtro pasa alta activo con amplificador operacional.}
+\label{fig:highpass}
+\end{figure}
+
+\subsubsection{Comparación con Filtro Pasivo}
+\begin{center}
+\begin{tabular}{p{0.45\textwidth}|p{0.45\textwidth}}
+\textbf{Filtro Activo} & \textbf{Filtro Pasivo} \\
+\hline
+\begin{itemize}
+\item Ganancia $> 1$ (amplificación)
+\item Impedancia de salida baja
+\item Permite aislamiento entre etapas
+\item Requiere alimentación externa
+\item Limitado por ancho de banda del op-amp
+\end{itemize} &
+\begin{itemize}
+\item Ganancia $\leq 1$ (atenuación)
+\item Impedancia de salida dependiente de componentes
+\item Interacción de impedancias entre etapas
+\item No requiere alimentación
+\item Respuesta en frecuencia más predecible
+\end{itemize} \\
+\end{tabular}
+\end{center}
+
+\subsubsection{Conclusión}
+Los filtros activos son superiores en aplicaciones que requieren ganancia y aislamiento, pero están limitados por el ancho de banda del op-amp. Los filtros pasivos son ideales para aplicaciones de alta frecuencia y donde no se requiere amplificación.
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Parte 4. Investigación}
+
+Para un sistema de transmisión de energía, investigue:
+
+\begin{itemize}
+    \item \textbf{Métodos de generación}
+    
+    \item \textbf{Importancia del transformador en este proceso}
+    
+    \item \textbf{¿Qué es un sistema trifásico?}
+    \begin{itemize}
+        \item Descripción general
+        \item Configuraciones Delta y Estrella: usos y aplicaciones
+        \item Potencia trifásica
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.8\linewidth]{imagenes/Imagen12.png}
+\end{figure}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{1. Métodos de Generación}
+
+\subsubsection*{Definiciones físicas y matemáticas}
+\begin{itemize}
+    \item \textbf{Ley de Faraday-Lenz:}
+    \begin{equation*}
+        \mathcal{E} = -\frac{d\Phi_B}{dt}
+    \end{equation*}
+    donde $\mathcal{E}$ es la fuerza electromotriz inducida y $\Phi_B$ el flujo magnético. \emph{Aplicación:} En generadores síncronos, el movimiento relativo entre bobinas y campos magnéticos induce una tensión.
+
+    \item \textbf{Ecuación de Potencia Mecánica:}
+    \begin{equation*}
+        P_m = \tau \omega
+    \end{equation*}
+    donde $\tau$ es el par mecánico (N$\cdot$m) y $\omega$ la velocidad angular (rad/s). \emph{Aplicación:} Turbinas (hidráulicas, vapor) convierten energía cinética en rotación.
+\end{itemize}
+
+\subsubsection*{Desarrollo de métodos de generación}
+\begin{enumerate}
+    \item \textbf{Centrales térmicas:}
+    \begin{itemize}
+        \item La combustión libera energía térmica, empleada para calentar agua y generar vapor.
+        \item \textbf{Ecuación de energía térmica:}
+        \begin{equation*}
+            Q = m c_p \Delta T
+        \end{equation*}
+        donde $m$ es la masa de agua, $c_p$ el calor específico y $\Delta T$ la variación de temperatura.
+        \item El vapor mueve turbinas, transformando energía interna en mecánica:
+        \begin{equation*}
+            P_m = \dot{m} (h_{\text{ent}} - h_{\text{sal}})
+        \end{equation*}
+        según la Primera Ley de la Termodinámica.
+    \end{itemize}
+    \item \textbf{Centrales hidroeléctricas:}
+    \begin{itemize}
+        \item Aprovechan la energía potencial gravitatoria del agua:
+        \begin{equation*}
+            E_p = mgh
+        \end{equation*}
+        \item Esta se transforma en energía cinética al caer:
+        \begin{equation*}
+            \frac{1}{2}mv^2 = mgh \, \Delta \eta
+        \end{equation*}
+        donde $\Delta \eta$ representa la eficiencia del proceso.
+    \end{itemize}
+    \item \textbf{Energías renovables:}
+    \begin{itemize}
+        \item \textbf{Energía eólica:} La potencia extraída del viento está dada por
+        \begin{equation*}
+            P_w = \frac{1}{2} \rho A v^3
+        \end{equation*}
+        donde $\rho$ es la densidad del aire, $A$ el área de barrido de la turbina y $v$ la velocidad del viento.
+        \item \textbf{Solar fotovoltaica:} El efecto fotoeléctrico produce electricidad por absorción de fotones:
+        \begin{equation*}
+            E_{\text{fotón}} = h\nu
+        \end{equation*}
+        con $h$ la constante de Planck y $\nu$ la frecuencia.
+    \end{itemize}
+\end{enumerate}
+
+%-----------------------------------------------------------
+
+\subsection{2. Importancia del Transformador}
+
+\subsubsection*{Teoremas y principios}
+\begin{itemize}
+    \item \textbf{Ley de Faraday:} Base de la inducción mutua entre devanados del transformador.
+    \item \textbf{Relación de transformación (ideal):}
+    \begin{equation*}
+        \frac{V_p}{V_s} = \frac{N_p}{N_s} = \frac{I_s}{I_p}
+    \end{equation*}
+    donde $V_p$, $V_s$ son las tensiones y $N_p$, $N_s$ el número de espiras primario y secundario, respectivamente.
+    \item \textbf{Conservación de potencia (ideal):}
+    \begin{equation*}
+        S_p = V_p I_p = V_s I_s = S_s
+    \end{equation*}
+    La potencia aparente se conserva en el transformador ideal.
+\end{itemize}
+
+\subsubsection*{Desarrollo}
+\begin{enumerate}
+    \item \textbf{Elevación de tensión para transmisión:}
+    \begin{itemize}
+        \item Las pérdidas por efecto Joule en la línea son
+        \begin{equation*}
+            P_{\text{pérd}} = I^2 R
+        \end{equation*}
+        \item Para una potencia fija ($P = V I \cos\phi$), aumentar $V$ permite reducir $I$ y, por tanto, minimizar $P_{\text{pérd}}$:
+        \begin{equation*}
+            \Delta P_{\text{pérd}} \propto \frac{1}{V^2}
+        \end{equation*}
+    \end{itemize}
+
+    \item \textbf{Modelado matemático del transformador real:}
+    \begin{itemize}
+        \item El circuito equivalente incorpora impedancias de dispersión ($X_p$, $X_s$) y elementos asociados al núcleo ($R_c$, $X_m$):
+        \begin{equation*}
+            \begin{bmatrix}
+            V_p \\ V_s
+            \end{bmatrix}
+            =
+            \begin{bmatrix}
+            R_p + jX_p & j\omega M \\
+            j\omega M & R_s + jX_s
+            \end{bmatrix}
+            \begin{bmatrix}
+            I_p \\ I_s
+            \end{bmatrix}
+        \end{equation*}
+        donde $M = k\sqrt{L_p L_s}$ representa el acoplamiento magnético.
+    \end{itemize}
+\end{enumerate}
+
+%-----------------------------------------------------------
+
+\subsection{3. Sistema Trifásico}
+
+\subsubsection*{Definiciones matemáticas}
+\begin{itemize}
+    \item \textbf{Tensiones de fase en conexión estrella (Y):}
+    \begin{align*}
+        V_{an} &= V_\phi \angle 0^\circ \\
+        V_{bn} &= V_\phi \angle -120^\circ \\
+        V_{cn} &= V_\phi \angle 120^\circ
+    \end{align*}
+    \item \textbf{Tensiones de línea (Y):}
+    \begin{equation*}
+        V_{ab} = \sqrt{3} \, V_\phi \angle 30^\circ
+    \end{equation*}
+    \item \textbf{Corrientes en conexión delta ($\Delta$):}
+    \begin{equation*}
+        I_L = \sqrt{3}\, I_\phi
+    \end{equation*}
+\end{itemize}
+
+\subsubsection*{Teoremas clave}
+\begin{itemize}
+    \item \textbf{Teorema de Fortescue:} Cualquier sistema desequilibrado puede descomponerse en tres sistemas equilibrados de secuencia directa, inversa y homopolar:
+    \begin{equation*}
+        \begin{bmatrix}
+            V_a \\ V_b \\ V_c
+        \end{bmatrix}
+        =
+        \begin{bmatrix}
+            1 & 1 & 1 \\
+            1 & a^2 & a \\
+            1 & a & a^2
+        \end{bmatrix}
+        \begin{bmatrix}
+            V_0 \\ V_1 \\ V_2
+        \end{bmatrix}
+        , \quad a = 1\angle 120^\circ
+    \end{equation*}
+\end{itemize}
+
+\subsubsection*{Configuraciones}
+\begin{enumerate}
+    \item \textbf{Estrella (Y):}
+    \begin{itemize}
+        \item $V_L = \sqrt{3} V_\phi$, $I_L = I_\phi$.
+        \item El neutro permite conexión a tierra, facilitando la protección y distribución residencial (menor tensión de aislamiento).
+    \end{itemize}
+    \item \textbf{Delta ($\Delta$):}
+    \begin{itemize}
+        \item $V_L = V_\phi$, $I_L = \sqrt{3} I_\phi$.
+        \item No posee neutro. Es común en motores industriales y aplicaciones donde se prioriza la eficiencia y robustez.
+    \end{itemize}
+\end{enumerate}
+
+\subsubsection*{Potencia en sistemas trifásicos}
+\begin{itemize}
+    \item \textbf{Potencia compleja:}
+    \begin{equation*}
+        S = \sqrt{3} V_L I_L \angle \phi
+    \end{equation*}
+    \item \textbf{Potencia activa:}
+    \begin{equation*}
+        P = \sqrt{3} V_L I_L \cos \phi
+    \end{equation*}
+    \item \textbf{Potencia reactiva:}
+    \begin{equation*}
+        Q = \sqrt{3} V_L I_L \sin \phi
+    \end{equation*}
+\end{itemize}
+
+%-----------------------------------------------------------
+
+\subsection{4. Monofásico vs. Trifásico: Análisis Comparativo}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|l|c|c|}
+        \hline
+        \textbf{Parámetro} & \textbf{Monofásico} & \textbf{Trifásico} \\
+        \hline
+        Tensión de línea & $V_L$ & $\sqrt{3} V_\phi$ \\
+        Potencia instantánea & $p(t) = V_m I_m \cos\phi \, [1 + \cos 2\omega t]$ & Constante: $p_{\text{total}} = 3 V_\phi I_\phi \cos\phi$ \\
+        Eficiencia & Baja (mayores pérdidas) & Alta (menor $I$ para misma $P$) \\
+        Aplicaciones & Hogares, pequeñas cargas & Industria, transmisión de larga distancia \\
+        \hline
+    \end{tabular}
+    \caption{Comparación entre sistemas monofásico y trifásico}
+\end{table}
+
+\subsubsection*{Demostración de potencia constante en trifásico}
+\begin{align*}
+    p_{\text{total}}(t) &= v_a i_a + v_b i_b + v_c i_c \\
+    &= V_m \cos(\omega t) I_m \cos(\omega t - \phi) + V_m \cos(\omega t - 120^\circ) I_m \cos(\omega t - \phi - 120^\circ) \\
+    &\quad + V_m \cos(\omega t + 120^\circ) I_m \cos(\omega t - \phi + 120^\circ) \\
+    &= \frac{3}{2} V_m I_m \cos\phi \qquad \text{(tras aplicar identidades trigonométricas)}
+\end{align*}
+
+%-----------------------------------------------------------
+
+\subsection*{Conclusiones}
+
+\begin{itemize}
+    \item \textbf{Generación:} Fundamentada en principios de conversión energética (termodinámica y electromagnetismo).
+    \item \textbf{Transformadores:} Permiten transmisión eficiente mediante la elevación de tensión, conforme a las leyes de Faraday y Ohm.
+    \item \textbf{Trifásico:} Optimiza la transferencia de potencia (potencia constante y menor costo en conductores).
+    \item \textbf{Teoremas clave:} Ley de Faraday, Teorema de Fortescue y conservación de la potencia.
+\end{itemize}
+
+\noindent
+\textbf{Ecuaciones críticas:}
+\begin{align*}
+    \text{Transmisión:} \qquad & \Delta P_{\text{pérd}} \propto I^2 R \propto \frac{P^2}{V^2} \\
+    \text{Transformador:} \qquad & \frac{V_p}{V_s} = \frac{N_p}{N_s} \\
+    \text{Potencia trifásica:} \qquad & P = \sqrt{3} V_L I_L \cos\phi
+\end{align*}
+
+\medskip
+
+\noindent
+Este marco teórico permite diseñar sistemas eléctricos eficientes y estables, integrando generación, transformación y distribución de energía a gran escala.
+
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

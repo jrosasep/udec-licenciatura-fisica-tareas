@@ -10,6 +10,6 @@ Tarea 01 de Física Matemática 2, enfocada en series y transformadas de Fourier
 ## Archivos
 
 - `tarea1.tex`: desarrollo completo en LaTeX.
-- `tarea1.pdf`: versión compilada (si está presente).
+- `tarea1.pdf`: versión compilada.
 - `UdeC_azul_centrado.png`: logo de la portada.
 - `figura 1 - ejercicio 1.png`, `figura 2.png`: figuras usadas en el enunciado/solución.

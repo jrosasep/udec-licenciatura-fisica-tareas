@@ -1,0 +1,883 @@
+\documentclass{article}
+\usepackage{fvextra}
+\usepackage{csquotes}
+
+% Paquetes matemáticos y tipográficos
+\usepackage{cancel}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\newcommand{\dirlim}[3]{\mathop{#1}\limits_{#2}^{\nearrow\, #3}}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{bigints}
+\usepackage{subcaption}
+
+% Paquetes necesarios
+\usepackage{minted}
+\usepackage{xcolor}
+
+% Configura minted
+\definecolor{codebg}{rgb}{0.1, 0.1, 0.1}
+\setminted{
+    style=monokai,
+    bgcolor=codebg,
+    linenos,
+    breaklines,
+    fontsize=\small
+}
+
+% Para la terminal
+\usepackage{tcolorbox}
+\tcbuselibrary{listingsutf8}
+\usepackage{listings}
+\usepackage{bera} % Fuente monoespaciada bonita (opcional)
+
+% Permite referencias personalizadas
+\usepackage{nameref}
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Colores personalizados (opcional)
+\usepackage{xcolor}
+\definecolor{linkblue}{RGB}{50, 30, 200}
+
+% Hipervínculos azules
+\usepackage[colorlinks=true,
+            linkcolor=linkblue,  % Azul para enlaces internos (secciones)
+            urlcolor=linkblue,   % Azul para URLs
+            citecolor=linkblue,  % Azul para citas
+            filecolor=linkblue]{hyperref}
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=20mm, bottom=20mm]{geometry}
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{Tarea 2, 2025-2}}
+\fancyhead[R]{Electrodinámica I}
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+%% =========================
+%% AJUSTE FOOTNOTE (aquí lo importante)
+%% =========================
+\usepackage[bottom]{footmisc}              % Notas lo más abajo posible
+\setlength{\skip\footins}{6pt}             % Espacio entre texto y bloque de notas
+\setlength{\footnotesep}{0.5\baselineskip} % Separación entre notas
+\raggedbottom                               % Evita estirar verticalmente la página
+
+% (Opcional) regla de notas más compacta:
+\renewcommand\footnoterule{\kern -2pt \hrule width .4\columnwidth \kern 4pt}
+
+% (Recomendado) Evita que figuras/tablas ocupen el fondo de la página
+\usepackage{float}
+\floatplacement{figure}{ht}
+\floatplacement{table}{ht}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Tarea 02} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Electrodinámica I} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Octubre 2025 \par}
+    \vfill
+\end{titlepage}
+
+% Índice
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 1}
+Calcule el campo eléctrico producido por un disco plano de radio $R$, carga total $Q$ y densidad superficial uniforme. Para esto:
+    \begin{itemize}
+        \item Calcule, por integración directa, el potencial electrostático en un punto arbitrario sobre el eje de simetría del sistema.
+        \item A partir de la solución general de la ecuación de Laplace, escriba una expresión apropiada, en términos de polinomios de Legendre, para el potencial generado por el disco en todo punto (sobre y fuera del eje) a una distancia $r > R$ de su centro.
+        \item ``Empalme'' la solución anterior con la solución analítica obtenida en la parte (a). Para esto, determine los coeficientes de la expansión de la solución de la ecuación de Laplace al imponer que coincida con (la expansión de) la solución sobre el eje.
+        \item Determine una expresión para la solución del potencial y para las componentes del campo eléctrico en todo punto fuera del eje y $r > R$.
+    \end{itemize}   
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Cálculo del potencial sobre el eje por integración directa}
+
+Se determina el potencial electrostático generado por un disco plano de radio $R$ y densidad superficial uniforme, evaluado en un punto arbitrario sobre su eje de simetría. El cálculo se realiza a partir de la expresión integral del potencial electrostático para distribuciones continuas de carga \eqref{1.1_potencial_expresion}.
+ 
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Considérese un sistema de coordenadas cilíndricas en el que el disco se encuentra contenido en el plano $xy$ y su centro coincide con el origen (véase la Figura~\ref{fig:disco}). Un punto genérico de la superficie del disco se denota por $\vec{x}'$ y se parametriza como:
+\begin{equation}\label{1.1_x'}
+    \vec{x}'=r\cos\theta\,\hat{x}+r\sin\theta\,\hat{y} + 0\,\hat{z}.
+\end{equation}
+La variable $\vec{x}'$ recorre la región
+\begin{equation*}
+    \Omega=\{(r,\theta,z)\in\mathbb{R}^3: 0\leq r\leq R, \,0\leq\theta<2\pi,\,z=0\},
+\end{equation*}
+que representa la superficie del disco.
+
+La densidad superficial de carga es uniforme, de modo que
+\begin{equation}\label{1.1_densidad}
+    \sigma(\vec{x}') = \sigma=\frac{Q}{\pi R^2},\qquad \forall\,\vec{x}'\in\Omega.
+\end{equation}
+
+Sea $\vec{x}$ el punto de observación sobre el eje de simetría (eje $z$):
+\begin{equation}\label{1.1_x}
+    \vec{x}=0\,\hat{x}+0\,\hat{y}+z\,\hat{z}.
+\end{equation}
+
+De acuerdo con la formulación integral, el potencial en $\vec{x}$ viene dado por
+\begin{equation}\label{1.1_potencial_expresion}
+    \Phi(\vec{x})=\frac{1}{4\pi\varepsilon_0}\int_{\Omega}\frac{\sigma
+    (\vec{x}')}{\|\vec{x}-\vec{x}'\|}\mathrm{d}^2x',
+\end{equation}
+donde, en coordenadas cilíndricas, el elemento de área es
+\begin{equation}\label{1.1_elemento_area}
+    \mathrm{d}^2x'=r\,\mathrm{d}r\,\mathrm{d}\theta.
+\end{equation}
+
+Por otra parte, calculemos la diferencia entre los vectores $\vec{x}$ y $\vec{x}'$, dados en \eqref{1.1_x} y \eqref{1.1_x'}, respectivamente:
+\begin{align*}
+    \vec{x}-\vec{x}'&=0\,\hat{x}+0\,\hat{y}+z\,\hat{z}-(r\cos\theta\,\hat{x}+r\sin\theta\,\hat{y} + 0\,\hat{z}) \\[4pt]
+    &=-r\cos\theta\,\hat{x}-r\sin\theta\,\hat{y}+z\,\hat{z},
+\end{align*}
+cuyo modulo esta dado por:
+\begin{align*}
+    \|\vec{x}-\vec{x}' \| &= \| -r\cos\theta\,\hat{x}-r\sin\theta\,\hat{y}+z\,\hat{z}\| \\[4pt]
+    &= \sqrt{ (-r\cos\theta)^2+(-r\sin\theta)^2+z^2} \\[4pt]
+    &= \sqrt{ r^2\cos^2\theta+r^2\sin^2\theta+z^2} \\[4pt]
+    &= \sqrt{ r^2(\cos^2\theta+\sin^2\theta)+z^2} \\[4pt]
+    &= \sqrt{ r^2+z^2}.
+\end{align*}
+Por lo tanto, 
+\begin{equation}\label{1.1_modulo}
+    \|\vec{x}-\vec{x}' \|=\sqrt{ r^2+z^2}.
+\end{equation}
+
+Sustituyendo \eqref{1.1_densidad}, \eqref{1.1_elemento_area} y \eqref{1.1_modulo} en \eqref{1.1_potencial_expresion} se separan las integrales angular y radial. Para la parte radial se aplica el cambio de variable $u=r^2+z^2$ (con $\mathrm{d}u=2r\,\mathrm{d}r$), obteniéndose la antiderivada correspondiente.
+\begin{align*}
+    \Phi(\vec{x})&=\frac{\sigma}{4\pi\varepsilon_0}\int_{0}^{R}\int_{0}^{2\pi}\frac{r}{\sqrt{r^2+z^2}}\,\mathrm{d}r\,\mathrm{d}\theta \\[4pt]
+    &=\frac{\sigma}{4\pi\varepsilon_0}\int_{0}^{2\pi}\mathrm{d}\theta\int_{0}^{R}\frac{r}{\sqrt{r^2+z^2}}\,\mathrm{d}r  \\[4pt]
+    &=\frac{2\pi\sigma}{4\pi\varepsilon_0}\int_{r=0}^{r=R}\frac{1}{2}\,u^{-\frac{1}{2}}\,\mathrm{d}u  \\[4pt]
+    &=\frac{\sigma}{2\varepsilon_0}\left[u^{\frac{1}{2}}\right]_{r=0}^{r=R}  \\[4pt]
+    &=\frac{\sigma}{2\varepsilon_0}\left[\sqrt{r^2+z^2}\right]_{0}^{R}  \\[4pt]
+    &=\frac{\sigma}{2\varepsilon_0}\left(\sqrt{R^2+z^2}-\sqrt{z^2}\right)  \\[4pt]
+    &=\frac{\sigma}{2\varepsilon_0}\left(\sqrt{R^2+z^2}-|z|\right).
+\end{align*}
+
+En consecuencia, el potencial sobre el eje de simetría adoptará la forma
+\begin{equation}\label{1.1_potencial_simetria}
+    \Phi(\vec{x})=\frac{\sigma}{2\varepsilon_0}\left(\sqrt{R^2+z^2}-|z|\right),
+\end{equation}
+resultado que es válido para todo $z\in\mathbb{R}$.
+\begin{figure}
+    \centering
+    \includegraphics[width=0.6\linewidth]{disco.png}
+    \caption{Disco de radio $R$ en el plano $xy$, con centro en el origen del sistema de coordenadas.}
+    \label{fig:disco}
+\end{figure}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Expansión del potencial mediante la ecuación de Laplace y polinomios de Legendre}
+\label{sec:1.2}
+Se obtiene una expresión general del potencial en la región exterior $r>R$, empleando la solución de la ecuación de Laplace en coordenadas esféricas y su desarrollo en polinomios de Legendre, de acuerdo con la simetría axial del sistema \eqref{1.2_solución_simetria_axial}.
+ 
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+En coordenadas esféricas, la solución de la ecuación de Laplace admite la descomposición estándar en armónicos esféricos
+\begin{equation*}
+    \Phi(r,\theta,\varphi)=\sum_{\ell=0}^{\infty}\sum_{m=-\ell}^{\ell}\left[A_{\ell m}\,r^\ell+B_{\ell m}\,r^{-(\ell+1)}\right]Y_{\ell m}(\theta, \varphi).
+\end{equation*}
+Aquí $A_{\ell m}$ y $B_{\ell m}$ son coeficientes independientes del punto, fijados por las condiciones de contorno.
+
+Debido a la independencia en la coordenada azimutal $\varphi$ (simetría axial), solo contribuyen los términos con $m=0$ en la expansión armónica; en consecuencia, $Y_{\ell 0}(\theta,\varphi)=\sqrt{(2\ell+1)/(4\pi)}\,P_\ell(\cos\theta)$ y la serie se reescribe en función de $P_\ell$.
+\begin{align*}
+    \Phi(r,\theta,\varphi)&=\sum_{\ell=0}^{\infty}\left[A_{\ell 0}\,r^\ell+B_{\ell 0}\,r^{-(\ell+1)}\right]Y_{\ell 0}(\theta, \varphi)\\[4pt]
+    &=\sum_{\ell=0}^{\infty}\left[A_{\ell 0}\,r^\ell+B_{\ell 0}\,r^{-(\ell+1)}\right]\sqrt{\frac{2\ell+1}{4\pi}}P_{\ell}(\cos\theta)\\[4pt]
+    &=\sum_{\ell=0}^{\infty}\left[a_{\ell}\,r^\ell+b_{\ell }\,r^{-(\ell+1)}\right]P_{\ell}(\cos\theta),
+\end{align*}
+donde se introducen los coeficientes
+\begin{equation*}
+    a_{\ell}=\sqrt{\frac{2\ell+1}{4\pi}}A_{\ell 0} , \quad b_{\ell}=\sqrt{\frac{2\ell+1}{4\pi}} B_{\ell 0},
+\end{equation*}
+para escribir la expansión en términos de polinomios de Legendre.
+
+En consecuencia, para un sistema axisimétrico la solución adopta la forma
+\begin{equation}\label{1.2_solución_simetria_axial}
+    \Phi(r,\theta)=\sum_{\ell=0}^{\infty}\left[a_{\ell}r^\ell+b_{\ell }r^{-(\ell+1)}\right]P_{\ell}(\cos\theta),
+\end{equation}
+válida en cualquier región donde rija la ecuación de Laplace.
+
+Se impone como condición de borde que el potencial decaiga a cero en el infinito,
+\begin{equation}\label{1.2_condicion}
+    \lim_{r\to\infty}\Phi(r,\theta) =0,
+\end{equation}
+lo que selecciona la solución físicamente admisible en la región exterior $r>R$.
+
+Imponiendo la condición \eqref{1.2_condicion} en \eqref{1.2_solución_simetria_axial}, se observa que
+\begin{align*}
+    \lim_{r\to\infty}\Phi(r,\theta)&=\lim_{r\to\infty}\sum_{\ell=0}^{\infty}\left[a_{\ell}\,r^\ell+b_{\ell }\,r^{-(\ell+1)}\right]P_{\ell}(\cos\theta) \\[4pt]
+    &=\sum_{\ell=0}^{\infty}\left[\lim_{r\to\infty}a_{\ell}\,r^\ell+\lim_{r\to\infty}b_{\ell }\,r^{-(\ell+1)}\right]P_{\ell}(\cos\theta)\\[4pt]
+    &=\sum_{\ell=0}^{\infty}\left[a_{\ell}\lim_{r\to\infty}r^\ell+b_{\ell }\lim_{r\to\infty}r^{-(\ell+1)}\right]P_{\ell}(\cos\theta)\\[4pt]
+    &=0,
+\end{align*}
+donde los limites implicados son:
+\begin{equation*}
+    \lim_{r\to\infty}r^\ell=\infty , \quad \lim_{r\to\infty}r^{-(\ell+1)}=0,
+\end{equation*}
+así, para satisfacer la condición \eqref{1.2_condicion}, que el potencial decaiga a cero en el infinito, se impone
+\begin{equation*}
+    a_\ell=0,
+\end{equation*}
+De este modo, para $r>R$ el potencial queda
+\begin{equation}\label{1.2_potencial_obtenido}
+    \Phi(r,\theta) = \sum_{\ell=0}^{\infty}b_{\ell }\,r^{-(\ell+1)}P_{\ell}(\cos\theta),
+\end{equation}
+donde $\{b_{\ell}\}_{\ell\ge 0}$ son constantes que se determinan a partir de las condiciones de contorno (véase la subsección \ref{sec_1.3} de empalme).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Determinación de los coeficientes por empalme con la solución sobre el eje}
+\label{sec_1.3}
+Se efectúa el empalme entre la expansión en polinomios de Legendre \eqref{1.2_potencial_obtenido} y la solución exacta sobre el eje \eqref{1.1_potencial_simetria}, con el fin de determinar los coeficientes de la serie imponiendo coincidencia en la región exterior $r>R$.
+
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Al evaluar \eqref{1.2_potencial_obtenido} sobre el eje $z$ (eje de simetría), se tiene $r=|z|$ con $|z|>R$ y colatitud $\theta=0$. En estas condiciones:
+\begin{align*}
+    \Phi(z,0) &= \sum_{\ell=0}^{\infty}b_{\ell }\,|z|^{-(\ell+1)}P_\ell({\cos(0)})\\[4pt]
+    &=\sum_{\ell=0}^{\infty}b_{\ell }\,|z|^{-(\ell+1)}P_\ell(1)\\[4pt]
+    &=\sum_{\ell=0}^{\infty}b_{\ell }\,|z|^{-(\ell+1)},
+\end{align*}
+Dado que $P_\ell(1)=1$ para todo $\ell\ge 0$, la expresión precedente se simplifica a
+\begin{equation}\label{1.3_potencial_1.2_sobre_el_eje_de_simetria}
+    \Phi(z)=\sum_{\ell=0}^{\infty}b_{\ell }\,|z|^{-(\ell+1)}.
+\end{equation}
+Expandiendo la serie en \eqref{1.3_potencial_1.2_sobre_el_eje_de_simetria} se observa:
+\begin{equation*}
+\Phi(z)=b_0\,|z|^{-1}+b_1\,|z|^{-2}+b_2\,|z|^{-3}+b_3\,|z|^{-4}+b_4\,|z|^{-5}+b_5\,|z|^{-6}+b_6\,|z|^{-7}+\dots.
+\end{equation*}
+Por otra parte, la solución exacta sobre el eje para $|z|>R$ viene dada por
+\begin{equation}\label{1.3_potencial_solucion_simetria_exacta}
+    \Phi(z) = \frac{\sigma}{2\varepsilon_0} \left( \sqrt{R^2 + z^2} - |z| \right).
+\end{equation}
+Para preparar una expansión asintótica en potencias de $|z|^{-1}$, se factoriza $|z|$ en la raíz y se reescribe el término entre paréntesis como
+\begin{align*}
+    \sqrt{R^2 + z^2} - |z| &=\sqrt{z^2\left(\frac{R^2}{z^2}+1\right)}-|z| \\[4pt]
+    &=|z|\sqrt{\frac{R^2}{z^2}+1}-|z| \\[4pt]
+    &=|z|\left(\sqrt{\frac{R^2}{z^2}+1}-1\right),
+\end{align*}
+en lo que sigue, expandiremos en serie la expresión 
+\begin{equation}\label{1.3_expresion}
+    |z|\left(\sqrt{\frac{R^2}{z^2}+1}-1\right).
+\end{equation}
+Se utiliza la serie binomial
+\begin{equation*}
+    (1+x)^k=\sum_{n=0}^{\infty}\binom{k}{n}x^n,\qquad 
+\binom{k}{n}=\frac{k(k-1)\cdots(k-n+1)}{n!},
+\end{equation*}
+con $k=\tfrac{1}{2}$ y $x=R^2/z^2$. Nótese que su validez exige $|x|<1$, es decir, $|z|>R$, coherente con la región de empalme.
+\begin{equation*}
+    \left(1+\frac{R^2}{z^2}\right)^{\frac{1}{2}}=\sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n}\left(\frac{R^2}{z^2}\right)^n.
+\end{equation*}
+
+A partir de la expansión binomial se obtiene
+\begin{align*}
+    \left(1+\frac{R^2}{z^2}\right)^{\frac{1}{2}}&=\sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n}\left(\frac{R^2}{z^2}\right)^n\\[4pt]
+    &=\binom{\frac{1}{2}}{0}+\binom{\frac{1}{2}}{1}\frac{R^2}{z^2}+\binom{\frac{1}{2}}{2}\frac{R^4}{z^4}+\binom{\frac{1}{2}}{3}\frac{R^6}{z^6}+\binom{\frac{1}{2}}{4}\frac{R^8}{z^8}+\dots\\[4pt]
+    &=1+\frac{1}{2}\frac{R^2}{z^2}-\frac{1}{8}\frac{R^4}{z^4}+\frac{1}{16}\frac{R^6}{z^6}-\frac{5}{128}\frac{R^8}{z^8}+\dots\\[4pt]
+    &=1+\sum_{n=1}^{\infty}\binom{\frac{1}{2}}{n}\left(\frac{R^2}{z^2}\right)^n.
+\end{align*}
+y, al restar 1, se llega a la forma adecuada para la comparación término a término.
+\begin{equation*}
+    \left(1+\frac{R^2}{z^2}\right)^{\frac{1}{2}}-1=\sum_{n=1}^{\infty}\binom{\frac{1}{2}}{n}\left(\frac{R^2}{z^2}\right)^n.
+\end{equation*}
+Al multiplicar por $|z|$, se obtiene una serie en potencias impares de $|z|^{-1}$,
+\begin{align*}
+    |z|\left[ \left(1+\frac{R^2}{z^2}\right)^{\frac{1}{2}}-1\right]&=|z|\sum_{n=1}^{\infty}\binom{\frac{1}{2}}{n}\left(\frac{R^2}{z^2}\right)^n\\[4pt]
+    &=|z|\sum_{n=1}^{\infty}\binom{\frac{1}{2}}{n}\frac{R^{2n}}{z^{2n}}\\[4pt]
+    &=\sum_{n=1}^{\infty}\binom{\frac{1}{2}}{n}\frac{R^{2n}}{|z|^{2n-1}},
+\end{align*}
+de la cual resulta 
+\begin{equation}\label{1.3_expansion_en_serie_de_la_expresion_en_el_potencial}
+    |z|\left(\sqrt{\frac{R^2}{z^2}+1}-1\right)=\sum_{n=1}^{\infty}\binom{\frac{1}{2}}{n}\frac{R^{2n}}{|z|^{2n-1}}.
+\end{equation}
+
+Sustituyendo \eqref{1.3_expansion_en_serie_de_la_expresion_en_el_potencial} en \eqref{1.3_potencial_solucion_simetria_exacta} se obtiene la expansión
+\begin{equation}\label{1.3_expansion_en_serie_del_potencial_exacto}
+    \Phi(z)=\frac{\sigma}{2\varepsilon_0}\sum_{n=1}^{\infty} \binom{\frac{1}{2}}{n}\frac{R^{2n}}{|z|^{2n-1}},
+\end{equation}
+
+Desarrollando la expansión en serie en \eqref{1.3_expansion_en_serie_del_potencial_exacto} e igualándola con la expansión en \eqref{1.3_potencial_1.2_sobre_el_eje_de_simetria}, se observa que
+\begin{align*}
+    \Phi(z)&=\frac{\sigma}{2\varepsilon_0} \sum_{n=1}^{\infty}\binom{\frac{1}{2}}{n}\frac{R^{2n}}{|z|^{2n-1}} \\[4pt]
+    &=\frac{\sigma}{2\varepsilon_0} \binom{\frac{1}{2}}{1}\frac{R^{2}}{|z|}+\frac{\sigma}{2\varepsilon_0} \binom{\frac{1}{2}}{2}\frac{R^{4}}{|z|^{3}}+\frac{\sigma}{2\varepsilon_0} \binom{\frac{1}{2}}{3}\frac{R^{6}}{|z|^{5}}+\frac{\sigma}{2\varepsilon_0} \binom{\frac{1}{2}}{4}\frac{R^{8}}{|z|^{7}}+\dots \\[4pt]
+    &=\frac{\sigma}{2\varepsilon_0} \left( \frac{1}{2} \right) \frac{R^{2}}{|z|}+\frac{\sigma}{2\varepsilon_0}  \left( -\frac{1}{8} \right) \frac{R^{4}}{|z|^{3}}+\frac{\sigma}{2\varepsilon_0} \left( \frac{1}{16} \right) \frac{R^{6}}{|z|^{5}}+\frac{\sigma}{2\varepsilon_0} \left( -\frac{5}{128} \right) \frac{R^{8}}{|z|^{7}}+\dots \\[4pt]
+    &=\frac{\sigma}{4\varepsilon_0}\frac{R^{2}}{|z|}
+    -\frac{\sigma}{16\varepsilon_0}\frac{R^{4}}{|z|^{3}}
+    +\frac{\sigma}{32\varepsilon_0}\frac{R^{6}}{|z|^{5}}
+    -\frac{5\sigma}{256\varepsilon_0} \frac{R^{8}}{|z|^{7}}+\dots \\[4pt] 
+    &=b_0\,|z|^{-1}+b_1\,|z|^{-2}+b_2\,|z|^{-3}+b_3\,|z|^{-4}+b_4\,|z|^{-5}+b_5\,|z|^{-6}+b_6\,|z|^{-7}+\dots.\\[4pt]
+    &=\sum_{\ell=0}^{\infty}b_{\ell }\,|z|^{-(\ell+1)}.
+\end{align*}
+La expansión exacta contiene únicamente potencias impares de $|z|^{-1}$. Por consiguiente, al igualar con \eqref{1.3_potencial_1.2_sobre_el_eje_de_simetria} se deduce que $b_\ell=0$ para todo $\ell$ impar. Resulta natural reescribir la serie en términos de índices pares, $\ell=2n,\, n\in\mathbb{N}_0$. En consecuencia,
+\begin{equation}\label{1.3_expansion_laplace_par}
+    \Phi(z)=\sum_{n=0}^{\infty}b_{2n}\,|z|^{-(2n+1)}.
+\end{equation}
+Para comparar término a término, es útil reindexar la serie exacta \eqref{1.3_expansion_en_serie_del_potencial_exacto} como
+\begin{align*}
+    \Phi(z)&=\frac{\sigma}{2\varepsilon_0} \sum_{n=1}^{\infty}\binom{\frac{1}{2}}{n}\frac{R^{2n}}{|z|^{2n-1}}\\[4pt]
+    &=\frac{\sigma}{2\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2(n+1)}}{|z|^{2(n+1)-1}}\\[4pt]
+    &=\frac{\sigma}{2\varepsilon_0} \sum_{n=0}^{\infty} \binom{\frac{1}{2}}{n+1}\frac{R^{2n+2}}{|z|^{2n+1}},
+\end{align*}
+de modo que ambas queden en potencias de $|z|^{-(2n+1)}$.
+\begin{equation}\label{1.3_expansion_en_serie_ajustada}
+    \Phi(z)=\frac{\sigma}{2\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n+2}}{|z|^{2n+1}}.
+\end{equation}
+Igualando \eqref{1.3_expansion_laplace_par} y \eqref{1.3_expansion_en_serie_ajustada}, comparando coeficientes para cada $n\ge 0$ se obtiene ,
+\begin{align*}
+    \sum_{n=0}^{\infty}b_{2n}\,|z|^{-(2n+1)}&=\frac{\sigma}{2\varepsilon_0} \sum_{n=0}^{\infty} \binom{\frac{1}{2}}{n+1}\frac{R^{2n+2}}{|z|^{2n+1}} \\[6pt]
+    \Rightarrow \quad b_{2n}\,|z|^{-(2n+1)}&=\frac{\sigma}{2\varepsilon_0} \binom{\frac{1}{2}}{n+1}\frac{R^{2n+2}}{|z|^{2n+1}}.
+\end{align*}
+Despejando $b_{2n}$, finalmente se obtiene
+\begin{equation}\label{1.3_b_2n}
+    b_{2n}=\frac{\sigma}{2\varepsilon_0} \binom{\frac{1}{2}}{n+1}R^{2n+2},
+\end{equation}
+mientras que $b_\ell=0$ si $\ell$ es impar. En forma resumida:
+\begin{equation*}
+    b_\ell=\left\{
+    \begin{aligned}
+        \frac{\sigma}{2\varepsilon_0} \binom{\frac{1}{2}}{\ell+1}R^{2\ell+2}&, \qquad \text{si }\ell\text{ es par, }\\[4pt]
+        0&, \qquad \text{si }\ell\text{ es impar. }
+    \end{aligned}
+    \right.
+\end{equation*}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Expresión final del potencial y cálculo del campo eléctrico fuera del eje}
+Se presenta la forma final del potencial para todo punto exterior $r>R$ y se derivan las componentes del campo eléctrico a partir de $\vec{E}=-\nabla\Phi$. Asimismo, se comenta la simetría del campo y su dependencia angular.
+ 
+\textbf{Solución:} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+De acuerdo con lo obtenido previamente, en la región $r>R$ sólo contribuyen los términos con índice par. Por ello, la expansión de \eqref{1.2_potencial_obtenido} se reescribe como:
+\begin{equation}\label{1.4_potencial_sin_b}
+    \Phi(r,\theta) = \sum_{n=0}^{\infty}b_{2n }\,r^{-(2n+1)}P_{2n}(\cos\theta),
+\end{equation}
+Al sustituir \eqref{1.3_b_2n} y la densidad uniforme \eqref{1.1_densidad} en la expresión anterior, se obtiene la cadena de igualdades siguiente, que conduce a una forma compacta del potencial.
+\begin{align*}
+    \Phi(r,\theta) &= \sum_{n=0}^{\infty}\left(\frac{\sigma}{2\varepsilon_0} \binom{\frac{1}{2}}{n+1}R^{2n+2}\right)\,r^{-(2n+1)}P_{2n}(\cos\theta) \\[4pt]
+    &=\frac{\sigma}{2\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n+2}}{r^{2n+1}}P_{2n}(\cos\theta) \\[4pt]
+    &=\frac{Q}{2\pi R^2\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n+2}}{r^{2n+1}}P_{2n}(\cos\theta)\\[4pt]
+    &=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n}}{r^{2n+1}}P_{2n}(\cos\theta).
+\end{align*}
+En consecuencia, el potencial exterior queda dado por
+\eqref{1.4_potencial_final}.
+\begin{equation}\label{1.4_potencial_final}
+    \Phi(r,\theta)=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n}}{r^{2n+1}}P_{2n}(\cos\theta).
+\end{equation}
+El campo eléctrico asociado se define por
+\begin{equation*}
+    \vec{E}=-\vec{\nabla}\Phi,
+\end{equation*}
+En coordenadas esféricas, el gradiente adopta su forma usual. 
+\begin{equation*}
+    \vec{E}(r,\theta)=-\left(\hat{r}\,\frac{\partial\Phi}{\partial r}+\frac{\hat{\varphi}}{r\sin\theta}\frac{\partial\Phi}{\partial \varphi}+\frac{\hat{\theta}}{r}\frac{\partial \Phi}{\partial \theta} \right).
+\end{equation*}
+Dado que $\Phi$ en \eqref{1.4_potencial_final} es independiente de la coordenada azimutal $\varphi$, el término proporcional a $\partial\Phi/\partial\varphi$ se anula y el campo queda reducido a las componentes radial y polar:
+\begin{align}
+    \vec{E}(r,\theta)&=-\hat{r}\,\frac{\partial\Phi}{\partial r}-\frac{\hat{\theta}}{r}\frac{\partial \Phi}{\partial \theta} \notag \\[4pt]
+    &=E_{r}\,\hat{r}+E_{\theta}\,\hat{\theta} \label{1.4_campo_electricooooo}
+\end{align}
+Se adoptan las definiciones
+\begin{align}
+    E_r&=-\frac{\partial \Phi}{\partial r}, \label{1.4_coeficiente_E_r}\\[6pt]
+    E_{\theta}&=-\frac{1}{r}\frac{\partial \Phi}{\partial \theta}, \label{1.4_coeficiente_E_theta}
+\end{align}
+a partir de las cuales se calculan las componentes del campo. 
+
+Se procede a evaluar las derivadas parciales de \eqref{1.4_potencial_final} con respecto a $r$ y $\theta$.
+
+\begin{itemize}
+    \item Para la derivada parcial de \eqref{1.4_potencial_final} respecto $r$:
+        \begin{align*}
+            \frac{\partial \Phi}{\partial r}&=\frac{\partial }{\partial r}\left[\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n}}{r^{2n+1}}P_{2n}(\cos\theta) \right] \\[4pt]
+            &=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}R^{2n}\left[\frac{\partial }{\partial r}\left(\frac{1}{r^{2n+1}}\right)\right]P_{2n}(\cos\theta)  \\[4pt]
+            &=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}R^{2n}\left[\frac{-(2n+1)}{r^{2n+2}}\right]P_{2n}(\cos\theta)  \\[4pt]
+            &=-\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)\,R^{2n}}{r^{2n+2}}P_{2n}(\cos\theta).
+        \end{align*}
+        Por linealidad y derivación término a término, se obtiene:
+        \begin{equation}\label{1.4_partial_phi_partial_r}
+            \frac{\partial \Phi}{\partial r}=-\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)\,R^{2n}}{r^{2n+2}}P_{2n}(\cos\theta).
+        \end{equation}
+    \item Para la derivada parcial de \eqref{1.4_potencial_final} respecto $\theta$:
+        \begin{align}
+            \frac{\partial \Phi}{\partial \theta}&=\frac{\partial }{\partial \theta}\left[\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n}}{r^{2n+1}}P_{2n}(\cos\theta) \right] \notag \\[4pt]
+            &=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n}}{r^{2n+1}}\frac{\partial }{\partial \theta}P_{2n}(\cos\theta) \label{1.4_desarrollo_derivada_continuar}.
+        \end{align}
+    Para la dependencia angular se aplica la regla de la cadena con $x=\cos\theta$ y la identidad estándar para polinomios de Legendre (véase \href{https://mathworld.wolfram.com/LegendrePolynomial.html}{MathWorld, ec.\ (44)}), 
+        \begin{equation}\label{1.4_identidad}
+        (1-x^2)\,P_\ell'(\cos\theta)=(\ell+1)xP_\ell(x)-(\ell+1)P_{\ell+1}(x),
+    \end{equation}
+    particularizada a $\ell=2n$. Entonces:
+    \begin{align}
+        \frac{\partial}{\partial\theta}P_{2n}(\cos\theta)&=\frac{\partial P_{2n}}{\partial x} \frac{\partial x}{\partial \theta} \notag \\[4pt]
+        &=P_{2n}'(\cos\theta) \frac{\partial (\cos\theta)}{\partial \theta} \notag \\[4pt]
+        &=-\sin\theta\,P_{2n}'(\cos\theta) \label{1.4_derivada_legendre_respecto_theta},
+    \end{align}
+    Para el calculo de la derivada parcial de $P_{2n}(\cos\theta)$ respecto a $x$, consideramos la identidad \eqref{1.4_identidad} para $\ell=2n$, $x=\cos\theta$. De este modo, se sigue que
+    \begin{align}
+        (1-\cos^2\theta)\,P_{2n}'(\cos\theta)&=(2n+1)\cos\theta P_{2n}(\cos\theta)-(2n+1)P_{2n+1}(\cos\theta) \notag\\[6pt]
+        \Rightarrow \quad \sin^2\theta\,P_{2n}'(\cos\theta)&=(2n+1)\Big(\cos\theta P_{2n}(\cos\theta)-P_{2n+1}(\cos\theta)\Big) \notag\\[6pt]
+        \Rightarrow \quad P_{2n}'(\cos\theta)&=\frac{2n+1}{\sin^2\theta}\Big(\cos\theta P_{2n}(\cos\theta)-P_{2n+1}(\cos\theta)\Big)\label{1.4_derivada_legendre}.
+    \end{align}
+    Sustituyendo \eqref{1.4_derivada_legendre} en \eqref{1.4_derivada_legendre_respecto_theta}, 
+    \begin{align*}
+        \frac{\partial}{\partial\theta}P_{2n}(\cos\theta)&=-\sin\theta\,\left[\frac{2n+1}{\sin^2\theta}\Big(\cos\theta P_{2n}(\cos\theta)-P_{2n+1}(\cos\theta)\Big)  \right] \\[6pt]
+        &=\frac{2n+1}{\sin\theta}\Big(P_{2n+1}(\cos\theta)-\cos\theta P_{2n}(\cos\theta)\Big).
+    \end{align*}
+    Por lo tanto,
+    \begin{equation}\label{1.4_derivada_lengendre_theta_lista}
+        \frac{\partial}{\partial\theta}P_{2n}(\cos\theta)=\frac{2n+1}{\sin\theta}\Big(P_{2n+1}(\cos\theta)-\cos\theta P_{2n}(\cos\theta)\Big).
+    \end{equation}
+    Sustituyendo \eqref{1.4_derivada_lengendre_theta_lista} en \eqref{1.4_desarrollo_derivada_continuar}, se sigue el desarrollo de $\partial \Phi/ \partial \theta$,
+        \begin{align*}
+            \frac{\partial \Phi}{\partial \theta}&=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n}}{r^{2n+1}}\frac{\partial }{\partial \theta}P_{2n}(\cos\theta) \\[6pt]
+            &=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{R^{2n}}{r^{2n+1}}\left[\frac{2n+1}{\sin\theta}\Big(P_{2n+1}(\cos\theta)-\cos\theta P_{2n}(\cos\theta)\Big)\right]\\[6pt]
+            &=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)R^{2n}}{r^{2n+1}}\left[\frac{1}{\sin\theta}\Big(P_{2n+1}(\cos\theta)-\cos\theta P_{2n}(\cos\theta)\Big)\right].
+        \end{align*}
+    Por lo tanto
+    \begin{equation}\label{1.4_partial_phi_partial_theta}
+        \frac{\partial \Phi}{\partial \theta}=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)R^{2n}}{r^{2n+1}}\left[\frac{1}{\sin\theta}\Big(P_{2n+1}(\cos\theta)-\cos\theta P_{2n}(\cos\theta)\Big)\right].
+    \end{equation}
+
+\end{itemize}
+
+Ya calculadas las derivadas parciales, sustituyendo \eqref{1.4_partial_phi_partial_r} en \eqref{1.4_coeficiente_E_r} y \eqref{1.4_partial_phi_partial_theta} en \eqref{1.4_coeficiente_E_theta}, se obtienen
+    \begin{align}
+    E_r&=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)\,R^{2n}}{r^{2n+2}}P_{2n}(\cos\theta), \label{1.4_coeficiente_E_r_calculado}\\[6pt]
+    E_{\theta}&=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)R^{2n}}{r^{2n+2}}\left[\frac{1}{\sin\theta}\Big(\cos\theta P_{2n}(\cos\theta)-P_{2n+1}(\cos\theta)\Big)\right]. \label{1.4_coeficiente_E_theta_calculado}
+\end{align}
+Al reemplazar las componentes encontradas, \eqref{1.4_coeficiente_E_r_calculado} y \eqref{1.4_coeficiente_E_theta_calculado}, en la expresión de $\vec{E}$ \eqref{1.4_campo_electricooooo}, se obtiene el campo fuera del eje en términos de $P_{2n}(\cos\theta)$ y $P_{2n+1}(\cos\theta)$. La ausencia de componente azimutal es coherente con la simetría axial de la distribución.
+\begin{align*}
+    \vec{E}(r,\theta)&=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)\,R^{2n}}{r^{2n+2}}P_{2n}(\cos\theta)\,\hat{r}\\[4pt]
+    &+\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)R^{2n}}{r^{2n+2}}\left[\frac{1}{\sin\theta}\Big(\cos\theta P_{2n}(\cos\theta)-P_{2n+1}(\cos\theta)\Big)\right]\,\hat{\theta} \\[6pt]
+    &=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)\,R^{2n}}{r^{2n+2}}\left[ P_{2n}(\cos\theta)\,\hat{r}+\frac{1}{\sin\theta}\Big(\cos\theta P_{2n}(\cos\theta)-P_{2n+1}(\cos\theta)\Big)\,\hat{\theta}\right],
+\end{align*}
+En suma, para $r>R$ y $\theta\in[0,\pi]$ el campo eléctrico queda:
+\begin{equation*}
+    \vec{E}(r,\theta)=\frac{Q}{2\pi\varepsilon_0} \sum_{n=0}^{\infty}\binom{\frac{1}{2}}{n+1}\frac{(2n+1)\,R^{2n}}{r^{2n+2}}\left[ P_{2n}(\cos\theta)\,\hat{r}+\frac{1}{\sin\theta}\Big(\cos\theta P_{2n}(\cos\theta)-P_{2n+1}(\cos\theta)\Big)\,\hat{\theta}\right].
+\end{equation*}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Representación gráfica del campo eléctrico}
+Se visualiza el campo eléctrico en la región exterior $r>R$ mediante tres figuras: una vista 3D y dos cortes en los planos $XZ$ ($y=0$) y $XY$ ($z=0$). Las gráficas se construyen evaluando las expresiones analíticas deducidas y su truncación multipolar consistente con la simetría axial del sistema.
+
+\textbf{Solución:} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+El campo es axialsimétrico ($\partial_\varphi\Phi=0$), por lo que $E_\varphi=0$. Sobre el eje ($\theta=0$) se cumple $E_\theta=0$. A grandes distancias ($r\gg R$), el campo converge al de una carga puntual $Q$ en el origen. En las cercanías del borde del disco aparecen efectos de fringing que incrementan $\|\vec{E}\|$ y curvan las líneas de fuerza.
+
+\textbf{Descripción cualitativa.}
+\begin{itemize}
+    \item En el plano del disco ($\theta=\pi/2$) la componente radial $E_r$ se atenúa, mientras que $E_\theta$ puede ser apreciable por efectos de borde.
+    \item El potencial es continuo; la componente normal del campo presenta el salto esperado al cruzar una lámina con densidad superficial uniforme.
+    \item Lejos del disco, las líneas de campo son casi radiales; cerca del borde se adensan y se curvan.
+\end{itemize}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=0.9\linewidth]{1.5_fig1.png}
+    \caption{Campo eléctrico en 3D para un disco uniformemente cargado (región exterior $r>R$). El color indica la magnitud $\|\vec{E}\|$ y las flechas, su dirección. El disco (plano $z=0$) se muestra en rojo para referencia. Parámetros y normalización según el texto.}
+    \label{fig:campo3D}
+\end{figure}
+
+\textbf{Método de cálculo y parámetros.}
+Las figuras se obtienen evaluando el campo a partir de la expansión exterior \eqref{1.4_potencial_final}, truncada a los primeros términos no nulos por simetría: $\ell=0$ (monopolo) y $\ell=2$ (cuadrupolo), equivalentes a $n=0,1$ en la notación de \eqref{1.4_potencial_final}. 
+Se usa una malla cúbica $15\times15\times15$ en el dominio $[-2.5R,2.5R]^3$ y se enmascaran los puntos con $r\le R$ (fuera del dominio de validez). Para mejorar la legibilidad, los vectores del diagrama \emph{quiver} se normalizan a longitud constante y la magnitud $\|\vec{E}\|$ se codifica por color (escala \texttt{viridis}). 
+Los parámetros ilustrativos fueron $R=1$ y $Q/(2\pi\varepsilon_0)=1$ (normalización adimensional). Las figuras generadas se guardan como \texttt{1.5\_fig1.png} (3D), \texttt{1.5\_fig2\_xz.png} (plano $XZ$) y \texttt{1.5\_fig2\_xy.png} (plano $XY$).
+
+\textbf{Validación y convergencia.}
+(i) Sobre el eje, $E_r(r,0)=-\partial_r\Phi(r,0)$ reproduce la derivada de \eqref{1.1_potencial_simetria}. 
+(ii) En el régimen lejano domina $\ell=0$ y se recupera $\|\vec{E}\|\sim Q/(4\pi\varepsilon_0 r^2)$. 
+(iii) La truncación en $\ell=\{0,2\}$ introduce un error relativo asintótico de orden $\mathcal{O}\big((R/r)^4\big)$ frente al siguiente término permitido ($\ell=4$); por ello la convergencia empeora cerca del borde ($r\approx R$, $\theta\approx \pi/2$), donde podría requerirse mayor orden.
+
+\textbf{Lectura de las figuras.}
+La Figura~\ref{fig:campo3D} muestra el campo en 3D con el disco sombreado en $z=0$. Las Figuras~\ref{fig:campo_xz} y \ref{fig:campo_xy} son cortes en $XZ$ ($y=0$) y $XY$ ($z=0$), respectivamente. En dichos cortes no se representan vectores dentro del disco ($r\le R$) al tratarse de la solución exterior.
+
+\begin{figure}[htbp]
+    \centering
+    \begin{subfigure}{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{1.5_fig2_xz.png}
+        \caption{Corte en el plano $XZ$ ($y=0$).}
+        \label{fig:campo_xz}
+    \end{subfigure}
+    \hfill
+    \begin{subfigure}{0.49\linewidth}
+        \centering
+        \includegraphics[width=\linewidth]{1.5_fig2_xy.png}
+        \caption{Corte en el plano $XY$ ($z=0$).}
+        \label{fig:campo_xy}
+    \end{subfigure}
+    \caption{Cortes del campo eléctrico en planos coordenados. Los colores representan $\|\vec{E}\|$ y las flechas indican la dirección del campo. El contorno del disco se muestra en rojo.}
+    \label{fig:planos}
+\end{figure}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 2}
+Dos líneas, de densidad lineal de carga constante $\lambda$, cada una de largo $2a$, se cruzan en el origen de un sistema de coordenadas de modo que sus extremos se encuentran en los puntos $(\pm a, 0, 0)$ y $(0, \pm a, 0)$. Determinar el potencial electrostático generado por esta distribución para puntos muy lejanos, incluyendo términos hasta orden $r^{-3}$.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\textbf{Solución:}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Trabajaremos en el régimen lejano $|\vec{x}|\gg|\vec{x}'|$, donde el potencial admite un desarrollo multipolar en potencias decrecientes de $r=|\vec{x}|$:
+\begin{equation*}
+\phi(\vec{x})=\sum_{n=0}^{\infty}\phi^{(n)}(\vec{x}),
+\end{equation*}
+con $\phi^{(n)}$ la contribución de orden $n$ en derivadas de $1/r$, ponderada por los momentos de la distribución. Truncaremos en los términos monopolar, dipolar y cuadrupolar, que capturan los aportes hasta $\mathcal{O}(r^{-3})$.
+En consecuencia, para $r$ grande escribimos
+\begin{equation}\label{2_potencial_truncado}
+\phi(\vec{x})=\phi^{(0)}(\vec{x})+\phi^{(1)}(\vec{x})+\phi^{(2)}(\vec{x})+\mathcal{O}\left(r^{-4}\right),
+\end{equation}
+donde los superíndices designan, respectivamente, los términos monopolar, dipolar y cuadrupolar.
+
+El término monopolar depende únicamente $Q$:
+\begin{equation}\label{2_termino_monopolar}
+    \phi^{(0)}(\vec{x}) =\frac{1}{4\pi\varepsilon_0}\,\frac{Q}{r},
+\end{equation}
+
+donde $Q$, el momento monopolar, es simplemente la carga total del sistema:
+\begin{equation}\label{2_momento_monopolar}
+    Q = \int_{\mathbb{R}^3} \rho(\vec{x})\,\mathrm{d}^3x.
+\end{equation}
+El término dipolar está gobernado por $\vec{p}$:
+\begin{equation}\label{2_termino_dipolar}
+    \phi^{(1)}(\vec{x})
+= \frac{1}{4\pi\varepsilon_0}\,\sum_{i=1}^3\frac{x_i\,p_i}{r^{3}}
+= \frac{1}{4\pi\varepsilon_0}\,\frac{\vec{p}\cdot\vec{x}}{r^{3}},
+\end{equation}
+donde el $\vec{p}$ es el momento dipolar, cuya $i$-esima cordenada esta dada por
+\begin{equation}\label{2_momento_dipolar}
+    p_i= \displaystyle\int_{\mathbb{R}^3}  x_i\,\rho(\vec{x})\,\mathrm{d}^3x.
+\end{equation}
+
+La contribución cuadrupolar puede expresarse en términos del segundo momento $Q_{ij}$ de la distribución:
+\begin{equation}\label{2_termino_cuadripolar}
+    \phi^{(2)}(\vec{x})
+= \frac{1}{4\pi\varepsilon_0}\,\frac{1}{2}\,Q_{ij}\,
+\frac{3\,x_i x_j - r^{2}\delta_{ij}}{r^{5}},
+\end{equation}
+donde el segundo momento $Q_{ij}$ es
+\begin{equation}\label{2_momento_cuadripolar}
+    Q_{ij} = \int_{\mathbb{R}^3}  x_i x_j\,\rho(\vec{x})\,\mathrm{d}^3x.
+\end{equation}
+La distribución puede representarse como una densidad volumétrica soportada sobre los ejes $x$ e $y$:
+\begin{equation}\label{2_densidad_volumetrica}
+    \rho(\vec{x})=\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z),
+\end{equation}
+con 
+\begin{align*}
+    \lambda_1(x):=\left\{
+    \begin{aligned}
+        \lambda&, \qquad \text{si } -a\leq x \leq a ,\\[2pt]
+        0&, \qquad \text{si } x < -a \;\lor\; a<x .
+    \end{aligned}
+    \right. \\[8pt]
+    \lambda_2(y):=\left\{
+    \begin{aligned}
+        \lambda&, \qquad \text{si } -a\leq y \leq a ,\\[2pt]
+        0&, \qquad \text{si } y < -a \;\lor\; a<y .
+    \end{aligned}
+    \right.
+\end{align*}
+
+Para el monopolo $Q$, sustituimos \eqref{2_densidad_volumetrica} en \eqref{2_momento_monopolar}. Las integraciones en $y$ y $z$ (o en $x$ y $z$) colapsan por las deltas de Dirac, quedando integrales unidimensionales sobre los segmentos:
+\begin{align*}
+    Q&=\int_{\mathbb{R}^3}\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\,\mathrm{d}^3x \\[6pt]
+    &=\int_{\mathbb{R}^3}\lambda_1(x)\,\delta(y)\,\delta(z)\,\mathrm{d}^3x+\int_{\mathbb{R}^3}\delta(x)\,\lambda_2(y)\,\delta(z)\,\mathrm{d}^3x \\[6pt]
+    &=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\lambda_1(x)\,\delta(y)\,\delta(z)\,\mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z+\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\delta(x)\,\lambda_2(y)\,\delta(z)\,\mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z\\[6pt]
+    &=\int_{-a}^{a} \lambda\,\mathrm{d}x+\int_{-a}^{a}\lambda\,\mathrm{d}y\\[4pt]
+    &=\lambda \left(\int_{-a}^{a} \,\mathrm{d}x+\int_{-a}^{a}\mathrm{d}y\right)\\[4pt]
+    &=\lambda\Big( \big[ x \big]_{-a}^{a}+\big[ y \big]_{-a}^{a}\Big)\\[4pt]
+    &=\lambda\big( 2a+2a\big)\\[4pt]
+    &=4a\lambda,
+\end{align*}
+ El resultado es
+\begin{equation*}
+    Q=4a\lambda.
+\end{equation*}
+Insertando este resultado en \eqref{2_termino_monopolar}, se obtiene\eqref{2_termino_monopolar_calculado}.
+\begin{equation}\label{2_termino_monopolar_calculado}
+    \Phi^{(0)}(\vec{x}) = \frac{1}{4\pi\epsilon_0} \frac{4a\lambda}{r}.
+\end{equation}
+
+Escribimos los vectores posición y momento como
+\begin{align}
+    \vec{x}&=x_1\,\hat{x}+x_2\,\hat{y}+x_3\,\hat{z}=x\,\hat{x}+y\,\hat{y}+z\,\hat{z}, \notag \\[6pt]
+    \vec{p}&=p_1\,\hat{x}+p_2\,\hat{y}+p_3\,\hat{z}. \label{2_momento_p}
+\end{align}
+y evaluamos cada componente con \eqref{2_momento_dipolar}.
+\begin{itemize}
+
+\item Para $i=1$ se tendrá $x_1=x$, y el momento dipolar estará dado por:
+\begin{equation}\label{2_MD_1}
+    p_1=\int_{\mathbb{R}^3} x\,\rho(\vec{x})\,\mathrm{d}^3x.
+\end{equation}
+Sustituyendo \eqref{2_densidad_volumetrica} en \eqref{2_MD_1}, se sigue
+\begin{align*}
+    p_1&=\int_{\mathbb{R}^3}x\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x \\[6pt]
+    &=\int_{\mathbb{R}^3}x\,\lambda_1(x)\,\delta(y)\,\delta(z)+x\,\delta(x)\,\lambda_2(y)\,\delta(z)\,\mathrm{d}^3x\\[6pt]&=\int_{\mathbb{R}^3}x\,\lambda_1(x)\,\delta(y)\,\delta(z)\,\mathrm{d}^3x+\int_{\mathbb{R}^3}x\,\delta(x)\,\lambda_2(y)\,\delta(z)\,\mathrm{d}^3x \\[6pt]
+    &=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}x\,\lambda_1(x)\,\delta(y)\,\delta(z)\,\mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z+\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}x\,\delta(x)\,\lambda_2(y)\,\delta(z)\,\mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z\\[6pt]
+    &=\int_{-a}^{a} x\,\lambda\,\mathrm{d}x+ \left( \int_{-\infty}^{\infty} x\,\delta(x)\,\mathrm{d}x \right) \left(\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\lambda_2(y)\,\delta(z)\,\mathrm{d}y\,\mathrm{d}z\right)\\[4pt]
+    &=\lambda \int_{-a}^{a} x\,\mathrm{d}x+0\\[4pt]
+    &=\lambda \left[ \frac{1}{2}x^2\right]_{-a}^{a}\\[4pt]
+    &=\lambda \left( \frac{1}{2}a^2-\frac{1}{2}a^2\right)\\[4pt]
+    &=0
+\end{align*}
+pues $\displaystyle \int_{-\infty}^{\infty} x\,\delta(x)\,\mathrm{d}x=0$. Por lo tanto,
+\begin{equation}\label{2_p_1}
+    p_1 = 0.
+\end{equation}
+
+\item Para $i=2$ se tendrá $x_2=y$, y el momento dipolar estará dado por:
+\begin{equation}\label{2_MD_2}
+    p_2=\int_{\mathbb{R}^3} y\,\rho(\vec{x})\,\mathrm{d}^3x.
+\end{equation}
+Sustituyendo \eqref{2_densidad_volumetrica} en \eqref{2_MD_2}, se sigue
+\begin{align*}
+   p_2&=\int_{\mathbb{R}^3}y\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x \\[6pt]
+    &=\int_{\mathbb{R}^3}y\,\lambda_1(x)\,\delta(y)\,\delta(z)+y\,\delta(x)\,\lambda_2(y)\,\delta(z)\,\mathrm{d}^3x\\[6pt]&=\int_{\mathbb{R}^3}y\,\lambda_1(x)\,\delta(y)\,\delta(z)\,\mathrm{d}^3x+\int_{\mathbb{R}^3}y\,\delta(x)\,\lambda_2(y)\,\delta(z)\,\mathrm{d}^3x \\[6pt]
+    &=\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}y\,\lambda_1(x)\,\delta(y)\,\delta(z)\,\mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z+\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\int_{-\infty}^{\infty}y\,\delta(x)\,\lambda_2(y)\,\delta(z)\,\mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z\\[6pt]
+    &=\left( \int_{-\infty}^{\infty} y\,\delta(y)\,\mathrm{d}y \right)\left( \int_{-\infty}^{\infty}\int_{-\infty}^{\infty}\lambda_1(x)\,\delta(z)\,\mathrm{d}x\,\mathrm{d}z\right)+\int_{-a}^{a} y\,\lambda\,\mathrm{d}x\\[4pt]
+    &=0+\lambda \int_{-a}^{a} y\,\mathrm{d}y\\[4pt]
+    &=\lambda \left[ \frac{1}{2}y^2\right]_{-a}^{a}\\[4pt]
+    &=\lambda \left( \frac{1}{2}a^2-\frac{1}{2}a^2\right)\\[4pt]
+    &=0
+\end{align*}
+pues $\displaystyle \int_{-\infty}^{\infty} y\,\delta(y)\,\mathrm{d}y=0$. Por lo tanto,
+\begin{equation}\label{2_p_2}
+    p_2 = 0.
+\end{equation}
+
+\item Para $i=3$ se tiene $x_3=z$, y el momento dipolar queda
+\begin{equation}\label{2_MD_3}
+    p_3 =\int_{\mathbb{R}^3} z\,\rho(\vec{x})\,\mathrm{d}^3 x.
+\end{equation}
+Sustituyendo \eqref{2_densidad_volumetrica} en \eqref{2_MD_3}, se sigue
+\begin{align*}
+p_3
+&= \int_{\mathbb{R}^3} z\Big(\lambda_1(x)\,\delta(y)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z\\[4pt]
+&= \int_{\mathbb{R}^3} z\Big(\lambda_1(x)\,\delta(y)+\delta(x)\,\lambda_2(y)\Big)\delta(z)\,\mathrm{d}x\,\mathrm{d}y\,\mathrm{d}z\\[4pt]
+&= \lambda \left(\int_{-\infty}^{\infty} z\,\delta(z)\,\mathrm{d}z\right)
+\left(\int_{-\infty}^{\infty}\!\!\int_{-\infty}^{\infty}
+\Big(\lambda_1(x)\,\delta(y)+\delta(x)\,\lambda_2(y)\Big)\mathrm{d}x\,\mathrm{d}y\right)\\[4pt]
+&= 0,
+\end{align*}
+pues $\displaystyle \int_{-\infty}^{\infty} z\,\delta(z)\,\mathrm{d}z=0$. Por lo tanto,
+\begin{equation}\label{2_p_3}
+    p_3 = 0.
+\end{equation}
+
+\end{itemize}
+Sustituyendo \eqref{2_p_1}, \eqref{2_p_2} y \eqref{2_p_3} en \eqref{2_momento_p}, se determina el vector momento dipolar
+\begin{equation}\label{2_momento_p_explicito}
+    \vec{p}=0\,\hat{x}+0\,\hat{y}+0\,\hat{z}=\vec{0}.
+\end{equation}
+Sustituyendo \eqref{2_momento_p_explicito} en \eqref{2_termino_dipolar}, se sigue
+\begin{align*}
+    \phi^{(1)}(\vec{x})
+    &= \frac{1}{4\pi\varepsilon_0}\,\frac{\vec{p}\cdot\vec{x}}{r^{3}} \\[6pt]
+    &= \frac{1}{4\pi\varepsilon_0}\,\frac{\vec{0}\cdot\vec{x}}{r^{3}} \\[6pt]
+    &=0.
+\end{align*}
+Por lo tanto, el termino dipolar es nulo
+\begin{equation}\label{2_termino_dipolar_calculado}
+    \phi^{(1)}(\vec{x})=0.
+\end{equation}
+
+Para el cálculo del momento cuadrupolar $Q_{ij}$ se utiliza la ecuación \eqref{2_momento_cuadripolar}, donde\footnote{Se prescinde de detallar la evaluación de la distribución delta de Dirac, dado que su aplicación ya fue demostrada en casos análogos.}:
+
+\begin{itemize}
+    
+\item Para $i=1$ y $j=1$, entonces $x_i=x$ y $x_j=x$, por consiguiente
+\begin{align*}
+     Q_{11} &= \int_{\mathbb{R}^3}  x^2\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x\\[6pt]
+     &= \lambda \int_{-a}^{a}x^2\,\mathrm{d}x \\[6pt]
+     &=\lambda\left[\frac{1}{3} x^3\right]_{-a}^{a} \\[6pt]
+     &=\lambda\left(\frac{1}{3} a^3-\frac{1}{3}(-a)^3\right)\\[6pt]
+     &=\frac{2}{3}\lambda\, a^3,\\[12pt]
+    \therefore \quad Q_{11}&=\frac{2}{3}\lambda\, a^3.
+\end{align*}
+
+\item Para $i=2$ y $j=2$, entonces $x_i=y$ y $x_j=y$, por consiguiente
+\begin{align*}
+     Q_{22} &= \int_{\mathbb{R}^3}  y^2\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x\\[6pt]
+     &= \lambda \int_{-a}^{a}y^2\,\mathrm{d}y \\[6pt]
+     &=\lambda\left[\frac{1}{3} y^3\right]_{-a}^{a} \\[6pt]
+     &=\lambda\left(\frac{1}{3} a^3-\frac{1}{3}(-a)^3\right)\\[6pt]
+     &=\frac{2}{3}\lambda\, a^3,\\[12pt]
+    \therefore \quad Q_{22}&=\frac{2}{3}\lambda\, a^3.
+\end{align*}
+
+\item Para $i=3$ y $j=3$, entonces $x_i=z$ y $x_j=z$, por consiguiente
+\begin{align*}
+     Q_{33} &= \int_{\mathbb{R}^3}  z^2\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x\\[6pt]
+     &= 0 \\[12pt]
+         \therefore \quad Q_{33}&=0
+\end{align*}
+
+\item Para $i=1$ y $j=2$, entonces $x_i=x$ y $x_j=y$, por consiguiente
+\begin{align*}
+     Q_{12} &= \int_{\mathbb{R}^3}  xy\,\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x\\[6pt]
+     &= 0 \\[12pt]
+         \therefore \quad Q_{12}&=0
+\end{align*}
+\item Para $i=1$ y $j=3$, entonces $x_i=x$ y $x_j=z$, por consiguiente
+\begin{align*}
+     Q_{13} &= \int_{\mathbb{R}^3}  xz\,\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x\\[6pt]
+     &= 0 \\[12pt]
+         \therefore \quad Q_{13}&=0
+\end{align*}
+\item Para $i=2$ y $j=3$, entonces $x_i=y$ y $x_j=z$, por consiguiente
+\begin{align*}
+     Q_{23} &= \int_{\mathbb{R}^3}  yz\,\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x\\[6pt]
+     &= 0 \\[12pt]
+         \therefore \quad Q_{23}&=0
+\end{align*}
+
+\item Para $i=2$ y $j=1$, entonces $x_i=y$ y $x_j=x$, por consiguiente
+\begin{align*}
+     Q_{21} &= \int_{\mathbb{R}^3}  yx\,\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x\\[6pt]
+     &= 0 \\[12pt]
+         \therefore \quad Q_{21}&=0
+\end{align*}
+\item Para $i=3$ y $j=1$, entonces $x_i=z$ y $x_j=x$, por consiguiente
+\begin{align*}
+     Q_{31} &= \int_{\mathbb{R}^3}  zx\,\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x\\[6pt]
+     &= 0 \\[12pt]
+         \therefore \quad Q_{31}&=0
+\end{align*}
+\item Para $i=3$ y $j=2$, entonces $x_i=z$ y $x_j=y$, por consiguiente
+\begin{align*}
+     Q_{32} &= \int_{\mathbb{R}^3}  zy\,\Big(\lambda_1(x)\,\delta(y)\,\delta(z)+\delta(x)\,\lambda_2(y)\,\delta(z)\Big)\mathrm{d}^3x\\[6pt]
+     &= 0 \\[12pt]
+         \therefore \quad Q_{32}&=0.
+\end{align*}
+\end{itemize}
+Así, el tensor segundo momento queda
+\begin{equation} \label{2_tensor_momento_cuadrupolar}
+Q_{ij}=\begin{pmatrix}
+Q_{11} & Q_{12} & Q_{13} \\
+Q_{21} & Q_{22} & Q_{23} \\
+Q_{31} & Q_{32} & Q_{33}
+\end{pmatrix}
+=
+\begin{pmatrix}
+\frac{2}{3}\lambda\,a^3 & 0 & 0 \\
+0 & \frac{2}{3}\lambda\,a^3 & 0 \\
+0 & 0 & 0
+\end{pmatrix}.
+\end{equation}
+
+Al sustituir \eqref{2_tensor_momento_cuadrupolar} en \eqref{2_termino_cuadripolar} y pasar a coordenadas esféricas, se obtiene una dependencia angular característica en $\cos^2\theta$, independiente de $\varphi$, acorde con la simetría axial efectiva del conjunto de segmentos.
+\begin{align*}
+    \Phi^{(2)}(\vec{x})&=\frac{1}{4\pi\varepsilon_0}\frac{1}{2}Q_{ij}\frac{3x_ix_j-r^2\delta_{ij}}{r^5} \\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{1}{2r^5}\left[Q_{11}(3x^2-r^2)+Q_{22}(3y^2-r^2) \right]\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{1}{2r^5}\left[\frac{2}{3}\lambda\,a^3(3x^2-r^2)+\frac{2}{3}\lambda\,a^3(3y^2-r^2) \right]\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3}{3r^5}\Big[(3x^2-r^2)+(3y^2-r^2) \Big]\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3}{3r^5}\Big[3(x^2+y^2)-2r^2 \Big]\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3}{3r^5}\Big[3(x^2+y^2)-2(x^2+y^2+z^2) \Big]\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3}{3r^5}\Big(x^2+y^2-2z^2 \Big)\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3}{3r^5}\Big[(r\sin\theta\cos\varphi)^2+(r\sin\theta\sin\varphi)^2-2(r\cos\theta)^2 \Big]\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3}{3r^5}\Big[r^2\sin^2\theta\,(\cos^2\varphi+\sin^2\varphi)-2r^2\cos^2\theta \Big]\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3r^2}{3r^5}\Big(\sin^2\theta-2\cos^2\theta \Big)\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3}{3r^3}\Big[(1-\cos^2\theta)-2\cos^2\theta \Big]\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3}{3r^3}\Big(1-3\cos^2\theta \Big)\\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\frac{\lambda\,a^3}{3r^3}\,\Big(-2P_2(\cos\theta)\Big)\\[6pt]
+    &=-\frac{1}{4\pi\varepsilon_0}\frac{2\lambda\,a^3}{3r^3}\,P_2(\cos\theta),
+\end{align*}
+donde se empleó el segundo polinomio de Legendre, $P_2(x)=\tfrac{1}{2}(3x^2-1)$, para expresar de forma compacta la dependencia angular. De este modo, el término cuadrupolar en coordenadas esféricas resulta
+\begin{equation}\label{2_termino_cuadrupolar_calculado}
+    \Phi^{(2)}(\vec{x})=-\frac{1}{4\pi\varepsilon_0}\frac{2\lambda\,a^3}{3r^3}\,P_2(\cos\theta).
+\end{equation}
+
+Sustituyendo \eqref{2_termino_monopolar_calculado}, \eqref{2_termino_dipolar_calculado} y \eqref{2_termino_cuadrupolar_calculado} en \eqref{2_potencial_truncado}, se obtiene la siguiente aproximación asintótica:
+\begin{align*}
+    \Phi(\vec{x})&=\frac{1}{4\pi\varepsilon_0}\frac{4a\lambda}{r}+0-\frac{1}{4\pi\varepsilon_0}\frac{2\lambda\,a^3}{3r^3}\,P_2(\cos\theta)+\mathcal{O}\!\left(r^{-4}\right) \\[6pt]
+    &=\frac{1}{4\pi\varepsilon_0}\left(\frac{4a\lambda}{r}-\frac{2\lambda\,a^3}{3r^3}\,P_2(\cos\theta)\right)+\mathcal{O}\!\left(r^{-4}\right).
+\end{align*}
+Finalmente, el potencial electrostático asociado a la distribución, en el régimen lejano, queda dado por
+\begin{equation}
+    \Phi(\vec{x})=\frac{1}{4\pi\varepsilon_0}\left(\frac{4a\lambda}{r}-\frac{2\lambda\,a^3}{3r^3}\,P_2(\cos\theta)\right)+\mathcal{O}\!\left(r^{-4}\right).
+\end{equation}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}

@@ -1,6 +1,6 @@
 # Física Matemática 2
 
-Colección de tareas del curso **Física Matemática 2**.  
+Colección de tareas del curso **Física Matemática 2** (Udec, 1-2025).  
 El foco del ramo está en técnicas matemáticas usadas en física:
 series y transformadas de Fourier, ecuaciones diferenciales en derivadas
 parciales, funciones especiales (Legendre, Bessel) y algo de notación

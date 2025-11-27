@@ -11,6 +11,7 @@ Cada carpeta de curso contiene:
 ## Cursos incluidos
 
 - `fisica-matematica-2/` – tareas del curso.
+- `teoria-de-circuitos/` – tareas del curso.
 - `optica/` – tareas del curso.
 - `mecanica-clasica-1/` – **certámenes**, no tareas.
 - `mecanica-clasica-2/` – **certámenes**, no tareas (en desarrollo).

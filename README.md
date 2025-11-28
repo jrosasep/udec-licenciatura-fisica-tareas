@@ -29,4 +29,9 @@ curso/
 │   └── codigos/
 └── tarea2/
     └── ...
+```
+## Nota
 
+Este repositorio tiene fines personales y académicos: dejar un registro ordenado
+de mi trabajo durante la carrera. No representa soluciones oficiales de los
+cursos ni materiales del Departamento de Física.

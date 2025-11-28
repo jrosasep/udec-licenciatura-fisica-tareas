@@ -1,6 +1,6 @@
 # Certamen 1 — Mecánica Clásica I
 
-Certamen 1 del curso **Mecánica Clásica I** (UdeC).  
+Certamen 1 del curso **Mecánica Clásica I** (UdeC, 2025-1).  
 Incluye tres problemas: uno sobre un sistema de coordenadas no cartesiano en ℝ³, otro de mecánica orbital en un campo gravitacional central, y un tercero sobre el movimiento de una partícula en un potencial central con análisis energético y cinemático.
 
 ---

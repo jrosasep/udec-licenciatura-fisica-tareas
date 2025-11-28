@@ -59,6 +59,8 @@ En este problema se estudia el movimiento de una partícula en un **campo centra
 - `UdeC_azul_centrado.png`
 - `P1/` — Figuras asociadas al Problema 1.
 
+---
+
 - ### Archivos
 
 - `certamen1.tex` — Desarrollo completo en LaTeX.

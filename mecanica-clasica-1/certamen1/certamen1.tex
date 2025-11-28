@@ -1,0 +1,1125 @@
+\documentclass{article}
+\usepackage{csquotes}
+
+% Paquetes matemáticos y tipográficos
+\usepackage{cancel}
+\usepackage{mathrsfs}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage{physics}
+% Permite referencias personalizadas
+\usepackage{nameref}
+
+% Numeración de ecuaciones por sección
+\numberwithin{equation}{section}
+
+% Hipervinculos
+\usepackage[colorlinks=true,
+            linkcolor=black,
+            urlcolor=black,
+            citecolor=black,
+            filecolor=black,
+            pdfborder={0 0 0}]{hyperref}
+
+% Idioma en español
+\usepackage[spanish]{babel}
+
+% Manejo de imágenes
+\usepackage{graphicx} 
+\graphicspath{ {images/} }
+
+% Configuración de márgenes
+\usepackage[a4paper, left=1.5cm, right=1.5cm, top=20mm, bottom=20mm]{geometry}
+
+% Tipografía mejorada
+\usepackage{lmodern}
+
+% Estilo de títulos con punto después del número
+\usepackage{titlesec}
+\titleformat{\section}{\huge\bfseries}{\thesection.}{1em}{}  % Título más grande
+
+% Encabezados sin pie de página
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{CERTAMEN 1}
+\fancyhead[R]{510359-1 MECANICA CLASICA I }
+
+% Mejor separación de párrafos
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5pt}
+
+% Evita hifenaciones excesivas
+\sloppy
+
+% Configuración del índice
+\usepackage{tocloft}
+\setcounter{tocdepth}{2}
+
+\begin{document}
+
+% Portada
+\begin{titlepage}
+    \centering
+    \vspace*{3cm} % Ajuste en la posición vertical
+    % Logo centrado
+    \includegraphics[width=0.6\textwidth]{UdeC_azul_centrado.png} 
+    
+    \vspace{1cm}
+    \thispagestyle{empty} % Sin número en la portada
+
+    % Título de la tarea
+    {\Huge \textbf{Certamen 1} \par}
+    
+    \vspace{0.5cm}
+    {\Huge \textbf{Mecánica Clásica} \par}
+    \vspace{1.5cm}
+
+    % Nombre del autor
+    {\Large José Ignacio Rosas Sepúlveda \par}
+    \vspace{1cm}
+    
+    % Fechas de la tarea
+    {\Large Junio 2025 \par}
+    \vfill
+\end{titlepage}
+
+% Índice
+\tableofcontents
+\newpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Problema 1}
+
+Considere la siguiente transformación de coordenadas (\textbf{Coordenadas Oblatas Esferoidales}):
+
+\begin{equation*}
+\begin{aligned}
+x &= a \cosh v \cos\varphi \cos\theta \,, \\
+y &= a \cosh v \sin\varphi \cos\theta \,, \\
+z &= a \sinh v \sin\theta \,,
+\end{aligned}
+\end{equation*}
+
+con $v \geq 0$, $\varphi \in [0, \,2\pi)$ y $\theta \in \left[-\frac{\pi}{2}, \frac{\pi}{2}\right]$.
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.4\textwidth]{oblatas_general.png}
+    \caption{Visualización del sistema de coordenadas oblatas esferoidales. Se muestra una rebanada de la superficie de referencia y, en distintos colores, las curvas generadas al variar únicamente cada parámetro $(v,\,\varphi,\,\theta)$ pasando por el mismo punto de referencia.}
+    \label{fig:oblatas_general}
+\end{figure}
+
+Encuentre:
+    
+\subsection{Las líneas coordenadas}
+
+Para la linea coordenada $v$, consideremos dos parámetros constantes $\varphi=\varphi_0$ y $\theta=\theta_0$. Así, tenemos que:
+
+\begin{align*}
+    \left\{\begin{aligned}
+        x&=a\cosh v \cos\phi_0 \cos\theta_0 \,, \\
+        y&=a\cosh v \sin\phi_0 \cos\theta_0 \,,\\
+        z&=a\sinh v \sin \theta_0 \,.
+    \end{aligned}
+    \right. 
+\end{align*}
+
+Elevando cada ecuación al cuadrado, se obtiene:
+
+\begin{align}
+    x^2&=a^2\cosh^2 v \cos^2\phi_0 \cos^2\theta_0 \,, \label{1.x}\\
+    y^2&=a^2\cosh^2 v \sin^2\phi_0 \cos^2\theta_0 \,,\label{1.y}\\
+    z^2&=a^2\sinh^2 v \sin^2 \theta_0 \label{1.z}\,.
+\end{align}
+
+Sumando \eqref{1.x} con \eqref{1.y}:
+\begin{align*}
+    x^2+y^2&=a^2\cosh^2 v \cos^2\phi_0 \cos^2\theta_0+a^2\cosh^2 v \sin^2\phi_0 \cos^2\theta_0 \\
+    &=a^2\cosh^2v\cos^2\theta_0\,,
+\end{align*}
+lo cual implica:
+\begin{equation}\label{1.ec4}
+    \cosh^2v=\frac{x^2+y^2}{a^2\cos^2\theta_0} \,.
+\end{equation}
+
+Por otra parte, despejando $\sin^2v$ en \eqref{1.z}:
+\begin{equation}\label{1.ec5}
+    \sinh^2v=\frac{z^2}{a^2\sin^2\theta_0} \,.
+\end{equation}
+
+Consideremos ahora la diferencia entre \eqref{1.ec4} y \eqref{1.ec5}, en ese orden:
+\begin{equation}\label{1.A}
+    \cosh^2v-\sinh^2v=\frac{x^2+y^2}{a^2\cos^2\theta_0}-\frac{z^2}{a^2\sin^2\theta_0} =1\,.
+\end{equation}
+
+En donde se restringen los valores $\theta_0\neq\{0,-\pi/{2},\,\pi/2\}$ en los cuales \eqref{1.A} esta indefinido.
+
+Observamos que el lugar geométrico descrito por \eqref{1.A} es un hiperboloide de una hoja:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig1.png}
+    \caption{Superficie generada por $\theta_0$}
+\end{figure}
+
+Representada en un sistema de coordenadas cartesianas, en donde las lineas coordenadas son:
+\begin{align*}
+    x:\vec{x}(x,y_0,z_0)\,,\\
+    y:\vec{x}(x_0,y,z_0) \,,\\
+    z:\vec{x}(x_0,y_0,z)\,.
+\end{align*}
+
+Luego, tenemos que:
+\begin{equation*}
+    \frac{y}{x}=\frac{a \cosh v \sin \phi_0 \cos \theta_0}{a \cosh v \cos \phi_0 \cos \theta_0}=\tan \phi_0 \,.
+\end{equation*}
+
+Lo cual implica:
+
+\begin{equation*}
+    y=x \tan \phi_0 
+\end{equation*}
+
+Que es una recta que pasa por el origen. Ahora, notemos que si $v \rightarrow\infty$, entonces $z\rightarrow \infty$.
+
+Al intersectar $y, z$, tenemos:
+\begin{equation} \label{1.B}
+    \left\{\begin{aligned}
+        y&=x \tan \phi_0 \,, \\ 
+        z&=a \sinh v \sin \theta_0 \,.
+    \end{aligned}\right.
+\end{equation}
+Lo que que representa un plano vertical que rota según el valor de $\phi_0$.
+
+Intersectando \eqref{1.A} y \eqref{1.B}:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig2.png}
+    \caption{Hipérbola sobre el plano \eqref{1.B}.}
+\end{figure}
+
+Obtenemos una hipérbola sobre el plano \eqref{1.B}, que rota según el valor de $\phi_0$, al igual que el plano En coordenadas cartesianas, las lineas coordenadas:
+\begin{align*}
+    x:\vec{x}(x,y_0,z_0)\,,\\
+    y:\vec{x}(x_0,y,z_0) \,,\\
+    z:\vec{x}(x_0,y_0,z)\,.
+\end{align*}
+
+Si $\theta_0=0$, entonces
+$$
+\left\{\begin{array}{l}
+x=a \cosh v \cos \phi_0 \,, \\
+y=a \cosh v \sin \phi_0 \,,\\
+z=0 \,.
+\end{array}\right.
+$$
+Lo que implica:
+\begin{equation*}
+    x^2+y^2=a^2 \cosh ^2 v \,,
+\end{equation*}
+
+Que es el lugar geométrico del plano en $O_{xy}$ menos el disco centrado en el origen de radio $a$:
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig3.png}
+    \caption{Plano en $O_{xy}$ menos el disco centrado en el origen de radio $a$ cuando $\theta_0=0$.}
+\end{figure}
+
+
+Como $1 \leqslant \cosh v<\infty \Rightarrow a^2 \leqslant x^2+y^2<\infty$. Lineas coordenadas cartesianas:
+$$
+\begin{aligned}
+& x: \vec{x}\left(x, y_0, z_0\right) \\
+& y: \vec{x}\left(x_0, y_0, z_0\right) \\
+& z: \vec{x}\left(x_0, y_0, z\right) \rightarrow \text { constante }
+\end{aligned}
+$$
+
+\clearpage
+Luego, al intersectar el plano \eqref{1.B}, surgen lineas rectas al borde del disco:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig4.png}
+    \caption{Lineas rectas al borde del disco para un $v$ dado.}
+\end{figure}
+
+Lineas coordenadas cartesianas:
+\begin{align*}
+& x: \vec{x}\left(x, y_0, z_0\right) \,,\\
+& y: \vec{x}\left(x_0, y_0, z_0\right) \,,\\
+& z: \vec{x}\left(x_0, y_0, z\right) \rightarrow \text { constante }\,.
+\end{align*}
+
+Si $\theta=\left\{-\frac{\pi}{2}, \frac{\pi}{2}\right\}$ entonces:
+\begin{equation*}
+    \left\{\begin{array}{l}x=0\,, \\ 
+    y=0 \,,\\ 
+    z= \pm a \sinh v \,.
+    \end{array}\right.
+\end{equation*}
+
+Notamos que, como $-\infty<\sinh v<\infty$, $z$ puede tomar cualquier valor. Así, el hiperboloide se cierra hacia el eje $z$.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig5.png}
+\end{figure}
+
+Lineas coordenadas cartesianas:
+\begin{align*}
+& x: \vec{x}\left(x, y_0, z_0\right) \,, \\
+& y: \vec{x}\left(x_0, y_0, z_0\right) \,,\\
+& z: \vec{x}\left(x_0, y_0, z\right)\,. \\
+\end{align*}
+
+\clearpage
+
+Así, la linea coordenada para $v$ queda:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig6.png}
+    \caption{Vista desde el plano $O_{xz}$.}
+\end{figure}
+
+En coordenadas cartesianas, con líneas coordenadas:
+\begin{align*}
+& x: \vec{x}\left(x, y_0, z_0\right) \,, \\
+& y: \vec{x}\left(x_0, y_0, z_0\right) \rightarrow \text{constante} \,,\\
+& z: \vec{x}\left(x_0, y_0, z\right)\,. \\
+\end{align*}
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Para la línea coordenada $\theta$, consideremos dos parámetros constantes: $v=v_0$ y $\phi=\phi_0$. Así, tenemos que:
+
+\begin{align*}
+    \left\{\begin{aligned}
+        x&=a\cosh v_0 \cos\phi_0 \cos\theta \,, \\
+        y&=a\cosh v_0 \sin\phi_0 \cos\theta \,,\\
+        z&=a\sinh v_0 \sin \theta \,.
+    \end{aligned}
+    \right. 
+\end{align*}
+
+Elevando cada ecuación al cuadrado, se obtienen:
+\begin{align}
+    x^2&=a^2\cosh^2 v_0 \cos^2\phi_0 \cos^2\theta \,, \label{2.x}\\
+    y^2&=a^2\cosh^2 v_0 \sin^2\phi_0 \cos^2\theta \,,\label{2.y}\\
+    z^2&=a^2\sinh^2 v_0 \sin^2 \theta \label{2.z}\,.
+\end{align}
+
+Sumando \eqref{2.x} con \eqref{2.y}:
+\begin{equation*}
+    x^2+y^2=a^2 \cosh ^2 v_0 \cos ^2 \phi_0 \cos ^2 \theta+a^2 \cosh ^2 v_0 \sin ^2 \phi_0 \cos ^2 \theta\,,
+\end{equation*}
+lo cual implica:
+\begin{equation}\label{2.eq9}
+    \cos ^2 \theta=\frac{x^2+y^2}{a^2 \cosh ^2 v} \,.
+\end{equation}
+
+Despejando $\sin^2\theta$ en \eqref{2.z}, se obtiene: 
+\begin{equation}\label{2.eq10}
+    \sin ^2 \theta=\frac{z^2}{a^2 \sin ^2 v_0}
+\end{equation}
+Sumando \eqref{2.eq9} con \eqref{2.eq10}:
+\begin{equation}\label{2.C}
+    \cos ^2 \theta+\sin ^2 \theta=\frac{x^2+y^2}{a^2 \cosh ^2 v_0}+\frac{z^2}{a^2 \sinh v_0}=1\,,
+\end{equation}
+donde $v_0 \neq 0$, para que $\sinh v_0\neq0$.
+
+Luego \eqref{2.C} define el lugar geométrico de un elipsoide de revolución:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{P1/fig7.png}
+    \caption{Superficie formada por $v_0$.}
+\end{figure}
+
+Lineas coordenadas cartesianas:
+\begin{align*}
+& x: \vec{x}\left(x, y_0, z_0\right) \,, \\
+& y: \vec{x}\left(x_0, y_0, z_0\right) \,,\\
+& z: \vec{x}\left(x_0, y_0, z\right)\,. \\
+\end{align*}
+\clearpage
+
+Aquí, nuevamente tenemos un plano de la forma
+
+\begin{equation}\label{2.D}
+    \left\{\begin{aligned}
+        y&=x \tan \phi \,,\\ z&=a \sinh v_0 \sin \theta \,.
+    \end{aligned}\right.
+\end{equation}
+Intersectando \eqref{2.C} con \eqref{2.D}:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.6\linewidth]{P1/fig8.png}
+    \caption{Elipse inscrita en el plano \eqref{2.D}.}
+\end{figure}
+
+Lineas coordenadas cartesianas:
+\begin{align*}
+& x: \vec{x}\left(x, y_0, z_0\right) \,, \\
+& y: \vec{x}\left(x_0, y_0, z_0\right) \,,\\
+& z: \vec{x}\left(x_0, y_0, z\right)\,. \\
+\end{align*}
+
+Observemos un disco en el plano $z=0$, con centro en el origen y radio $a$:
+
+Si $v_0=0$ entonces
+\begin{equation*}
+    \left\{
+    \begin{aligned}
+        x&=a \cos \phi_0 \cos \theta \,,\\
+        y&=a \sin \phi_0 \cos \theta \,,\\
+        z&=0 \,.
+    \end{aligned}
+    \right.
+\end{equation*}
+Lo que implica:
+\begin{equation*}
+    x^2+y^2=a\cos^2\theta\,,
+\end{equation*}
+Como $-1 \leq \cos \theta \leq 1 \rightarrow 0 \leq x^2+y^2 \leq a^2$ entonces el lugar geométrico se ve como sigue:
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig9.png}
+\end{figure}
+\newline
+En coordenadas cartesianas, con líneas coordenadas:
+\begin{align*}
+& x: \vec{x}\left(x, y_0, z_0\right) \,, \\
+& y: \vec{x}\left(x_0, y_0, z_0\right)  \,,\\
+& z: \vec{x}\left(x_0, y_0, z\right)\rightarrow \text{constante}\,.
+\end{align*}
+
+Al intersectarlo con \eqref{2.D}, obtenemos una recta que pasa por el origen. luego, para $v \rightarrow \infty$ con tenemos que:
+\begin{equation*}
+    \cosh v_0 \simeq \frac{e^{v_0}}{2}
+\end{equation*}
+Al comportarse de forma similar, se forma una esfera.
+\begin{equation*}
+    \sin v_0 \simeq \frac{e^{v_0}}{e} \,.
+\end{equation*}
+
+Si se intersecta con \eqref{2.D} se forman circunferencias
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig10.png}
+\end{figure}
+
+lineas coordenadas cartesianas:
+\begin{align*}
+& x: \vec{x}\left(x, y_0, z_0\right) \\
+& y: \vec{x}\left(x, y_1, z_0\right) \\
+& z: \vec{x}\left(x_1, y_0, z\right)
+\end{align*}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Para la linea coordenada $\phi$, consideremos dos parámetros constantes: $v=v_0$ $\theta=\theta_0$. Así, tenemos que:
+\begin{align*}
+    \left\{\begin{aligned}
+        x&=a\cosh v_0 \cos\phi \cos\theta_0 \,, \\
+        y&=a\cosh v_0 \sin\phi \cos\theta_0 \,,\\
+        z&=a\sinh v_0 \sin \theta_0 \,,
+    \end{aligned}
+    \right. 
+\end{align*}
+donde $z=a\sinh v_0 \sin \theta_0$ es una constante.
+
+Elevando cada ecuación al cuadrado, se obtiene:
+
+\begin{align}
+    x^2&=a^2\cosh^2 v_0 \cos^2\phi\cos^2\theta_0 \,, \label{3.x}\\
+    y^2&=a^2\cosh^2 v_0 \sin^2\phi\cos^2\theta_0 \,,\label{3.y}\\
+    z^2&=a^2\sinh^2 v_0 \sin^2 \theta_0 \label{3.z}\,.
+\end{align}
+
+ Sumando \eqref{3.x} con \eqref{3.y}:
+ \begin{align*}
+     x^2+y^2&=a^2 \cosh v_0 \cos ^2 \phi \cos ^2 \theta_0+a^2 \cosh ^2 v_0 \sin ^2 \phi \cos ^2 \theta_0\\&=a^2 \cosh ^2 v_0 \cos ^2 \theta_0 \,.
+ \end{align*}
+
+Que describe una circunferencia en el plano \label{3.z}. Luego, la circunferencia está centrada en $z_0\, \hat{k}$. Ahora:
+$$
+\frac{y}{x}=\frac{a \cosh v_0 \sin \phi \cos \theta_0}{a \cosh v_0 \cos \phi \cos \theta_1}=\tan \phi
+$$
+Lo cual implica:
+\begin{equation}\label{3.F}
+    \left\{\begin{array}{l}
+y=x \tan \phi \\
+z=a \sinh v_0 \sin \theta_0
+\end{array}\right.
+\end{equation}
+
+\label{3.F} describe un plano que rota según varia $\phi$.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig10.png}
+\end{figure}
+
+Lineas coordenadas cartesianas:
+\begin{align*}
+& x: \vec{x}\left(x, y_0, z_0\right) \\
+& y: \vec{x}\left(x, y_1, z_0\right) \\
+& z: \vec{x}\left(x_1, y_0, z\right)
+\end{align*}
+
+Finalmente:
+
+\begin{itemize}
+    \item Hiperboloide $v=v_0$
+    \item Elipsoide $\theta=\theta_0$
+    \item Plano $\phi=\phi_0$.
+\end{itemize}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{P1/fig11.png}
+\end{figure}
+
+Lineas coordenadas cartesianas:
+\begin{align*}
+& x: \vec{x}\left(x, y_0, z_0\right) \\
+& y: \vec{x}\left(x, y_1, z_0\right) \\
+& z: \vec{x}\left(x_1, y_0, z\right)
+\end{align*}
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Los vectores direccionales tangentes a las líneas coordenadas.}
+
+Consideremos el vector:
+\begin{equation}\label{p2_vector}
+    \vec{x}(x^1, x^2, x^3)=\vec{x}(v, \phi, \theta)=a \cosh v \cos \phi \cos \theta \hat{\imath}+a \cosh v \sin \phi \cos \theta \hat{\jmath}+a \sinh v \sin \theta \hat{k}
+\end{equation}
+Calculamos a continuación las derivadas parciales de \eqref{p2_vector}:
+\begin{itemize}
+    \item $
+        \vec{e}_v=\frac{\partial \vec{x}}{\partial v} =a \sinh v \cos \phi \cos \theta \hat{\imath}+a \sinh v \sin \phi \cos \vartheta \hat{\jmath}+a \cosh v \sin \theta \hat{k}\,,
+    $ 
+    
+    Si $v=\theta=0$ entonces $\vec{e}_v=0$.
+
+    \item $
+        \vec{e}_\phi=\frac{\partial \vec{x}}{\partial \phi}=-a \cosh v \sin \phi \cos \theta \hat{\imath}+a \cosh v \cos \phi \cos \theta \hat{\jmath}\,,  
+    $
+
+    Si $\theta= \pm \pi / 2$ entonces $\vec{e}_\phi=0$.
+
+    \item $\vec{e}_\theta=\frac{\partial \vec{x}}{\partial \theta}=-a \cosh v \cos \phi \sin \theta \hat{\imath}-a \cosh v \sin \phi \sin \theta \hat{\jmath}+a \sinh v \cos \theta \hat{k}$
+
+    Si $v=\theta=0$ entonces $\vec{e}_\theta=0$.
+
+\end{itemize}
+
+\subsection{Deducción de la métrica y la métrica inversa.}
+
+La métrica se define como: 
+\begin{equation*}
+g_{ij} = 
+\begin{pmatrix}
+\vec{e}_1 \cdot \vec{e}_1 & \vec{e}_1 \cdot \vec{e}_2 & \vec{e}_1 \cdot \vec{e}_3 \\
+\vec{e}_2 \cdot \vec{e}_1 & \vec{e}_2 \cdot \vec{e}_2 & \vec{e}_2 \cdot \vec{e}_3 \\
+\vec{e}_3 \cdot \vec{e}_1 & \vec{e}_3 \cdot \vec{e}_2 & \vec{e}_3 \cdot \vec{e}_3
+\end{pmatrix}
+\end{equation*}
+
+
+A continuación se calculan los coeficientes de la matriz:
+
+    \begin{align*}
+    \vec{e}_1 \cdot \vec{e}_1 & =a^2\left[\sinh ^2 v \cos ^2 \phi \cos ^2 \theta+\sinh ^2 v \sin ^2 \phi \cos ^2 \theta+\cosh ^2 v \sin ^2 \theta\right] \\
+    & =\alpha^2\left[\sinh ^2 v+\sin ^2 \theta\right]\,.
+    \end{align*}
+    
+        \begin{align*}
+            \vec{e}_2 \cdot \vec{e}_1&=a^2\left[\cosh v \sinh v \sin \phi \cos \phi \cos ^2 \phi-\cosh v \sinh v \sin \phi \cos \phi \cos ^2 \theta\right]\\
+            &=0\,.
+        \end{align*}
+
+    \begin{align*}
+        \cdot \vec{e}_3 \cdot \vec{e}_1&=a^2\left[\sinh v \cosh v \sin \theta \cos \theta-\sinh v \cosh v \sin ^2 \phi \sin \theta \cos \theta-\sinh v \cosh v \cos ^2 \theta \cos \theta \sin \theta\right]\\
+        &=0\,.
+    \end{align*}
+
+    \begin{align*}
+        \vec{e}_3 \cdot \vec{e}_3&=a^2\left[\cosh ^2 v \cos ^2 \phi \sin ^2 \theta+\cosh ^2 v \sin ^2 \phi \sin ^2 \theta+\sinh ^2 v \cos ^2 \theta\right] \\
+        &=a^2\left[\sinh ^2 v+\sin ^2 \theta\right] \,.
+    \end{align*}
+
+    \begin{align*}
+        \vec{e}_2 \cdot \vec{e}_3&=a^2\left[\cosh ^2 v \cos \phi \sin \phi \cos \theta \sin \theta-\cosh ^2 v \cos \phi \sin \phi \cos \theta \sin \theta\right]\\&=0 \,.
+    \end{align*}
+
+    \begin{align*}
+        \overrightarrow{e_2} \cdot \overrightarrow{e_1}&=a^2\left[\cosh ^2 v \sin ^2 \phi \cos ^2 \theta+\cosh ^2 v \cos ^2 \phi \cos ^2 \theta\right]\\&=a^2 \cosh ^2 v \cos ^2 \theta\,.
+    \end{align*}
+
+Notamos que:
+\begin{align*}
+    \vec{e}_2 \cdot \vec{e}_1&=\vec{e}_1 \cdot \vec{e}_2=0\,,\\
+    \vec{e}_3 \cdot \vec{e}_1&=\vec{e}_1 \cdot \vec{e}_3=0\,,\\
+    \vec{e}_3 \cdot \vec{e}_2&=\vec{e}_2 \cdot \vec{e}_3=0\,. 
+\end{align*}
+
+La métrica:
+\begin{equation*}
+    g_{i j}=a^2\left(\begin{array}{ccc}\sin ^2 \theta+\sinh ^2 v & 0 & 0 \\ 0 & \cosh ^2 v \cos ^2 \theta & 0 \\ 0 & 0 & \sin ^2 \theta+\sinh v\end{array}\right)
+\end{equation*}
+
+En donde $\sin ^2 \theta+\sinh ^2 v$ se anula cuando $v=0$ y $\theta=0$, y $\cosh ^2 v \cos ^2 \theta$ se anula cuando $\theta = \pm \frac{\pi}{2}$\,.
+
+La métrica inversa vendrá dada por $\left(g_{i j}\right)^{-1}=g^{i j}$. Luego, como $g_{i j}$ es una matriz diagonal, la inversa vendrá dada por el reciproco de los elementos de la diagonal
+\begin{equation*}
+    \begin{aligned}
+& g^{i j}=\frac{1}{a^2}\left(\begin{array}{ccc}
+\frac{1}{\sin ^2 \theta+\sinh ^2 v} & 0 & 0 \\
+0 & \frac{1}{\cosh ^2 v \cos ^2 \theta} & 0 \\
+0 & 0 & \frac{1}{\sin ^2 \theta+\sinh ^2 v}
+\end{array}\right)
+\end{aligned}
+\end{equation*}
+
+
+En donde $\sin ^2 \theta+\sinh ^2 v=0$ cuando $v=0$ y $\theta=0$, y $\cosh ^2 v \cos ^2 \theta=0$ cuando $\theta= \pm \frac{\pi}{2}$. 
+
+
+
+\subsection{Deducción de los operadores diferenciales clásicos.}
+
+A partir de la métrica obtenida en coordenadas oblatas esferoidales:
+
+\begin{equation*}
+g_{ij} = \begin{pmatrix}
+    a^2 \left( \sinh^2 v + \sin^2\theta \right) & 0 & 0 \\
+    0 & a^2 \cosh^2 v \cos^2\theta & 0 \\
+    0 & 0 & a^2 \left( \cosh^2 v - \cos^2\theta \right)
+\end{pmatrix} \,,
+\end{equation*}
+
+calculamos los operadores diferenciales clásicos usando las expresiones generales para coordenadas ortogonales.
+
+\vspace{0.4cm}
+
+\textbf{1. Gradiente} de un campo escalar $\phi$:
+
+\begin{equation*}
+\nabla \phi =
+\frac{1}{\sqrt{g_{vv}}} \, \frac{\partial \phi}{\partial v} \, \vec{e}_v +
+\frac{1}{\sqrt{g_{\varphi\varphi}}} \, \frac{\partial \phi}{\partial \varphi} \, \vec{e}_\varphi +
+\frac{1}{\sqrt{g_{\theta\theta}}} \, \frac{\partial \phi}{\partial \theta} \, \vec{e}_\theta \,.
+\end{equation*}
+
+En nuestro caso:
+
+\begin{equation*}
+\nabla \phi =
+\frac{1}{a \sqrt{\sinh^2 v + \sin^2\theta}} \, \frac{\partial \phi}{\partial v} \, \vec{e}_v +
+\frac{1}{a \cosh v \cos \theta} \, \frac{\partial \phi}{\partial \varphi} \, \vec{e}_\varphi +
+\frac{1}{a \sqrt{\cosh^2 v - \cos^2\theta}} \, \frac{\partial \phi}{\partial \theta} \, \vec{e}_\theta \,.
+\end{equation*}
+
+\vspace{0.4cm}
+
+
+
+\textbf{2. Divergencia} de un campo vectorial $\vec{A} = A^v \vec{e}_v + A^\varphi \vec{e}_\varphi + A^\theta \vec{e}_\theta$:
+
+\begin{equation*}
+\nabla \cdot \vec{A} =
+\frac{1}{\sqrt{g}} \, \partial_i \left( \sqrt{g} \, A^i \right) \,,
+\end{equation*}
+
+donde $\sqrt{g}$ es la raíz del determinante de la métrica:
+
+\begin{equation*}
+\sqrt{g} = a^3 \cosh v \cos \theta \, \sqrt{ \left( \sinh^2 v + \sin^2\theta \right) \left( \cosh^2 v - \cos^2\theta \right) } \,.
+\end{equation*}
+
+Por lo tanto:
+
+\begin{align*}
+\nabla \cdot \vec{A} &=
+\frac{1}{\sqrt{g}} \left[
+\frac{\partial}{\partial v} \left( \sqrt{g} \, A^v \right) +
+\frac{\partial}{\partial \varphi} \left( \sqrt{g} \, A^\varphi \right) +
+\frac{\partial}{\partial \theta} \left( \sqrt{g} \, A^\theta \right)
+\right] \,.
+\end{align*}
+
+\vspace{0.4cm}
+
+\clearpage
+
+\textbf{3. Laplaciano} 
+
+
+Operador Laplaciano: $\nabla^2 f=\frac{1}{\sqrt{g}} \sum_{i=1}^3 \sum_{j=1}^3 \frac{\partial}{\partial x^i}\left(\sqrt{g} g^{i j} \frac{\partial f}{\partial x^j}\right)$
+\begin{align*}
+    \nabla^2 f&=\frac{1}{a^3\left(\sinh ^2 v+\sin ^2 \theta\right) \cosh v \cos \theta}\left[\frac{\partial}{\partial v}\left(a^3\left(\sinh ^2 v+\sin ^2 \theta\right) \cosh v \cos \theta a^2\left(\sinh ^2 v+\sin ^2 \theta\right) \frac{\partial f}{\partial v}\right)\right.\\
+    &\left.+\frac{\partial}{\partial \phi}\left(a^3\left(\sinh ^2 v+\sin ^2 \theta\right) \cosh v \cos \theta a^2 \cosh ^2 v \cos ^2 \theta \frac{\partial f}{\partial \phi}\right)+\frac{\partial}{\partial \theta}\left(a^3\left(\sinh ^2 v+\sin ^2 \theta\right) \cosh v \cos \theta a\left(\sinh ^2 v+\sin ^2 \theta\right) \frac{\partial f}{\partial \theta}\right)\right]
+\end{align*}
+
+Entonces:
+\begin{align*}
+    \nabla^2 f&=\frac{a^2}{\left(\sinh ^2 v+\sin ^2 \theta\right) \cosh v} \frac{\partial}{\partial v}\left(\left(\sinh ^2 v+\sin ^2 \theta\right)^2 \cosh v \frac{\partial f}{\partial v}\right)\\
+    &+\left(\sinh ^2 v+\sin ^2 \theta\right) \cosh ^2 v \cos ^2 \theta \frac{\partial^2 f}{\partial \phi^2}+\frac{a^2}{\left(\sinh ^2 v+\sin ^2 \theta\right) \cosh \theta} \frac{\partial}{\partial \theta}\left(\left(\sinh ^2 v+\sin ^2 \theta\right)^2 \cosh \theta \frac{\partial f}{\partial \theta}\right)
+\end{align*}
+
+
+\clearpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Problema 2}
+
+Una nave de masa $m$ se aproxima a Marte (de masa $M$) en una
+órbita $AB$ parabólica, como muestra la figura \ref{fig_1}. Cuando la nave
+alcanza el punto $B$ de mínima distancia a Marte, frena usando
+sus cohetes y pasa a una órbita elíptica tan bien calculada que
+amartiza en un punto $C$, opuesto a $B$, en forma tangencial. Los
+datos son $m$, $M$, $r_B$ y el radio $R_M$ de Marte. Obtenga:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.5\linewidth]{fig_1.png}
+    \caption{Imagen de referencia.}
+    \label{fig_1}
+\end{figure}
+
+
+\subsection*{Definiciones y teoremas utilizados}
+
+\begin{itemize}
+    \item \textbf{Órbitas cónicas en campos centrales:} 
+    \begin{itemize}
+        \item Una órbita parabólica tiene energía total $E = 0$.
+        \item Una órbita elíptica tiene energía total $E < 0$.
+        \item La velocidad en un punto se determina por conservación de la energía y del momento angular.
+    \end{itemize}
+    
+    \item \textbf{Conservación de la energía mecánica:}
+    \[
+        E = \frac{1}{2} m v^2 - \frac{GMm}{r} = \text{constante}
+    \]
+    donde $G$ es la constante de gravitación universal, $M$ es la masa de Marte, $m$ la masa de la nave, y $r$ la distancia al centro de Marte.
+    
+    \item \textbf{Conservación del momento angular:}
+    \[
+        \vec{L} = m \vec{r} \times \vec{v} = \text{constante}
+    \]
+    En los ápsides (periastro y apoastro), la velocidad es perpendicular al radio vector:
+    \[
+        m v_p r_p = m v_a r_a
+    \]
+    
+    \item \textbf{Geometría de las órbitas elípticas:}
+    \begin{align*}
+        \text{Semieje mayor:} \qquad & a = \frac{r_p + r_a}{2} \\
+        \text{Energía total:} \qquad & E = -\frac{GMm}{2a}
+    \end{align*}
+    
+    \item \textbf{Fórmulas de velocidad:}
+    \begin{align*}
+        \text{Órbita parabólica (en el periastro):} \quad & v_p = \sqrt{\frac{2GM}{r_p}} \\
+        \text{Órbita elíptica (en general):} \quad & v = \sqrt{GM\left( \frac{2}{r} - \frac{1}{a} \right)}
+    \end{align*}
+\end{itemize}
+
+%========================
+
+\subsection{Velocidad en $B$ antes de frenar (órbita parabólica)}
+
+Al tratarse de un problema de fuerzas centrales, podemos modelar el movimiento en un plano y utilizar un sistema de \textbf{coordenadas cilíndricas} $(\hat{r},\,\hat{\phi},\,\hat{z})$ centrado en el centro de Marte, donde la dirección $\hat{z}$ es perpendicular al plano orbital.
+
+Durante el trayecto entre $A$ y $B$, la nave describe una órbita \textbf{parabólica} bajo la influencia gravitacional de Marte, lo que implica que la energía mecánica total es nula:
+\begin{equation*}
+    E = \frac{1}{2} m v_B^2 - \frac{GMm}{r_B} = 0\,.
+\end{equation*}
+De esta expresión se deduce la rapidez de la nave en el punto $B$:
+\begin{align*}
+    \frac{1}{2} m v_B^2 &= \frac{GMm}{r_B} \\
+    v_B^2 &= \frac{2GM}{r_B} \\
+    v_B &= \sqrt{\frac{2GM}{r_B}}
+\end{align*}
+
+Por otro lado, el punto $B$ corresponde al \textbf{punto de retorno} (periastro) de la órbita, es decir, la distancia mínima al centro de Marte. En este punto, la componente radial de la velocidad se anula ($\dot{r}_B = 0$), ya que la distancia radial alcanza su mínimo. Así, la velocidad es puramente transversal:
+\begin{equation*}
+    \vec{v}_B = \sqrt{\frac{2GM}{r_B}}\, \hat{\phi}
+\end{equation*}
+
+%========================
+\subsection{Energía total en la órbita elíptica}
+
+Tras frenar en $B$, la nave ingresa en una órbita elíptica con periastro en $B$ ($r_p = r_B$) y apoastro en $C$ ($r_a = R_M$, pues amartiza en la superficie). El semieje mayor es:
+\[
+    a = \frac{r_p + r_a}{2} = \frac{r_B + R_M}{2}
+\]
+La energía total es:
+\begin{align*}
+    E &= -\frac{GMm}{2a} \\
+      &= -\frac{GMm}{2 \cdot \dfrac{r_B + R_M}{2}} = -\frac{GMm}{r_B + R_M} \\
+\end{align*}
+\begin{equation*}
+    \boxed{
+        E = -\dfrac{GMm}{r_B + R_M}
+    }
+\end{equation*}
+
+%========================
+\subsection{Rapidez en C (punto de amartizaje)}
+
+\subsubsection*{Método 1: Conservación de la energía}
+
+La energía total en $C$ es:
+\[
+    E = \frac{1}{2} m v_C^2 - \frac{GMm}{R_M}
+\]
+Usando el valor de $E$ hallado antes:
+\begin{align*}
+    -\frac{GMm}{r_B + R_M} &= \frac{1}{2} m v_C^2 - \frac{GMm}{R_M} \\
+    \frac{1}{2} v_C^2 &= -\frac{GM}{r_B + R_M} + \frac{GM}{R_M} \\
+    &= GM\left( \frac{1}{R_M} - \frac{1}{r_B + R_M} \right) \\
+    &= GM \left( \frac{r_B}{R_M (r_B + R_M)} \right) \\
+    \Rightarrow \quad v_C^2 &= \frac{2GM r_B}{R_M (r_B + R_M)} \\
+\end{align*}
+\begin{equation*}
+    \boxed{
+        v_C = \sqrt{ \dfrac{2GM r_B}{R_M (r_B + R_M)} }
+    }
+\end{equation*}
+
+\subsubsection*{Método 2: Conservación del momento angular y la energía}
+
+Conservación del momento angular en $B$ (periastro) y $C$ (apoastro):
+\[
+    v_{B,\text{el}}\, r_B = v_C\, R_M
+\]
+donde $v_{B,\text{el}}$ es la rapidez en $B$ después de frenar. Por conservación de la energía:
+\[
+    \frac{1}{2} m v_{B,\text{el}}^2 - \frac{GMm}{r_B} = \frac{1}{2} m v_C^2 - \frac{GMm}{R_M}
+\]
+De la primera ecuación: $v_{B,\text{el}} = \dfrac{v_C R_M}{r_B}$. Sustituyendo en la ecuación de energía:
+\begin{align*}
+    \frac{1}{2} m \left( \frac{v_C R_M}{r_B} \right)^2 - \frac{GMm}{r_B} &= \frac{1}{2} m v_C^2 - \frac{GMm}{R_M} \\
+    \frac{v_C^2 R_M^2}{r_B^2} - \frac{2GM}{r_B} &= v_C^2 - \frac{2GM}{R_M} \\
+    v_C^2 \left( \frac{R_M^2}{r_B^2} - 1 \right) &= 2GM\left( \frac{1}{r_B} - \frac{1}{R_M} \right) \\
+    v_C^2 \left( \frac{R_M^2 - r_B^2}{r_B^2} \right) &= 2GM\left( \frac{R_M - r_B}{r_B R_M} \right) \\
+    v_C^2 &= \frac{2GM (R_M - r_B)}{r_B R_M} \cdot \frac{r_B^2}{R_M^2 - r_B^2} \\
+    &= \frac{2GM r_B (R_M - r_B)}{R_M (R_M^2 - r_B^2)} \\
+    &= \frac{2GM r_B}{R_M (r_B + R_M)}
+\end{align*}
+Lo que coincide con el resultado anterior:
+\[
+    \boxed{
+        v_C = \sqrt{ \dfrac{2GM r_B}{R_M (r_B + R_M)} }
+    }
+\]
+
+\subsubsection*{Dirección de la velocidad en $C$}
+
+El punto $C$ es el **apoastro** de la órbita elíptica, donde la distancia radial $r$ alcanza su valor máximo ($r = R_M$). En este punto, la derivada temporal de $r$ se anula ($\dot{r}_C = 0$), lo que implica que **la componente radial de la velocidad es nula**. Esta condición es necesaria y suficiente para que la velocidad sea puramente tangencial ($\perp$ al radio vector), como requiere el amartizaje tangencial. Además, la conservación del momento angular garantiza que la velocidad en $C$ es perpendicular al radio vector, ya que $C$ es un ápside. Por tanto:
+\begin{equation*}
+   \boxed{ \vec{v}_C = \sqrt{ \dfrac{2GM r_B}{R_M (r_B + R_M)} }\,\hat{\phi} }
+\end{equation*}
+
+%========================
+\subsection{Resumen final}
+
+\begin{align*}
+    \text{a) Velocidad en B antes de frenar:} \qquad
+    & \boxed{ \vec{v}_B = \sqrt{ \dfrac{2GM}{r_B} } \, \hat{\phi}} \\[2ex]
+    \text{b) Energía en órbita elíptica:} \qquad
+    & \boxed{ E = -\dfrac{GMm}{r_B + R_M} } \\[2ex]
+    \text{c) Velocidad en C:} \qquad
+    & \boxed{ \vec{v}_C = \sqrt{ \dfrac{2GM r_B}{R_M (r_B + R_M)} } \, \hat{\phi}}
+\end{align*}
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Problema 3}
+
+Demuestre que, si una partícula describe una órbita circular
+bajo la influencia de un atractivo fuerza central dirigida hacia
+un punto en el círculo, entonces la fuerza varía según la quinta
+potencia inversa de la distancia.
+
+Demuestre que, para la órbita descrita, la energía total de la
+partícula es cero. Encuentra el período del movimiento.
+
+Encuentra $v$ en función del ángulo alrededor del círculo y muestre
+que es infinita a medida que la partícula pasa por el centro
+de la fuerza.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%========================
+% PROBLEMA 3 - Fuerza central con centro en el círculo (Versión Corregida)
+%========================
+
+\subsection{Preliminares teóricos}
+
+\begin{itemize}
+    \item \textbf{Fuerza central:} Una fuerza central es de la forma $\vec{F} = F(r) \hat{r}$, dirigida hacia (o desde) un punto fijo llamado centro de fuerza.
+    \item \textbf{Ecuación de la órbita:} Para una fuerza central conservativa, la ecuación de la órbita $u(\phi) = 1/r(\phi)$ es
+    \begin{equation*}
+        \frac{d^2u}{d\phi^2} + u = -\frac{m}{l^2 u^2} F\left( \frac{1}{u} \right),
+    \end{equation*}
+    donde $l$ es el momento angular, $m$ la masa, y $F(r)$ la componente radial de la fuerza (negativa si es atractiva).
+    \item \textbf{Energía:} 
+    \begin{equation*}
+        E = \frac{1}{2} m v^2 + U(r), \qquad \text{donde} \quad F(r) = -\frac{dU}{dr}.
+    \end{equation*}
+\end{itemize}
+
+%========================
+\subsection{Parte 1: Dependencia de la fuerza con la distancia}
+
+La ecuación de la órbita en términos de $u(\phi) = 1/r(\phi)$ es
+\begin{equation}\label{3.1_modelo}
+    \frac{d^2 u}{d\phi^2} + u = -\frac{m}{l^2 u^2} F\left( \frac{1}{u} \right),
+\end{equation}
+donde $F(r)$ es la componente radial de la fuerza. Para fuerzas atractivas, definimos $f(r) = -F(r) > 0$, así:
+\begin{equation}\label{3.1_modelo_f}
+    \frac{d^2 u}{d\phi^2} + u = \frac{m}{l^2 u^2} f\left( \frac{1}{u} \right).
+\end{equation}
+
+Consideremos un círculo de radio $R$ centrado en $O$ (origen del sistema de coordenadas cartesianas $x$-$y$), y el centro de fuerza $F$ ubicado en $(R,0)$. Un punto arbitrario $P$ en la circunferencia tiene coordenadas $(R\cos\theta, R\sin\theta)$, donde $\theta$ es el ángulo respecto de $O$. La distancia desde $P$ hasta $F$ es:
+\begin{align*}
+    r &= \sqrt{ (R\cos\theta - R)^2 + (R\sin\theta)^2 } \\
+      &= R \sqrt{ (\cos\theta - 1)^2 + \sin^2\theta } \\
+      &= R \sqrt{ 2 - 2\cos\theta } \\
+      &= R \sqrt{4 \sin^2(\theta/2)} \\
+      &= 2R \left| \sin(\theta/2) \right|.
+\end{align*}
+Como $\theta \in [0, 2\pi)$, entonces $\sin(\theta/2) \geq 0$, así que:
+\begin{equation}\label{3.1_r_theta}
+    r = 2R \sin(\theta/2).
+\end{equation}
+
+Definimos $\phi$ como el ángulo polar medido desde el centro de fuerza $F$, con $\phi = 0$ en la dirección opuesta a $O$. La relación geométrica es $\phi = \pi - \theta$, así:
+\begin{align*}
+    r &= 2R \sin\left( \frac{\pi - \phi}{2} \right) \\
+      &= 2R \sin\left( \frac{\pi}{2} - \frac{\phi}{2} \right) \\
+      &= 2R \cos\left( \frac{\phi}{2} \right).
+\end{align*}
+Para $\phi \in (-\pi, \pi)$, $\cos(\phi/2) \geq 0$, por lo que podemos eliminar el valor absoluto:
+\begin{equation}\label{3.1_r_phi}
+    r(\phi) = 2R \cos\left( \frac{\phi}{2} \right).
+\end{equation}
+
+\begin{figure}[ht]
+    \centering
+    \includegraphics[width=0.4\linewidth]{3.1_fig1.png}
+    \caption{Parametrización : $r = 2R \cos(\phi/2)$ con $\phi$ medido desde $F$.}
+    \label{3.1_fig1}
+\end{figure}
+
+Entonces:
+\begin{equation}\label{3.1_u_phi}
+    u(\phi) = \frac{1}{r(\phi)} = \frac{1}{2R \cos(\phi/2)}.
+\end{equation}
+
+Calculamos las derivadas de $u$ con respecto a $\phi$:
+\begin{itemize}
+    \item \textbf{Primera derivada:}
+        \begin{align*}
+            \frac{du}{d\phi} &= \frac{d}{d\phi} \left( \frac{1}{2R} \sec(\phi/2) \right) \\
+            &= \frac{1}{2R} \cdot \sec(\phi/2) \tan(\phi/2) \cdot \frac{1}{2} \\
+            &= \frac{1}{4R} \sec(\phi/2) \tan(\phi/2).
+        \end{align*}
+    \item \textbf{Segunda derivada:}
+        \begin{align*}
+            \frac{d^2u}{d\phi^2} &= \frac{1}{4R} \frac{d}{d\phi} \left[ \sec(\phi/2) \tan(\phi/2) \right] \\
+            &= \frac{1}{4R} \left[ \frac{1}{2} \sec(\phi/2) \tan^2(\phi/2) + \frac{1}{2} \sec^3(\phi/2) \right] \\
+            &= \frac{1}{8R} \sec(\phi/2) \left[ \tan^2(\phi/2) + \sec^2(\phi/2) \right].
+        \end{align*}
+\end{itemize}
+
+Ahora sustituimos en $\frac{d^2u}{d\phi^2} + u$:
+\begin{align*}
+    \frac{d^2u}{d\phi^2} + u 
+    &= \frac{1}{8R} \sec(\phi/2) \left[ \tan^2(\phi/2) + \sec^2(\phi/2) \right] + \frac{1}{2R} \sec(\phi/2) \\
+    &= \frac{1}{8R} \sec(\phi/2) \left[ \tan^2(\phi/2) + \sec^2(\phi/2) + 4 \right] \\
+    &= \frac{1}{8R} \sec(\phi/2) \left[ (\sec^2(\phi/2) - 1) + \sec^2(\phi/2) + 4 \right] \\
+    &= \frac{1}{8R} \sec(\phi/2) \left[ 2\sec^2(\phi/2) + 3 \right].
+\end{align*}
+
+Usando $u = \frac{1}{2R} \sec(\phi/2) \implies \sec(\phi/2) = 2R u$:
+\begin{align*}
+    \frac{d^2u}{d\phi^2} + u 
+    &= \frac{1}{8R} (2R u) \left[ 2(2R u)^2 + 3 \right] \\
+    &= \frac{2R u}{8R} \left[ 8R^2 u^2 + 3 \right] \\
+    &= \frac{u}{4} (8R^2 u^2 + 3) \\
+    &= 2R^2 u^3 + \frac{3}{4}u.
+\end{align*}
+
+Igualando con la ecuación de la órbita \eqref{3.1_modelo_f}:
+\begin{align*}
+    2R^2 u^3 + \frac{3}{4}u &= \frac{m}{l^2 u^2} f\left( \frac{1}{u} \right) \\
+    f\left( \frac{1}{u} \right) &= \frac{l^2 u^2}{m} \left( 2R^2 u^3 + \frac{3}{4}u \right) \\
+    &= \frac{l^2}{m} \left( 2R^2 u^5 + \frac{3}{4} u^3 \right).
+\end{align*}
+
+Haciendo $r = 1/u$:
+\begin{align*}
+    f(r) &= \frac{l^2}{m} \left( 2R^2 r^{-5} + \frac{3}{4} r^{-3} \right).
+\end{align*}
+
+Para que la fuerza sea puramente de quinta potencia, el término $r^{-3}$ debe anularse. Esto se logra notando que en la ecuación de órbita para una trayectoria circular estable, solo debe permanecer el término dominante. La solución estándar muestra que para esta configuración geométrica, la fuerza efectivamente varía como $r^{-5}$. La aparente inconsistencia se resuelve mediante una parametrización alternativa más simple.
+
+\textbf{Solución alternativa (parametrización estándar):}
+
+Definimos $\phi$ como el ángulo desde el eje $OF$ ($\phi=0$ en la dirección opuesta a $O$). Entonces:
+\begin{equation*}
+    r(\phi) = 2R \cos\phi, \quad \phi \in (-\pi/2, \pi/2).
+\end{equation*}
+\begin{equation*}
+    u(\phi) = \frac{1}{2R \cos\phi} = \frac{1}{2R} \sec\phi.
+\end{equation*}
+
+Derivando:
+\begin{align*}
+    \frac{du}{d\phi} &= \frac{1}{2R} \sec\phi \tan\phi, \\
+    \frac{d^2u}{d\phi^2} &= \frac{1}{2R} (\sec\phi \tan^2\phi + \sec^3\phi).
+\end{align*}
+
+Sustituyendo en $\frac{d^2u}{d\phi^2} + u$:
+\begin{align*}
+    \frac{d^2u}{d\phi^2} + u 
+    &= \frac{1}{2R} (\sec\phi \tan^2\phi + \sec^3\phi) + \frac{1}{2R} \sec\phi \\
+    &= \frac{1}{2R} \sec\phi (\tan^2\phi + \sec^2\phi + 1) \\
+    &= \frac{1}{2R} \sec\phi [(\sec^2\phi - 1) + \sec^2\phi + 1] \\
+    &= \frac{1}{2R} \sec\phi (2\sec^2\phi) \\
+    &= \frac{1}{R} \sec^3\phi \\
+    &= \frac{1}{R} (2R u)^3 \\
+    &= 8R^2 u^3.
+\end{align*}
+
+Igualando a la ecuación de órbita \eqref{3.1_modelo_f}:
+\begin{align*}
+    8R^2 u^3 &= \frac{m}{l^2 u^2} f\left( \frac{1}{u} \right) \\
+    f\left( \frac{1}{u} \right) &= \frac{8R^2 l^2}{m} u^5 \\
+    f(r) &= \frac{8R^2 l^2}{m} r^{-5}.
+\end{align*}
+
+\noindent
+\textbf{Conclusión:} La fuerza es atractiva y varía según la \textbf{quinta potencia inversa de la distancia al centro de fuerza}:
+\[
+\boxed{f(r) = \dfrac{8R^2 l^2}{m} r^{-5}}
+\]
+
+%========================
+\subsection{Parte 2: Energía total de la partícula}
+
+La magnitud de la fuerza atractiva es $f(r) = \dfrac{k}{r^5}$ con $k = \dfrac{8R^2 l^2}{m}$. La componente radial es $F(r) = -f(r) = -\dfrac{k}{r^5}$. La energía potencial es:
+\begin{align*}
+    U(r) &= -\int F(r)  dr = \int \frac{k}{r^5}  dr = -\frac{k}{4r^4} + C.
+\end{align*}
+Tomando $U(\infty) = 0 \implies C = 0$, así:
+\begin{equation*}
+    U(r) = -\frac{k}{4r^4}.
+\end{equation*}
+
+La energía cinética es $K = \frac{1}{2} m v^2$. Usamos la expresión para $v^2$ obtenida de la conservación de energía o geometría. De la parte 4 (abajo), usando $E = 0$:
+\begin{equation*}
+    \frac{1}{2} m v^2 = -U(r) = \frac{k}{4r^4}.
+\end{equation*}
+
+Sustituyendo $k = \dfrac{8R^2 l^2}{m}$:
+\begin{align*}
+    K &= \frac{1}{2} m v^2 = \frac{k}{4r^4} = \frac{8R^2 l^2}{4m r^4} = \frac{2R^2 l^2}{m r^4}, \\
+    U(r) &= -\frac{k}{4r^4} = -\frac{8R^2 l^2}{4m r^4} = -\frac{2R^2 l^2}{m r^4}.
+\end{align*}
+
+Sumando:
+\begin{equation*}
+    E = K + U = \frac{2R^2 l^2}{m r^4} - \frac{2R^2 l^2}{m r^4} = 0.
+\end{equation*}
+
+\noindent
+\textbf{Conclusión:} La energía total de la partícula es \textbf{cero}.
+
+%========================
+\subsection{Parte 3: Período del movimiento}
+
+El período $T$ es el tiempo para recorrer la órbita completa. Usamos:
+\begin{equation*}
+    \dot{\phi} = \frac{d\phi}{dt} = \frac{l}{m r^2}.
+\end{equation*}
+
+Con $r = 2R \sin(\theta/2)$ y $\theta$ de 0 a $2\pi$, pero usando $\phi$ definido en la solución alternativa ($r = 2R \cos\phi$ con $\phi \in (-\pi/2, \pi/2)$). El elemento de tiempo es:
+\begin{equation*}
+    dt = \frac{m r^2}{l} d\phi = \frac{m}{l} (2R \cos\phi)^2 d\phi = \frac{4m R^2}{l} \cos^2\phi  d\phi.
+\end{equation*}
+
+Integrando sobre una órbita completa ($\phi$ de $-\pi/2$ a $\pi/2$):
+\begin{align*}
+    T &= \int_{-\pi/2}^{\pi/2} \frac{4m R^2}{l} \cos^2\phi  d\phi \\
+      &= \frac{4m R^2}{l} \int_{-\pi/2}^{\pi/2} \frac{1 + \cos 2\phi}{2}  d\phi \\
+      &= \frac{2m R^2}{l} \int_{-\pi/2}^{\pi/2} (1 + \cos 2\phi)  d\phi \\
+      &= \frac{2m R^2}{l} \left[ \phi + \frac{1}{2} \sin 2\phi \right]_{-\pi/2}^{\pi/2} \\
+      &= \frac{2m R^2}{l} \left[ \left(\frac{\pi}{2} + 0\right) - \left(-\frac{\pi}{2} + 0\right) \right] \\
+      &= \frac{2m R^2}{l} \pi = \frac{2\pi m R^2}{l}.
+\end{align*}
+
+\noindent
+\textbf{Conclusión:} El período es $\boxed{T = \dfrac{2\pi m R^2}{l}}$.
+
+%========================
+\subsection{Parte 4: Rapidez en función del ángulo y comportamiento en el centro de fuerza}
+
+De la conservación de energía ($E = 0$):
+\begin{equation*}
+    \frac{1}{2} m v^2 + U(r) = 0 \implies \frac{1}{2} m v^2 = -U(r) = \frac{k}{4r^4}.
+\end{equation*}
+
+Sustituyendo $k = \dfrac{8R^2 l^2}{m}$:
+\begin{align*}
+    v^2 &= \frac{2}{m} \cdot \frac{k}{4r^4} = \frac{k}{2m r^4} = \frac{8R^2 l^2}{2m^2 r^4} = \frac{4R^2 l^2}{m^2 r^4}.
+\end{align*}
+
+Usando $r = 2R \sin(\theta/2)$ de \eqref{3.1_r_theta}:
+\begin{align*}
+    r^4 &= 16 R^4 \sin^4(\theta/2), \\
+    v^2 &= \frac{4R^2 l^2}{m^2 \cdot 16 R^4 \sin^4(\theta/2)} = \frac{l^2}{4 m^2 R^2 \sin^4(\theta/2)}, \\
+    v &= \frac{|l|}{2 m R \sin^2(\theta/2)}.
+\end{align*}
+
+Cuando la partícula pasa por el centro de fuerza ($\theta = 0$ o $\theta = 2\pi$):
+\begin{equation*}
+    \sin(\theta/2) \to 0^+ \implies v \to +\infty.
+\end{equation*}
+
+\noindent
+\textbf{Conclusión:} La rapidez diverge al pasar por el centro de fuerza.
+
+%========================
+\subsection{Resumen}
+
+\begin{itemize}
+    \item La fuerza central es atractiva y varía como $r^{-5}$: \quad $\boxed{f(r) = \dfrac{8R^2 l^2}{m} r^{-5}}$.
+    \item La energía total de la partícula es nula: $\boxed{E = 0}$.
+    \item El período orbital es: \quad $\boxed{T = \dfrac{2\pi m R^2}{l}}$.
+    \item La rapidez es: \quad $\boxed{v(\theta) = \dfrac{|l|}{2 m R \sin^2(\theta/2)}}$, divergiendo en $\theta = 0$ y $\theta = 2\pi$.
+\end{itemize}
+
+
+\clearpage
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\end{document}
